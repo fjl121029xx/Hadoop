@@ -8,8 +8,6 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-import java.io.IOException;
-
 public class WCRunner {
     public static void main(String[] args) throws Exception {
 
@@ -22,7 +20,7 @@ public class WCRunner {
 
         //指定本job使用的mapper和reduce的类
         wcjob.setMapperClass(WCMapper.class);
-        wcjob.setReducerClass(WCReduce.class);
+        wcjob.setReducerClass(WCReducer.class);
 
         //指定reduce的输出数据kvleix
         wcjob.setOutputKeyClass(Text.class);
@@ -33,7 +31,7 @@ public class WCRunner {
         wcjob.setMapOutputValueClass(LongWritable.class);
 
         //指定要处理的输入数据存放路径
-        FileInputFormat.setInputPaths(wcjob, new Path("/wc/srcdata/"));
+        FileInputFormat.setInputPaths(wcjob, new Path("/wc/srcdata/words.log"));
 
         //指定处理结果的输出数据存放路径
         FileOutputFormat.setOutputPath(wcjob, new Path("/wc/output/"));

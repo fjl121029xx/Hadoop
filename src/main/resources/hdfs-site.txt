@@ -17,14 +17,8 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-    <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://weekend0921:9000</value>
-    </property>
-
-    <property>
-        <name>hadoop.tmp.dir</name>
-        <value>/app/hadoop-2.4.1/data/tem</value>
-    </property>
-
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value>
+  </property>
 </configuration>

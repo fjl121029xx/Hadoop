@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class WCReduce extends Reducer<Text,LongWritable,Text,LongWritable> {
+public class WCReducer extends Reducer<Text,LongWritable,Text,LongWritable> {
 
     //框架在map中处理完成之后,将所有kv对缓存起来,进行分组,然后传递一个租<key,value{}>,调用一次reduce方法
     //
