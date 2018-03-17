@@ -1,5 +1,8 @@
-package com.li.mr.flowsum;
+package com.li.mr.mr2mysql;
 
+import com.li.mr.flowsum.FlowBean;
+import com.li.mr.flowsum.FlowSumMapper;
+import com.li.mr.flowsum.FlowSumReducer;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -18,7 +21,7 @@ import org.apache.hadoop.util.ToolRunner;
 /**
  * 这是job描述和提交类规范写法
  */
-public class FlowSumRunner extends Configured implements Tool {
+public class MR2Mysql extends Configured implements Tool {
     /**
      * Execute the command with the given arguments.
      * 根据用户统计流量
@@ -33,7 +36,7 @@ public class FlowSumRunner extends Configured implements Tool {
         Configuration configuration = new Configuration();
         Job job = Job.getInstance(configuration);
 
-        job.setJarByClass(FlowSumRunner.class);
+        job.setJarByClass(MR2Mysql.class);
 
         job.setMapperClass(FlowSumMapper.class);
         job.setReducerClass(FlowSumReducer.class);
@@ -52,7 +55,7 @@ public class FlowSumRunner extends Configured implements Tool {
 
     public static void main(String[] args) throws Exception {
 
-        int i = ToolRunner.run(new Configuration(), new FlowSumRunner(), args);
+        int i = ToolRunner.run(new Configuration(), new MR2Mysql(), args);
         System.exit(i);
     }
 }

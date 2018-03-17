@@ -12,12 +12,16 @@ public class AreaPartitioner<KEY,VALUE> extends Partitioner<KEY,VALUE>{
         areaMap.put("135",0);
         areaMap.put("137",1);
         areaMap.put("138",2);
+        areaMap.put("139",3);
+        areaMap.put("134",4);
+        areaMap.put("136",5);
+
     }
 
     @Override
     public int getPartition(KEY key, VALUE value, int numPartitions) {
 
-        int areaCode = areaMap.get(key.toString().subSequence(0,3))==null?3:areaMap.get(key.toString().subSequence(0,3));
+        int areaCode = areaMap.get(key.toString().subSequence(0,3))==null?6:areaMap.get(key.toString().subSequence(0,3));
 
         return areaCode;
     }

@@ -7,7 +7,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class FlowBean implements WritableComparable<FlowBean>{
+public class FlowBean implements WritableComparable<FlowBean> {
 
 
     private String phone;
@@ -65,13 +65,14 @@ public class FlowBean implements WritableComparable<FlowBean>{
         out.writeLong(down_flow);
         out.writeLong(s_flow);
     }
+
     @Override
     public void readFields(DataInput in) throws IOException {
 
-         this.phone = in.readUTF();
-         this.up_flow = in.readLong();
-         this.down_flow = in.readLong();
-         this.s_flow = in.readLong();
+        this.phone = in.readUTF();
+        this.up_flow = in.readLong();
+        this.down_flow = in.readLong();
+        this.s_flow = in.readLong();
     }
 
     @Override
@@ -87,6 +88,6 @@ public class FlowBean implements WritableComparable<FlowBean>{
     @Override
     public int compareTo(FlowBean o) {
         int i = Long.compare(this.getS_flow(), o.getS_flow());
-        return i  ;
+        return i;
     }
 }

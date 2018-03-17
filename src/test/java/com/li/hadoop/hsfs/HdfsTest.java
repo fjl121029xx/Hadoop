@@ -35,7 +35,7 @@ public class HdfsTest {
     @Test
     public void upload() throws IOException {
 
-        Path path = new Path("hdfs://hadoop:9000/aa/qingshu.txt");
+        Path path = new Path("/resouce/aa/qingshu.txt");
         BufferedOutputStream bos = new BufferedOutputStream(fs.create(path));
 
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream("c:/qingshu.txt"));
@@ -50,8 +50,8 @@ public class HdfsTest {
     @Test
     public void upload2() throws IOException {
 
-        Path src = new Path("c:/qingshu.txt");
-        Path dst = new Path("hdfs://hadoop:9000/bb/qingshu.txt");
+        Path src = new Path("D:/work/mysql-connector-java-5.1.45.jar");
+        Path dst = new Path("hdfs://192.168.233.134:9000/");
 
         fs.copyFromLocalFile(src,dst);
     }
@@ -108,7 +108,7 @@ public class HdfsTest {
     @Test
     public void rm() throws Exception {
 
-        Path path = new Path("/aa");
+        Path path = new Path("/userflow/sort");
         fs.delete(path, true);
     }
 

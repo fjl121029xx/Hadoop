@@ -31,10 +31,10 @@ public class WCRunner {
         wcjob.setMapOutputValueClass(LongWritable.class);
 
         //指定要处理的输入数据存放路径
-        FileInputFormat.setInputPaths(wcjob, new Path("/wc/srcdata/words.log"));
+        FileInputFormat.setInputPaths(wcjob, new Path("hdfs://192.168.233.134:9000/wordcount/in/wordcount.txt"));
 
         //指定处理结果的输出数据存放路径
-        FileOutputFormat.setOutputPath(wcjob, new Path("/wc/output/"));
+        FileOutputFormat.setOutputPath(wcjob, new Path("d:/wordcount/out2/"));
 
         //将job提交给集群运行
         wcjob.waitForCompletion(true);
