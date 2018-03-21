@@ -10,12 +10,18 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <hive.version>0.10.0</hive.version>
     </properties>
     <repositories>
         <repository>
             <id>alimaven</id>
             <name>aliyun maven</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
+            <snapshots><enabled>false</enabled></snapshots>
         </repository>
 
     </repositories>
@@ -47,6 +53,12 @@
             <artifactId>hadoop-mapreduce-client-common</artifactId>
             <version>2.6.5</version>
         </dependency>
+        <!-- hive udf -->
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>0.13.0</version>
+        </dependency>
 
         <!-- mapreduce 结果输出到 Mysql -->
         <dependency>
@@ -58,20 +70,29 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-
+        <!-- hbase -->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-it</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
+            <version>0.9.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
+            <version>0.9.3</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>hadoop</finalName>
-
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -50,8 +50,8 @@ public class HdfsTest {
     @Test
     public void upload2() throws IOException {
 
-        Path src = new Path("D:/work/mysql-connector-java-5.1.45.jar");
-        Path dst = new Path("hdfs://192.168.233.134:9000/");
+        Path src = new Path("D:/hivedata");
+        Path dst = new Path("hdfs://192.168.233.134:9000/hive/hivedata2");
 
         fs.copyFromLocalFile(src,dst);
     }
@@ -108,7 +108,7 @@ public class HdfsTest {
     @Test
     public void rm() throws Exception {
 
-        Path path = new Path("/userflow/sort");
+        Path path = new Path("/hbase/WALs");
         fs.delete(path, true);
     }
 
