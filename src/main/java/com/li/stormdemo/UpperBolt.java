@@ -1,4 +1,4 @@
-package com.li.mr.storm.stormdemo;
+package com.li.stormdemo;
 
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;

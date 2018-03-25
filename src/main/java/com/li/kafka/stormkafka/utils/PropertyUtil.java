@@ -1,4 +1,4 @@
-package com.li.mr.kafka.stormkafka.utils;
+package com.li.kafka.stormkafka.utils;
 
 import java.io.InputStream;
 import java.util.Properties;

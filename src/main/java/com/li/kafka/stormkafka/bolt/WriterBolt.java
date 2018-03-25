@@ -1,4 +1,4 @@
-package com.li.mr.kafka.stormkafka.bolt;
+package com.li.kafka.stormkafka.bolt;
 
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.li.mr.hbase;
+package com.li.hbase;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;

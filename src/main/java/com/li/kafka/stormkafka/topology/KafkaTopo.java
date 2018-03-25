@@ -1,8 +1,8 @@
-package com.li.mr.kafka.stormkafka.topology;
+package com.li.kafka.stormkafka.topology;
 
-import com.li.mr.kafka.stormkafka.bolt.WordSpliter;
-import com.li.mr.kafka.stormkafka.bolt.WriterBolt;
-import com.li.mr.kafka.stormkafka.spout.MessageScheme;
+import com.li.kafka.stormkafka.bolt.WordSpliter;
+import com.li.kafka.stormkafka.bolt.WriterBolt;
+import com.li.kafka.stormkafka.spout.MessageScheme;
 import storm.kafka.BrokerHosts;
 import storm.kafka.KafkaSpout;
 import storm.kafka.SpoutConfig;

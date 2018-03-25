@@ -1,0 +1,61 @@
+#CentOS7 开放端口
+http://blog.csdn.net/zp1996323/article/details/52336851
+
+#REDIS集群
+redis-trib.rb  create  --replicas  1  192.168.233.135:7000 192.168.233.135:7001  192.168.233.135:7002 192.168.233.136:7003  192.168.233.136:7004  192.168.233.136:7005
+
+
+
+
+<repositories>
+	<repository>	
+		<id>alimaven</id>
+		<name>aliyun maven</name>
+		<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+	</repository>
+</repositories>
+
+hive udf开发超详细手把手教程
+http://blog.csdn.net/bitcarmanlee/article/details/51249260
+
+
+./kafka-console-consumer.sh --broker-list 192.168.233.137:9092,192.168.233.138:9092,192.168.233.139:9092 --topic my-replicated-topic
+
+
+http://mvnrepository.com/
+
+
+./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic java
+
+ 
+ ERROR Producer connection to 111.63.112.254:9092 unsuccessful (kafka.producer.SyncProducer
+
+
+
+Kafka集群简单测试
+https://my.oschina.net/Listening/blog/686191
+
+
+
+
+Storm的spout中如何将tuple发给指定的Blot？
+http://support.huawei.com/huaweiconnect/enterprise/zh/thread-156487-1-1.html
+
+
+
+https://blog.csdn.net/a_lele123/article/details/44975085
+
+
+#INSERT OVERWRITE TABLE ALLOG 如果要写入ALLOG表，可以把注释去掉  
+SELECT t1.platform,t1.user_id,row_number(t1.user_id)seq,t2.click_url FROM_URL,t1.click_url TO_URL FROM  
+(select *,row_number(user_id)seq from trlog)t1  
+LEFT OUTER JOIN  
+(select *,row_number(user_id)seq from trlog)t2   
+on t1.user_id = t2.user_id and t1.seq = t2.seq + 1;  
+
+
+beeline -u jdbc:hive2://192.168.233.134:10000/default -n root -p
+
+
+深入HBase架构解析（一）
+http://www.blogjava.net/DLevin/archive/2015/08/22/426877.html

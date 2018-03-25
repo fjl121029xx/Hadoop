@@ -1,4 +1,4 @@
-package com.li.mr.kafka.stormkafka.spout;
+package com.li.kafka.stormkafka.spout;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.li.mr.kafka.stormkafka.bolt;
+package com.li.kafka.stormkafka.bolt;
 
 import org.apache.commons.lang.StringUtils;
 

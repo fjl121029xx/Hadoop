@@ -1,4 +1,4 @@
-package com.li.mr.kafka;
+package com.li.kafka;
 
 import java.util.Properties;
 
