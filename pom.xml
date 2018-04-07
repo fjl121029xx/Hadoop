@@ -10,7 +10,9 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <hive.version>0.10.0</hive.version>
+        <scala.version>2.11.5</scala.version>
+        <scala.compat.version>2.11</scala.compat.version>
+        <spark.version>1.6.1</spark.version>
     </properties>
     <repositories>
         <repository>

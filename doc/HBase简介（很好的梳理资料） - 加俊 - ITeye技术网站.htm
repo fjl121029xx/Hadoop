@@ -1,0 +1,871 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0035)http://jiajun.iteye.com/blog/899632 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站</title>
+    <meta name="description" content=" 一、  简介    history    started by chad walters and jim  2006.11 G release paper on BigTable  2007.2 inital HBase prototype created as Hadoop contrib  2007.10 First useable Hbase  2008.1 Hadoop b ...">
+    <meta name="keywords" content="HBase, Hadoop, 网络应用, 数据结构, NoSQL HBase简介（很好的梳理资料）">
+    <link rel="shortcut icon" href="http://jiajun.iteye.com/images/favicon.ico" type="image/x-icon">
+    <link rel="search" type="application/opensearchdescription+xml" href="http://jiajun.iteye.com/open_search.xml" title="ITeye">
+    <link href="http://jiajun.iteye.com/rss" rel="alternate" title="加俊" type="application/rss+xml">
+    <link href="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/blog.css" media="screen" rel="stylesheet" type="text/css">
+<link href="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/blue.css" media="screen" rel="stylesheet" type="text/css">
+    <script type="text/javascript" async="" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/ga.js"></script><script type="text/javascript" async="" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/ga.js"></script><script src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/application.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/SyntaxHighlighter.css" media="screen" rel="stylesheet" type="text/css">
+  <script src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/shCoreCommon.js" type="text/javascript"></script>
+<script src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/hotkey.js" type="text/javascript"></script>
+  <script src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/code_favorites.js" type="text/javascript"></script>
+<script src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/weiboshare.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="http://jiajun.iteye.com/blog/899632#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="http://jiajun.iteye.com/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://jiajun.iteye.com/login">登录</a>
+    <a href="http://jiajun.iteye.com/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="http://jiajun.iteye.com/">加俊</a></h1>
+        </div>
+        <div id="fd"></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class="blog_navbar_for"><a href="http://jiajun.iteye.com/"><strong>博客</strong></a></li>
+            <li><a href="http://jiajun.iteye.com/weibo">微博</a></li>
+            <li><a href="http://jiajun.iteye.com/album">相册</a></li>
+            <li><a href="http://jiajun.iteye.com/link">收藏</a></li>
+            <li><a href="http://jiajun.iteye.com/blog/guest_book">留言</a></li>
+            <li><a href="http://jiajun.iteye.com/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="http://jiajun.iteye.com/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="">
+              <input class="submit_search" type="submit" value="">
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      <div>
+      <script type="text/javascript"><!--
+      google_ad_client = "pub-3069735389472324";
+      google_ad_slot = "8273563361";
+      google_ad_width = 728;
+      google_ad_height = 90;
+      //--></script>
+      <script type="text/javascript" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/show_ads.js">
+      </script><ins style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins>
+    </div>
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style="display:none">
+  <a href="http://jiajun.iteye.com/" class="p-author" target="_blank">iammonster</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站.htm">HBase简介（很好的梳理资料）</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class="blog_categories"><strong>博客分类：</strong> <li><a href="http://jiajun.iteye.com/category/99897">HBase</a></li> </ul>
+        <div class="news_tag"><a href="http://www.iteye.com/blogs/tag/HBase">HBase</a><a href="http://www.iteye.com/blogs/tag/Hadoop">Hadoop</a><a href="http://www.iteye.com/blogs/tag/%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8">网络应用</a><a href="http://www.iteye.com/blogs/tag/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">数据结构</a><a href="http://www.iteye.com/blogs/tag/NoSQL">NoSQL</a>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    <h2>
+<strong>一、</strong>
+<strong>简介</strong>
+</h2>
+<p style="padding-left: 30px;"><strong>history<br></strong>
+</p>
+<p style="padding-left: 60px;">started by chad walters and jim</p>
+<p style="padding-left: 60px;">2006.11 G release paper on BigTable</p>
+<p style="padding-left: 60px;">2007.2 inital HBase prototype created as Hadoop contrib</p>
+<p style="padding-left: 60px;">2007.10 First useable Hbase</p>
+<p style="padding-left: 60px;">2008.1 Hadoop become Apache top-level project and Hbase becomes subproject</p>
+<p style="padding-left: 60px;">2008.10 Hbase 0.18,0.19 released</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;">hbase是bigtable的开源山寨版本。是建立的hdfs之上，提供高可靠性、高性能、列存储、可伸缩、实时读写的数据库系统。</p>
+<p style="padding-left: 30px;">它介于nosql和RDBMS之间，仅能通过主键(row key)和主键的range来检索数据，仅支持单行事务(可通过hive支持来实现多表join等复杂操作)。主要用来存储非结构化和半结构化的松散数据。</p>
+<p style="padding-left: 30px;">与hadoop一样，Hbase目标主要依靠横向扩展，通过不断增加廉价的商用服务器，来增加计算和存储能力。</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">HBase中的表一般有这样的特点：</p>
+<p style="padding-left: 60px;">1 大：一个表可以有上亿行，上百万列</p>
+<p style="padding-left: 60px;">2 面向列:面向列(族)的存储和权限控制，列(族)独立检索。</p>
+<p style="padding-left: 60px;">3 稀疏:对于为空(null)的列，并不占用存储空间，因此，表可以设计的非常稀疏。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;">下面一幅图是Hbase在Hadoop Ecosystem中的位置。</p>
+<p style="text-align: center;"><img height="256" width="358" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image.png" alt="" class="aligncenter"></p>
+<h2>
+<strong>二、</strong>
+<strong>逻辑视图</strong>
+</h2>
+<p><strong><br></strong>
+</p>
+<p style="padding-left: 30px;">HBase以表的形式存储数据。表有行和列组成。列划分为若干个列族(row family)</p>
+<table border="1" style="padding-left: 30px; height: 149px;" width="631" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td width="87">
+<strong>Row Key</strong>
+</td>
+<td width="202">
+<strong>column-family1</strong>
+</td>
+<td width="284">
+<strong>column-family2</strong>
+</td>
+<td width="136">
+<strong>column-family3</strong>
+</td>
+</tr>
+<tr>
+<td width="89">
+<strong>column1</strong>
+</td>
+<td width="113">
+<strong>column1</strong>
+</td>
+<td width="89">
+<strong>column1</strong>
+</td>
+<td width="89">
+<strong>column2</strong>
+</td>
+<td width="106">
+<strong>column3</strong>
+</td>
+<td width="136">
+<strong>column1</strong>
+</td>
+</tr>
+<tr>
+<td width="87">
+<strong>key1</strong>
+</td>
+<td width="89">
+<strong>t1:abc<br>
+t2:gdxdf</strong>
+</td>
+<td width="113">
+<strong> </strong>
+</td>
+<td width="89">
+<strong>t4:dfads<br>
+t3:hello<br>
+t2:world</strong>
+</td>
+<td width="89">
+<strong> </strong>
+</td>
+<td width="106">
+<strong> </strong>
+</td>
+<td width="136">
+<strong> </strong>
+</td>
+</tr>
+<tr>
+<td width="87">
+<strong>key2</strong>
+</td>
+<td width="89">
+<strong>t3:abc<br>
+t1:gdxdf</strong>
+</td>
+<td width="113">
+<strong> </strong>
+</td>
+<td width="89">
+<strong>t4:dfads<br>
+t3:hello</strong>
+</td>
+<td width="89">
+<strong> </strong>
+</td>
+<td width="106">
+<strong>t2:dfdsfa<br>
+t3:dfdf</strong>
+</td>
+<td width="136">
+<strong> </strong>
+</td>
+</tr>
+<tr>
+<td width="87">
+<strong>key3</strong>
+</td>
+<td width="89">
+<strong> </strong>
+</td>
+<td width="113">
+<strong>t2:dfadfasd<br>
+t1:dfdasddsf</strong>
+</td>
+<td width="89">
+<strong> </strong>
+</td>
+<td width="89">
+<strong> </strong>
+</td>
+<td width="106">
+<strong> </strong>
+</td>
+<td width="136">
+<div>
+<strong>t2:dfxxdfasd </strong>
+</div>
+<p><strong> </strong>
+</p>
+<p><strong> </strong>
+<strong>t1:taobao.com</strong>
+<strong> </strong>
+</p>
+</td>
+</tr>
+</tbody></table>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>Row Key</strong>
+</p>
+<p style="padding-left: 60px;">与nosql数据库们一样,row key是用来检索记录的主键。访问hbase table中的行，只有三种方式：</p>
+<p style="padding-left: 60px;">1 通过单个row key访问</p>
+<p style="padding-left: 60px;">2 通过row key的range</p>
+<p style="padding-left: 60px;">3 全表扫描</p>
+<p style="padding-left: 60px;">Row key行键 (Row key)可以是任意字符串(最大长度是 64KB，实际应用中长度一般为 10-100bytes)，在hbase内部，row key保存为字节数组。</p>
+<p style="padding-left: 60px;">存储时，数据按照Row key的字典序(byte order)排序存储。设计key时，要充分排序存储这个特性，将经常一起读取的行存储放到一起。(位置相关性)</p>
+<p style="padding-left: 60px;">注意：</p>
+<p style="padding-left: 60px;">字典序对int排序的结果是1,10,100,11,12,13,14,15,16,17,18,19,2,20,21,…,9,91,92,93,94,95,96,97,98,99。要保持整形的自然序，行键必须用0作左填充。</p>
+<p style="padding-left: 60px;">行的一次读写是原子操作 (不论一次读写多少列)。这个设计决策能够使用户很容易的理解程序在对同一个行进行并发更新操作时的行为。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>列族</strong>
+</p>
+<p style="padding-left: 60px;">hbase表中的每个列，都归属与某个列族。列族是表的chema的一部分(而列不是)，必须在使用表之前定义。列名都以列族作为前缀。例如<em>courses:history</em>
+<em>，</em>
+<em>courses:math</em>
+ <em>都属于</em>
+<em>courses</em>
+ 这个列族。</p>
+<p style="padding-left: 60px;">访问控制、磁盘和内存的使用统计都是在列族层面进行的。实际应用中，列族上的控制权限能
+帮助我们管理不同类型的应用：我们允许一些应用可以添加新的基本数据、一些应用可以读取基本数据并创建继承的列族、一些应用则只允许浏览数据（甚至可能因
+为隐私的原因不能浏览所有数据）。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>时间戳</strong>
+</p>
+<p style="padding-left: 60px;">HBase中通过row和columns确定的为一个存贮单元称为cell。每个 
+cell都保存着同一份数据的多个版本。版本通过时间戳来索引。时间戳的类型是 64位整型。时间戳可以由hbase(在数据写入时自动 
+)赋值，此时时间戳是精确到毫秒的当前系统时间。时间戳也可以由客户显式赋值。如果应用程序要避免数据版本冲突，就必须自己生成具有唯一性的时间戳。每个
+ cell中，不同版本的数据按照时间倒序排序，即最新的数据排在最前面。</p>
+<p style="padding-left: 60px;">为了避免数据存在过多版本造成的的管理 (包括存贮和索引)负担，hbase提供了两种数据版本回收方式。一是保存数据的最后n个版本，二是保存最近一段时间内的版本（比如最近七天）。用户可以针对每个列族进行设置。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>Cell</strong>
+</p>
+<p style="padding-left: 60px;">由<em>{row key, column(</em>
+=&lt;family&gt; + &lt;label&gt;<em>), version}</em>
+ 唯一确定的单元。cell中的数据是没有类型的，全部是字节码形式存贮。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<h2>
+<strong>三、</strong>
+<strong>物理存储</strong>
+</h2>
+<p style="padding-left: 30px;">1 已经提到过，Table中的所有行都按照row key的字典序排列。</p>
+<p style="padding-left: 30px;">2 Table 在行的方向上分割为多个Hregion。</p>
+<p style="text-align: center;"><img height="331" width="278" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_1_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 30px;">3 region按大小分割的，每个表一开始只有一个region，随着数据不断插入表，region不断增大，当增大到一个阀值的时候，Hregion就会等分会两个新的Hregion。当table中的行不断增多，就会有越来越多的Hregion。</p>
+<p style="text-align: center;"><img height="345" width="548" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_2_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 30px;">4 Hregion是Hbase中分布式存储和负载均衡的最小单元。最小单元就表示不同的Hregion可以分布在不同的HRegion server上。但一个Hregion是不会拆分到多个server上的。</p>
+<p style="text-align: center;"><img height="315" width="572" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_3_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 30px;">5 HRegion虽然是分布式存储的最小单元，但并不是存储的最小单元。</p>
+<p style="padding-left: 30px;">事实上，HRegion由一个或者多个Store组成，每个store保存一个columns family。</p>
+<p style="padding-left: 30px;">每个Strore又由一个memStore和0至多个StoreFile组成。如图：</p>
+<p style="padding-left: 30px;">StoreFile以HFile格式保存在HDFS上。</p>
+<p style="text-align: center;"><img height="281" width="551" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_4_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 30px;">HFile的格式为：</p>
+<p style="text-align: center;"><img height="502" width="623" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_5_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 30px;">Trailer部分的格式:</p>
+<p style="text-align: center;"><img height="308" width="456" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_6_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 30px;">HFile分为六个部分：</p>
+<p style="padding-left: 30px;">Data Block 段–保存表中的数据，这部分可以被压缩</p>
+<p style="padding-left: 30px;">Meta Block 段 (可选的)–保存用户自定义的kv对，可以被压缩。</p>
+<p style="padding-left: 30px;">File Info 段–Hfile的元信息，不被压缩，用户也可以在这一部分添加自己的元信息。</p>
+<p style="padding-left: 30px;">Data Block Index 段–Data Block的索引。每条索引的key是被索引的block的第一条记录的key。</p>
+<p style="padding-left: 30px;">Meta Block Index段 (可选的)–Meta Block的索引。</p>
+<p style="padding-left: 30px;">Trailer–这一段是定长的。保存了每一段的偏移量，读取一个HFile时，会首先
+读取Trailer，Trailer保存了每个段的起始位置(段的Magic Number用来做安全check)，然后，DataBlock 
+Index会被读取到内存中，这样，当检索某个key时，不需要扫描整个HFile，而只需从内存中找到key所在的block，通过一次磁盘io将整个
+block读取到内存中，再找到需要的key。DataBlock Index采用LRU机制淘汰。</p>
+<p style="padding-left: 30px;">HFile的Data Block，Meta Block通常采用压缩方式存储，压缩之后可以大大减少网络IO和磁盘IO，随之而来的开销当然是需要花费cpu进行压缩和解压缩。</p>
+<p style="padding-left: 30px;">目标Hfile的压缩支持两种方式：Gzip，Lzo。</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">HLog(WAL log)</p>
+<p style="padding-left: 30px;">WAL 意为Write ahead 
+log(http://en.wikipedia.org/wiki/Write-ahead_logging)，类似mysql中的binlog,用来
+做灾难恢复只用，Hlog记录数据的所有变更,一旦数据修改，就可以从log中进行恢复。</p>
+<p style="padding-left: 30px;">每个Region 
+Server维护一个Hlog,而不是每个Region一个。这样不同region(来自不同table)的日志会混在一起，这样做的目的是不断追加单个
+文件相对于同时写多个文件而言，可以减少磁盘寻址次数，因此可以提高对table的写性能。带来的麻烦是，如果一台region 
+server下线，为了恢复其上的region，需要将region server上的log进行拆分，然后分发到其它region 
+server上进行恢复。</p>
+<p style="padding-left: 30px;">HLog文件就是一个普通的Hadoop Sequence 
+File，Sequence File 
+的Key是HLogKey对象，HLogKey中记录了写入数据的归属信息，除了table和region名字外，同时还包括 sequence 
+number和timestamp，timestamp是”写入时间”，sequence 
+number的起始值为0，或者是最近一次存入文件系统中sequence number。HLog Sequece 
+File的Value是HBase的KeyValue对象，即对应HFile中的KeyValue，可参见上文描述。</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<h2>
+<strong>四、</strong>
+<strong>系统架构</strong>
+</h2>
+<p style="text-align: center;"><strong><img height="360" width="554" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_7_.png" alt="" class="aligncenter"></strong>
+</p>
+<p style="text-align: center;"><strong><br></strong>
+</p>
+<p style="text-align: center;"><img height="582" width="572" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_8_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 30px;"><strong>Client</strong>
+</p>
+<p style="padding-left: 30px;">1 包含访问hbase的接口，client维护着一些cache来加快对hbase的访问，比如regione的位置信息。</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>Zookeeper</strong>
+</p>
+<p style="padding-left: 30px;">1 保证任何时候，集群中只有一个master</p>
+<p style="padding-left: 30px;">2 存贮所有Region的寻址入口。</p>
+<p style="padding-left: 30px;">3 实时监控Region Server的状态，将Region server的上线和下线信息实时通知给Master</p>
+<p style="padding-left: 30px;">4 存储Hbase的schema,包括有哪些table，每个table有哪些column family</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>Master</strong>
+</p>
+<p style="padding-left: 30px;">1 为Region server分配region</p>
+<p style="padding-left: 30px;">2 负责region server的负载均衡</p>
+<p style="padding-left: 30px;">3 发现失效的region server并重新分配其上的region</p>
+<p style="padding-left: 30px;">4 GFS上的垃圾文件回收</p>
+<p style="padding-left: 30px;">5 处理schema更新请求</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>Region Server</strong>
+</p>
+<p style="padding-left: 30px;">1 Region server维护Master分配给它的region，处理对这些region的IO请求</p>
+<p style="padding-left: 30px;">2 Region server负责切分在运行过程中变得过大的region</p>
+<p style="padding-left: 30px;">可以看到，client访问hbase上数据的过程并不需要master参与（寻址访问zookeeper和region server，数据读写访问regione server），master仅仅维护者table和region的元数据信息，负载很低。</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<h2>
+<strong>五、关键算法</strong>
+<strong>/</strong>
+<strong>流程</strong>
+</h2>
+<p style="padding-left: 30px;"><strong>region定位</strong>
+</p>
+<p style="padding-left: 60px;">系统如何找到某个row key (或者某个 row key range)所在的region</p>
+<p style="padding-left: 60px;">bigtable 使用三层类似B+树的结构来保存region位置。</p>
+<p style="padding-left: 60px;">第一层是保存zookeeper里面的文件，它持有root region的位置。</p>
+<p style="padding-left: 60px;">第二层root region是.META.表的第一个region其中保存了.META.z表其它region的位置。通过root region，我们就可以访问.META.表的数据。</p>
+<p style="padding-left: 60px;">.META.是第三层，它是一个特殊的表，保存了hbase中所有数据表的region 位置信息。</p>
+<p style="text-align: center;"><img height="363" width="622" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_9_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 60px;">说明：</p>
+<p style="padding-left: 60px;">1 root region永远不会被split，保证了最需要三次跳转，就能定位到任意region 。</p>
+<p style="padding-left: 60px;">2.META.表每行保存一个region的位置信息，row key 采用表名+表的最后一样编码而成。</p>
+<p style="padding-left: 60px;">3 为了加快访问，.META.表的全部region都保存在内存中。</p>
+<p style="padding-left: 60px;">假设，.META.表的一行在内存中大约占用1KB。并且每个region限制为128MB。</p>
+<p style="padding-left: 60px;">那么上面的三层结构可以保存的region数目为：</p>
+<p style="padding-left: 60px;">(128MB/1KB) * (128MB/1KB) = = 2(34)个region</p>
+<p style="padding-left: 60px;">4 client会将查询过的位置信息保存缓存起来，缓存不会主动失效，因此如果client上的缓存全部失效，则需要进行6次网络来回，才能定位到正确的region(其中三次用来发现缓存失效，另外三次用来获取位置信息)。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>读写过程</strong>
+</p>
+<p style="padding-left: 60px;">上文提到，hbase使用MemStore和StoreFile存储对表的更新。</p>
+<p style="padding-left: 60px;">数据在更新时首先写入Log(WAL 
+log)和内存(MemStore)中，MemStore中的数据是排序的，当MemStore累计到一定阈值时，就会创建一个新的MemStore，并
+且将老的MemStore添加到flush队列，由单独的线程flush到磁盘上，成为一个StoreFile。于此同时，系统会在zookeeper中
+记录一个redo point，表示这个时刻之前的变更已经持久化了。(minor compact)</p>
+<p style="padding-left: 60px;">当系统出现意外时，可能导致内存(MemStore)中的数据丢失，此时使用Log(WAL log)来恢复checkpoint之后的数据。</p>
+<p style="padding-left: 60px;">前面提到过StoreFile是只读的，一旦创建后就不可以再修改。因此Hbase的更
+新其实是不断追加的操作。当一个Store中的StoreFile达到一定的阈值后，就会进行一次合并(major 
+compact),将对同一个key的修改合并到一起，形成一个大的StoreFile，当StoreFile的大小达到一定阈值后，又会对
+StoreFile进行split，等分为两个StoreFile。</p>
+<p style="padding-left: 60px;">由于对表的更新是不断追加的，处理读请求时，需要访问Store中全部的
+StoreFile和MemStore，将他们的按照row 
+key进行合并，由于StoreFile和MemStore都是经过排序的，并且StoreFile带有内存中索引，合并的过程还是比较快。</p>
+<p style="padding-left: 60px;">写请求处理过程</p>
+<p style="text-align: center;"><img height="685" width="648" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/Image_10_.png" alt="" class="aligncenter"></p>
+<p style="padding-left: 60px;">1 client向region server提交写请求</p>
+<p style="padding-left: 60px;">2 region server找到目标region</p>
+<p style="padding-left: 60px;">3 region检查数据是否与schema一致</p>
+<p style="padding-left: 60px;">4 如果客户端没有指定版本，则获取当前系统时间作为数据版本</p>
+<p style="padding-left: 60px;">5 将更新写入WAL log</p>
+<p style="padding-left: 60px;">6 将更新写入Memstore</p>
+<p style="padding-left: 60px;">7 判断Memstore的是否需要flush为Store文件。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>region分配</strong>
+</p>
+<p style="padding-left: 60px;">任何时刻，一个region只能分配给一个region 
+server。master记录了当前有哪些可用的region server。以及当前哪些region分配给了哪些region 
+server，哪些region还没有分配。当存在未分配的region，并且有一个region 
+server上有可用空间时，master就给这个region server发送一个装载请求，把region分配给这个region 
+server。region server得到请求后，就开始对此region提供服务。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>region server上线</strong>
+</p>
+<p style="padding-left: 60px;">master使用zookeeper来跟踪region 
+server状态。当某个region 
+server启动时，会首先在zookeeper上的server目录下建立代表自己的文件，并获得该文件的独占锁。由于master订阅了server
+目录上的变更消息，当server目录下的文件出现新增或删除操作时，master可以得到来自zookeeper的实时通知。因此一旦region 
+server上线，master能马上得到消息。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>region server下线</strong>
+</p>
+<p style="padding-left: 60px;">当region 
+server下线时，它和zookeeper的会话断开，zookeeper而自动释放代表这台server的文件上的独占锁。而master不断轮询
+server目录下文件的锁状态。如果master发现某个region server丢失了它自己的独占锁，(或者master连续几次和region
+ server通信都无法成功),master就是尝试去获取代表这个region server的读写锁，一旦获取成功，就可以确定：</p>
+<p style="padding-left: 60px;">1 region server和zookeeper之间的网络断开了。</p>
+<p style="padding-left: 60px;">2 region server挂了。</p>
+<p style="padding-left: 60px;">的其中一种情况发生了，无论哪种情况，region server都无法继续为它的region提供服务了，此时master会删除server目录下代表这台region server的文件，并将这台region server的region分配给其它还活着的同志。</p>
+<p style="padding-left: 60px;">如果网络短暂出现问题导致region server丢失了它的锁，那么region server重新连接到zookeeper之后，只要代表它的文件还在，它就会不断尝试获取这个文件上的锁，一旦获取到了，就可以继续提供服务。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>master上线</strong>
+</p>
+<p style="padding-left: 60px;">master启动进行以下步骤:</p>
+<p style="padding-left: 60px;">1 从zookeeper上获取唯一一个代码master的锁，用来阻止其它master成为master。</p>
+<p style="padding-left: 60px;">2 扫描zookeeper上的server目录，获得当前可用的region server列表。</p>
+<p style="padding-left: 60px;">3 和2中的每个region server通信，获得当前已分配的region和region server的对应关系。</p>
+<p style="padding-left: 60px;">4 扫描.META.region的集合，计算得到当前还未分配的region，将他们放入待分配region列表。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p style="padding-left: 30px;"><strong>master下线</strong>
+</p>
+<p style="padding-left: 60px;">由于master只维护表和region的元数据，而不参与表数据IO的过
+程，master下线仅导致所有元数据的修改被冻结(无法创建删除表，无法修改表的schema，无法进行region的负载均衡，无法处理region
+上下线，无法进行region的合并，唯一例外的是region的split可以正常进行，因为只有region 
+server参与)，表的数据读写还可以正常进行。因此master下线短时间内对整个hbase集群没有影响。从上线过程可以看到，master保存的
+信息全是可以冗余信息（都可以从系统其它地方收集到或者计算出来），因此，一般hbase集群中总是有一个master在提供服务，还有一个以上
+的’master’在等待时机抢占它的位置。</p>
+<p style="padding-left: 60px;">&nbsp;</p>
+<p><strong>六、访问接口</strong>
+</p>
+<ul>
+<li>HBase Shell</li>
+<li>Java clietn API</li>
+<li>HBase non-java access</li>
+<li>
+<ul>
+<li>languages talking to the JVM</li>
+<li>
+<ul>
+<li>Jython interface to HBase</li>
+<li>Groovy DSL for HBase</li>
+<li>Scala interface to HBase</li>
+</ul>
+</li>
+<li>languages with a custom protocol</li>
+<li>
+<ul>
+<li>REST gateway specification for HBase</li>
+<li>充分利用HTTP协议：GET POST PUT DELETE</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>§</p>
+<ul>
+<li>
+<div style="margin-left: 2em;">
+<ul>
+<li>
+<ul>
+<li>text/plain</li>
+<li>text/xml</li>
+<li>application/json</li>
+<li>application/x-protobuf</li>
+</ul>
+</li>
+<li>Thrift gateway specification for HBase</li>
+<li>
+<ul>
+<li>java</li>
+<li>cpp</li>
+<li>rb</li>
+<li>py</li>
+<li>perl</li>
+<li>php</li>
+</ul>
+</li>
+</ul>
+</div>
+</li>
+<li>HBase Map Reduce</li>
+<li>Hive/Pig</li>
+</ul>
+<p><strong>七、结语：</strong>
+</p>
+<p style="padding-left: 30px;"><strong>全文对</strong>
+<strong>Hbase做了</strong>
+<strong>简单的介绍，有错误之处，敬请指正。未来将结合</strong>
+<strong>Hbase</strong>
+<strong>在淘宝数据平台的应用场景，在更多细节上进行深入。</strong>
+</p>
+<p style="padding-left: 30px;"><strong><br></strong>
+</p>
+<p><strong>参考文档</strong>
+</p>
+<p style="padding-left: 30px;">Bigtable: A Distributed Storage System for Structured Data</p>
+<p style="padding-left: 30px;">HFile: A Block-Indexed File Format to Store Sorted Key-Value Pairs for a thorough introduction Hbase Architecture 101</p>
+<p style="padding-left: 30px;">Hbase source code</p>
+<p style="padding-left: 30px;">&nbsp;</p>
+<p style="padding-left: 30px;">很久没写博客了，因为很忙，不过今天发现一篇不错的文章，帮我梳理了下HBase，原文地址：http://www.tbdata.org/archives/1509</p>
+  </div>
+
+  
+
+
+  
+  
+  <div id="bottoms" class="clearfix">
+    <div id="digg_bottom" class="clearfix"><div class="digged"><strong>17</strong> <br>顶</div><div class="digged"><strong>5</strong> <br>踩</div></div>
+    <div id="share_weibo">分享到：
+      <a data-type="sina" href="javascript:;" title="分享到新浪微博"><img src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/sina.jpg"></a>
+      <a data-type="qq" href="javascript:;" title="分享到腾讯微博"><img src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="http://jiajun.iteye.com/blog/910828" class="next" title="JDK5中的concurrent包、线程池">JDK5中的concurrent包、线程池</a>
+      |
+      <a href="http://jiajun.iteye.com/blog/827109" class="pre" title="Google_三大论文中文版(Bigtable、 GFS、 Google MapReduce)">Google_三大论文中文版(Bigtable、 GFS、 ...</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2011-01-30 10:18</li>
+      <li>浏览 22102</li>
+      <li><a href="http://jiajun.iteye.com/blog/899632#comments">评论(1)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/architecture">企业架构</a></li>      
+      <li class="last"><a href="http://www.iteye.com/wiki/blog/899632" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc2304092">
+  <div class="comment_title">
+    1 楼
+    <a href="http://newcomes.iteye.com/" target="_blank" title="newcomes">newcomes</a>
+    2013-03-15&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content">很有帮助，感谢</div>
+</div>
+
+
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="http://jiajun.iteye.com/login" style="background-color:white;"> <img src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/login_icon.png" style="vertical-align:middle; margin-right: 10px;"></a><a href="http://jiajun.iteye.com/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 899632;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'HBase简介（很好的梳理资料）');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'HBase简介（很好的梳理资料）');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href="http://jiajun.iteye.com/"><img alt="iammonster的博客" class="logo" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/6df42f55-0703-3b91-8e46-3a8eb3f68cc3.jpg" title="iammonster的博客: 加俊"></a></div>
+  <div id="blog_owner_name">iammonster</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 625167 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/icon_minigender_1.gif" title="男"></li>
+              <li>来自: 北京</li>
+              <li><img src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/offline.gif"></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style="font-weight:normal;font-size:12px;padding-left:30px;"><a href="http://jiajun.iteye.com/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://jinbinfeng.iteye.com/" target="_blank"><img alt="jinbinfeng的博客" class="logo" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/user-logo-thumb.gif" title="jinbinfeng的博客: "></a></div>
+                <div class="left"><a href="http://jinbinfeng.iteye.com/" target="_blank" title="jinbinfeng">jinbinfeng</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://dylinshi126.iteye.com/" target="_blank"><img alt="dylinshi126的博客" class="logo" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/user-logo-thumb.gif" title="dylinshi126的博客: "></a></div>
+                <div class="left"><a href="http://dylinshi126.iteye.com/" target="_blank" title="dylinshi126">dylinshi126</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://asdf092349.iteye.com/" target="_blank"><img alt="asdf092349的博客" class="logo" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/user-logo-thumb.gif" title="asdf092349的博客: "></a></div>
+                <div class="left"><a href="http://asdf092349.iteye.com/" target="_blank" title="asdf092349">asdf092349</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href="http://xyhc.iteye.com/" target="_blank"><img alt="小颜红茶的博客" class="logo" src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/user-logo-thumb.gif" title="小颜红茶的博客: "></a></div>
+                <div class="left"><a href="http://xyhc.iteye.com/" target="_blank" title="小颜红茶">小颜红茶</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="http://jiajun.iteye.com/">全部博客 (242)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47481">JAVA (34)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47484">LINUX (40)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47543">html (3)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47483">JavaScript (27)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47547">Ajax (5)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/76555">CSS (3)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47482">DB2 (10)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47541">ORACLE (2)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47540">SQL SERVER (7)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47548">mySQL (4)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47546">Eclipse (10)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47542">IBATIS (4)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47549">struts (1)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/97656">Spring (2)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/47553">apache-tomcat (9)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/66310">lighttpd (8)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/74493">ant maven (8)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/67603">Architecture (0)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/68325">WebServer (8)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/74749">Android (3)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/70898">生活 (15)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/75801">FAQ (5)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/84642">UML (2)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/97068">Lucene (4)</a></li>
+                
+                  <li><a href="http://jiajun.iteye.com/category/99897">HBase (25)</a></li>
+                
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="http://jiajun.iteye.com/blog/news">我的资讯</a> (2)</li>
+                <li>
+                  <a href="http://jiajun.iteye.com/blog/post">我的论坛</a> (24)
+                </li>
+                <li><a href="http://jiajun.iteye.com/blog/answered_problems">我的问答</a> (0)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="http://jiajun.iteye.com/blog/monthblog/2012-03">2012-03</a> (1)</li>
+                
+                  <li><a href="http://jiajun.iteye.com/blog/monthblog/2011-10">2011-10</a> (1)</li>
+                
+                  <li><a href="http://jiajun.iteye.com/blog/monthblog/2011-09">2011-09</a> (1)</li>
+                
+                <li><a href="http://jiajun.iteye.com/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href="http://415776070.iteye.com/" target="_blank" title="葬灵岩">葬灵岩</a>： 
+                  [align=left][b]引用[list]
+[*]
+[/l ...<br>
+                  <a href="http://jiajun.iteye.com/blog/745364#bc2329623">Solr简单的多个实例</a>
+                </li>
+                
+                <li>
+                  <a href="http://songsong.iteye.com/" target="_blank" title="songsong">songsong</a>： 
+                  经常regionserver未把自己abort掉，进程僵死在那 ...<br>
+                  <a href="http://jiajun.iteye.com/blog/1013215#bc2329514">HBase RegionServer 退出 ( ZooKeeper session expired)</a>
+                </li>
+                
+                <li>
+                  <a href="http://xiaohuafyle.iteye.com/" target="_blank" title="xiaohuafyle">xiaohuafyle</a>： 
+                  好文章，感谢楼主<br>
+                  <a href="http://jiajun.iteye.com/blog/810150#bc2328868">如何利用 JConsole观察分析Java程序的运行，进行排错调优</a>
+                </li>
+                
+                <li>
+                  <a href="http://michaelcmf.iteye.com/" target="_blank" title="michaelcmf">michaelcmf</a>： 
+                  写得很详细啊，膜拜一下~<br>
+                  <a href="http://jiajun.iteye.com/blog/455106#bc2328181">web.xml配置详解</a>
+                </li>
+                
+                <li>
+                  <a href="http://zgw06629.iteye.com/" target="_blank" title="zgw06629">zgw06629</a>： 
+                  哎呀，折腾了半天。看了你的帖子， 总算解决了。谢谢！<br>
+                  <a href="http://jiajun.iteye.com/blog/296370#bc2327673">Checkbox的checked属性问题</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br>
+          © 2003-2012 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script><img src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/saved_resource" width="0" height="0">
+
+<script src="./HBase简介（很好的梳理资料） - 加俊 - ITeye技术网站_files/tracking.js" type="text/javascript"></script>
+
+    
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-4806823-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+      
+    
+  
+
+</body></html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0047)http://www.cnblogs.com/ggjucheng/p/3380267.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script type="text/javascript" src="./HBase Java API类介绍 - ggjucheng - 博客园_files/encoder.js"></script><script async="" type="text/javascript" src="./HBase Java API类介绍 - ggjucheng - 博客园_files/gpt.js"></script>
+
+<title>HBase Java API类介绍 - ggjucheng - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./HBase Java API类介绍 - ggjucheng - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./HBase Java API类介绍 - ggjucheng - 博客园_files/style.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/ggjucheng/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/ggjucheng/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/ggjucheng/wlwmanifest.xml">
+<script src="./HBase Java API类介绍 - ggjucheng - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'ggjucheng', cb_enable_mathjax=false;</script>
+<script src="./HBase Java API类介绍 - ggjucheng - 博客园_files/blog-common.js" type="text/javascript"></script>
+<script async="" type="text/javascript" src="./HBase Java API类介绍 - ggjucheng - 博客园_files/pubads_impl_32.js"></script><script type="text/javascript" src="./HBase Java API类介绍 - ggjucheng - 博客园_files/osd.js"></script></head>
+<body>
+<a name="top"></a>
+
+<div id="top">
+	
+<div>
+	<table>
+		<tbody><tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/ggjucheng/">简单，可复制</a></h1>
+				<p id="tagline">点点滴滴，尽在文中</p>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td class="HeaderBarTab" nowrap="">
+&nbsp;
+ ::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/ggjucheng/">首页</a> ::
+<a href="http://q.cnblogs.com/" class="menu">博问</a> ::
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> ::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/ggjucheng/admin/EditPosts.aspx?opt=1">新随笔</a> ::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/ggjucheng">联系</a> ::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/ggjucheng/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/ggjucheng/rss"><img src="./HBase Java API类介绍 - ggjucheng - 博客园_files/xml.gif" alt="订阅"></a> ::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/ggjucheng/admin/EditPosts.aspx">管理</a> ::
+
+</td>
+			<td><img id="Header1_BlueTab" src="./HBase Java API类介绍 - ggjucheng - 博客园_files/BlueTabRight.gif" align="absmiddle"></td>
+			<td class="HeaderBarTabBack" nowrap="" width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tbody><tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap="">
+				&nbsp;
+				435 
+				随笔&nbsp;::
+				0 文章
+				::
+				140 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+</div>
+<div id="leftmenu">	
+
+	    <div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"><br>
+<a href="http://www.svn999.com/?bokeyuan"><font size="4">小团队的免费svn空间</font></a>
+<br>
+
+<br>
+<div id="weibowidget"><iframe width="190" height="100" class="share_self" frameborder="0" scrolling="no" src="./HBase Java API类介绍 - ggjucheng - 博客园_files/index.htm"></iframe></div><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/ggjucheng/">ggjucheng</a><br>园龄：<a href="http://home.cnblogs.com/u/ggjucheng/" title="入园时间：2011-12-13">2年1个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/ggjucheng/followers/">244</a><br>关注：<a href="http://home.cnblogs.com/u/ggjucheng/followees/">6</a><div id="p_b_follow"></div><div style="display: none" id="__document_write_ajax_div-2"></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+		<div id="blog-sidecolumn">
+		<h3>博客地图</h3>
+		
+				<ul>
+			
+				<li><a id="ctl01_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645319.html">c/c++笔记</a> </li>
+			<li class="c_b_p_link_desc">本人学习c/c++的一些笔记</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/ggjucheng/archive/2012/11/02/2751119.html">db笔记</a> </li>
+			<li class="c_b_p_link_desc">mysql nosql</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/ggjucheng/archive/2012/04/22/2465625.html">hadoop笔记</a> </li>
+			<li class="c_b_p_link_desc">本人工作中hadoop的心得</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/ggjucheng/archive/2013/01/20/2868837.html">internet笔记</a> </li>
+			<li class="c_b_p_link_desc">互联网学习笔记</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/ggjucheng/archive/2012/11/19/2777695.html">java笔记</a> </li>
+			<li class="c_b_p_link_desc">java平台笔记</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645321.html">Linux/Unix笔记</a> </li>
+			<li class="c_b_p_link_desc">本人学习linux/unix的笔记 <br></li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645324.html">TCP/IP笔记</a> </li>
+			<li class="c_b_p_link_desc">本人学习TCP/IP的心得和笔记</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_7" rel="nofollow" href="http://www.cnblogs.com/ggjucheng/p/3348355.html">web开发</a> </li>
+			<li class="c_b_p_link_desc">html css js php etc.....</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_8" rel="nofollow" href="http://www.cnblogs.com/ggjucheng/p/3348282.html">技术花絮</a> </li>
+			<li class="c_b_p_link_desc">非技术的技术</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/ggjucheng/archive/2011/12/15/2288839.html">其他笔记本</a> </li>
+			<li class="c_b_p_link_desc">比较零碎的技术文章归类</li>
+				<li><a id="ctl01_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/ggjucheng/archive/2012/11/17/2774916.html">学习指南</a> </li>
+			<li class="c_b_p_link_desc">IT技术学习路线,IT经典书籍学习和下载</li>
+				</ul>
+			
+	
+		<h3>友情链接</h3>
+		
+				<ul>
+			
+				<li><a id="ctl01_CatList_LinkList_1_Link_0" rel="nofollow" href="http://itfun.ingchat.com/" target="_blank">IT短篇笑话</a> </li>
+			<li class="c_b_p_link_desc">百忙中，可以看看it短篇笑话，笑一笑，放松下！</li>
+				<li><a id="ctl01_CatList_LinkList_1_Link_1" rel="nofollow" href="http://www.svn999.com/" target="_blank">挺不错的免费svn空间</a> </li>
+			<li class="c_b_p_link_desc">国内挺不错的svn免费空间，很适合小团队使用</li>
+				</ul>
+			
+	
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		358228
+	</li><li>
+		排名 -
+		224
+	</li>
+</ul>
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645321.html#2863147">1. Re:Linux/Unix笔记本</a></li>
+    <li class="recent_comment_body">请教下博主，近期局方要求我们对现网的生产系统进行版本升级，现服务器大多用的是redhat 5.4的版本，要求我们升级到6以上，请教下有这方面的文档么？</li>
+    <li class="recent_comment_author">--journeyto</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645916.html#2858547">2. Re:Windows XP硬盘安装Ubuntu 12.04双系统图文详解(转)</a></li>
+    <li class="recent_comment_body">您这篇教程相当有用。按照您的指导，已经进入安装阶段。Ubuntu的安装引导程序做的很人性化。</li>
+    <li class="recent_comment_author">--不见不散</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316661.html#2845211">3. Re:Linux netstat命令详解</a></li>
+    <li class="recent_comment_body">很好，例子很好</li>
+    <li class="recent_comment_author">--今秋</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/11/19/2777695.html#2842562">4. Re:java笔记</a></li>
+    <li class="recent_comment_body">接口那里少写了一小节“Implementing an Interface”</li>
+    <li class="recent_comment_author">--ayanamaist</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/ggjucheng/archive/2012/04/22/2465782.html#2835036">5. Re:hadoop mapreduce作业流程概论</a></li>
+    <li class="recent_comment_body">一个分片（split）上不是应该运行一个map？图中的M3与M1为什么运行两个分片？</li>
+    <li class="recent_comment_author">--jahunter</li>
+</ul>
+</div>
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html">1. Linux tcpdump命令详解(116315)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316661.html">2. Linux netstat命令详解(64623)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/14/2287738.html">3. Linux GCC常用命令(52174)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html">4. linux awk命令详解(29200)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/05/2312625.html">5. Linux vmstat命令实战详解(19439)</a></li></ul></div>
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/16/2290158.html">1. Linux入门——适合初学者(11)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/19/2646007.html">2. 实例讲解虚拟机3种网络模式(桥接、nat、Host-only)(9)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/04/2311967.html">3. 异常不可用于逻辑处理(8)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/08/18/2645321.html">4. Linux/Unix笔记本(6)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/08/2850797.html">5. hive sql遇到的问题(6)</a></li></ul></div>
+</div>
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/14/2287738.html">1. Linux GCC常用命令(17)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/14/2322659.html">2. Linux tcpdump命令详解(16)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316661.html">3. Linux netstat命令详解(12)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/02/02/2335994.html">4. TCP慢启动算法(5)</a></li><li><a href="http://www.cnblogs.com/ggjucheng/archive/2012/04/22/2465625.html">5. hadoop笔记本(5)</a></li></ul></div>
+</div></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+<div id="main">
+	
+
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="./HBase Java API类介绍 - ggjucheng - 博客园_files/HBase Java API类介绍 - ggjucheng - 博客园.htm">HBase Java API类介绍</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><div id="cnblogs_post_body">
+<p>　几个相关类与HBase数据模型之间的对应关系</p>
+<p></p>
+<table border="1">
+<tbody>
+<tr>
+<td>java类</td>
+<td>HBase数据模型</td>
+</tr>
+<tr>
+<td>HBaseAdmin</td>
+<td rowspan="2">数据库（DataBase)</td>
+</tr>
+<tr>
+<td>HBaseConfiguration</td>
+</tr>
+<tr>
+<td>HTable</td>
+<td>表（Table)</td>
+</tr>
+<tr>
+<td>HTableDescriptor</td>
+<td>列族（Column Family)</td>
+</tr>
+<tr>
+<td>Put</td>
+<td rowspan="3">列修饰符（Column Qualifier）</td>
+</tr>
+<tr>
+<td>Get</td>
+</tr>
+<tr>
+<td>Scanner</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h2></h2>
+<h2>一、HBaseConfiguration</h2>
+<p>关系：org.apache.hadoop.hbase.HBaseConfiguration</p>
+<p>作用：对HBase进行配置</p>
+<table border="1">
+<tbody>
+<tr>
+<td>&nbsp;返回值</td>
+<td>&nbsp;函数</td>
+<td>&nbsp;描述</td>
+</tr>
+<tr>
+<td>&nbsp;void</td>
+<td>&nbsp;addResource(Path file)</td>
+<td>&nbsp;通过给定的路径所指的文件来添加资源</td>
+</tr>
+<tr>
+<td>&nbsp;void</td>
+<td>&nbsp;clear()</td>
+<td>&nbsp;清空所有已设置的属性</td>
+</tr>
+<tr>
+<td>&nbsp;string</td>
+<td>&nbsp;get(String name)</td>
+<td>&nbsp;获取属性名对应的值</td>
+</tr>
+<tr>
+<td>&nbsp;String</td>
+<td>&nbsp;getBoolean(String name, boolean defaultValue)</td>
+<td>&nbsp;获取为boolean类型的属性值，如果其属性值类型部位boolean,则返回默认属性值</td>
+</tr>
+<tr>
+<td>&nbsp;void</td>
+<td>&nbsp;set(String name, String value)</td>
+<td>&nbsp;通过属性名来设置值</td>
+</tr>
+<tr>
+<td>&nbsp;void</td>
+<td>&nbsp;setBoolean(String name, boolean value)</td>
+<td>&nbsp;设置boolean类型的属性值</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;用法示例：</p>
+<div class="cnblogs_code">
+<pre>HBaseConfiguration hconfig = <span>new</span><span> HBaseConfiguration();
+hconfig.set(</span>"hbase.zookeeper.property.clientPort","2181");</pre>
+</div>
+<p>　　该方法设置了"hbase.zookeeper.property.clientPort"的端口号为2181。一般情况下，HBaseConfiguration会使用构造函数进行初始化，然后在使用其他方法。</p>
+<h2></h2>
+<h2>二、HBaseAdmin</h2>
+<p>关系：org.apache.hadoop.hbase.client.HBaseAdmin</p>
+<p>作用：提供了一个接口来管理HBase数据库的表信息。它提供的方法包括：创建表，删除表，列出表项，使表有效或无效，以及添加或删除表列族成员等。</p>
+<table border="1">
+<tbody>
+<tr>
+<td>&nbsp;返回值</td>
+<td>&nbsp;函数</td>
+<td>&nbsp;描述</td>
+</tr>
+<tr>
+<td rowspan="6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void</td>
+<td>&nbsp;addColumn(String tableName, HColumnDescriptor column)</td>
+<td>&nbsp;向一个已经存在的表添加咧</td>
+</tr>
+<tr>
+<td>&nbsp;checkHBaseAvailable(HBaseConfiguration conf)</td>
+<td>&nbsp;静态函数，查看HBase是否处于运行状态</td>
+</tr>
+<tr>
+<td>&nbsp;createTable(HTableDescriptor desc)</td>
+<td>&nbsp;创建一个表，同步操作</td>
+</tr>
+<tr>
+<td>&nbsp;deleteTable(byte[] tableName)</td>
+<td>&nbsp;删除一个已经存在的表</td>
+</tr>
+<tr>
+<td>&nbsp;enableTable(byte[] tableName)</td>
+<td>&nbsp;使表处于有效状态</td>
+</tr>
+<tr>
+<td>&nbsp;disableTable(byte[] tableName)</td>
+<td>&nbsp;使表处于无效状态</td>
+</tr>
+<tr>
+<td>&nbsp;HTableDescriptor[]</td>
+<td>&nbsp;listTables()</td>
+<td>&nbsp;列出所有用户控件表项</td>
+</tr>
+<tr>
+<td>&nbsp;void</td>
+<td>&nbsp;modifyTable(byte[] tableName, HTableDescriptor htd)</td>
+<td>&nbsp;修改表的模式，是异步的操作，可能需要花费一定的时间</td>
+</tr>
+<tr>
+<td>&nbsp;boolean</td>
+<td>&nbsp;tableExists(String tableName)</td>
+<td>&nbsp;检查表是否存在</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<div class="cnblogs_code">
+<pre>HBaseAdmin admin = <span>new</span><span> HBaseAdmin(config);
+admin.disableTable(</span>"tablename")</pre>
+</div>
+<h2></h2>
+<h2>三、HTableDescriptor</h2>
+<p>关系：org.apache.hadoop.hbase.HTableDescriptor</p>
+<p>作用：包含了表的名字极其对应表的列族</p>
+<table border="1">
+<tbody>
+<tr>
+<td>返回值</td>
+<td>函数</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>void</td>
+<td>addFamily(HColumnDescriptor)</td>
+<td>添加一个列族</td>
+</tr>
+<tr>
+<td>HColumnDescriptor</td>
+<td>removeFamily(byte[] column)</td>
+<td>移除一个列族</td>
+</tr>
+<tr>
+<td>byte[]</td>
+<td>getName()</td>
+<td>获取表的名字</td>
+</tr>
+<tr>
+<td>byte[]</td>
+<td>getValue(byte[] key)</td>
+<td>获取属性的值</td>
+</tr>
+<tr>
+<td>void</td>
+<td>setValue(String key, String value)</td>
+<td>设置属性的值</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<div class="cnblogs_code">
+<pre>HTableDescriptor htd = <span>new</span><span> HTableDescriptor(table);
+htd.addFamily(</span><span>new</span> HcolumnDescriptor("family"));</pre>
+</div>
+<p>在上述例子中，通过一个HColumnDescriptor实例，为HTableDescriptor添加了一个列族：family</p>
+<h2></h2>
+<h2>四、HColumnDescriptor</h2>
+<p>关系：org.apache.hadoop.hbase.HColumnDescriptor</p>
+<p>作用：维护着关于列族的信息，例如版本号，压缩设置等。它通常在创建表或者为表添加列族的时候使用。列族被创建后不能直接修改，只能通过删除然后重新创建的方式。列族被删除的时候，列族里面的数据也会同时被删除。</p>
+<table border="1">
+<tbody>
+<tr>
+<td>返回值</td>
+<td>函数</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>byte[]</td>
+<td>getName()</td>
+<td>获取列族的名字</td>
+</tr>
+<tr>
+<td>byte[]</td>
+<td>getValue(byte[] key)</td>
+<td>获取对应的属性的值</td>
+</tr>
+<tr>
+<td>void</td>
+<td>setValue(String key, String value)</td>
+<td>设置对应属性的值</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<div class="cnblogs_code">
+<pre>HTableDescriptor htd = <span>new</span><span> HTableDescriptor(tablename);
+HColumnDescriptor col </span>= <span>new</span> HColumnDescriptor("content:"<span>);
+htd.addFamily(col);</span></pre>
+</div>
+<p>此例添加了一个content的列族</p>
+<h2></h2>
+<h2>五、HTable</h2>
+<p>关系：org.apache.hadoop.hbase.client.HTable</p>
+<p>作用：可以用来和HBase表直接通信。此方法对于更新操作来说是非线程安全的。</p>
+<table border="1">
+<tbody>
+<tr>
+<td>返回值</td>
+<td>函数</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>void</td>
+<td>checkAdnPut(byte[] row, byte[] family, byte[] qualifier, byte[] value, Put put</td>
+<td>自动的检查row/family/qualifier是否与给定的值匹配</td>
+</tr>
+<tr>
+<td>void</td>
+<td>close()</td>
+<td>释放所有的资源或挂起内部缓冲区中的更新</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>exists(Get get)</td>
+<td>检查Get实例所指定的值是否存在于HTable的列中</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>get(Get get)</td>
+<td>获取指定行的某些单元格所对应的值</td>
+</tr>
+<tr>
+<td>byte[][]</td>
+<td>getEndKeys()</td>
+<td>获取当前一打开的表每个区域的结束键值</td>
+</tr>
+<tr>
+<td>ResultScanner</td>
+<td>getScanner(byte[] family)</td>
+<td>获取当前给定列族的scanner实例</td>
+</tr>
+<tr>
+<td>HTableDescriptor</td>
+<td>getTableDescriptor()</td>
+<td>获取当前表的HTableDescriptor实例</td>
+</tr>
+<tr>
+<td>byte[]</td>
+<td>getTableName()</td>
+<td>获取表名</td>
+</tr>
+<tr>
+<td>static boolean</td>
+<td>isTableEnabled(HBaseConfiguration conf, String tableName)</td>
+<td>检查表是否有效</td>
+</tr>
+<tr>
+<td>void</td>
+<td>put(Put put)</td>
+<td>向表中添加值</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<div class="cnblogs_code">
+<pre>HTable table = <span>new</span><span> HTable(conf, Bytes.toBytes(tablename));
+ResultScanner scanner </span>=  table.getScanner(family);</pre>
+</div>
+<h2></h2>
+<h2>六、Put</h2>
+<p>关系：org.apache.hadoop.hbase.client.Put</p>
+<p>作用：用来对单个行执行添加操作</p>
+<table border="1">
+<tbody>
+<tr>
+<td>返回值</td>
+<td>函数</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>Put</td>
+<td>add(byte[] family, byte[] qualifier, byte[] value)</td>
+<td>将指定的列和对应的值添加到Put实例中</td>
+</tr>
+<tr>
+<td>Put</td>
+<td>add(byte[] family, byte[] qualifier, long ts, byte[] value)</td>
+<td>将指定的列和对应的值及时间戳添加到Put实例中</td>
+</tr>
+<tr>
+<td>byte[]</td>
+<td>getRow()</td>
+<td>获取Put实例的行</td>
+</tr>
+<tr>
+<td>RowLock</td>
+<td>getRowLock()</td>
+<td>获取Put实例的行锁</td>
+</tr>
+<tr>
+<td>long</td>
+<td>getTimeStamp()</td>
+<td>获取Put实例的时间戳</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>isEmpty()</td>
+<td>检查familyMap是否为空</td>
+</tr>
+<tr>
+<td>Put</td>
+<td>setTimeStamp(long timeStamp)</td>
+<td>设置Put实例的时间戳</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<div class="cnblogs_code">
+<pre>HTable table = <span>new</span><span> HTable(conf,Bytes.toBytes(tablename));
+Put p </span>= <span>new</span> Put(brow);<span>//</span><span>为指定行创建一个Put操作</span>
+<span>p.add(family,qualifier,value);
+table.put(p);</span></pre>
+</div>
+<h2></h2>
+<h2>七、Get</h2>
+<p>关系：org.apache.hadoop.hbase.client.Get</p>
+<p>作用：用来获取单个行的相关信息</p>
+<table border="1">
+<tbody>
+<tr>
+<td>返回值</td>
+<td>函数</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>Get</td>
+<td>addColumn(byte[] family, byte[] qualifier)</td>
+<td>获取指定列族和列修饰符对应的列</td>
+</tr>
+<tr>
+<td>Get</td>
+<td>addFamily(byte[] family)</td>
+<td>通过指定的列族获取其对应列的所有列</td>
+</tr>
+<tr>
+<td>Get</td>
+<td>setTimeRange(long minStamp,long maxStamp)</td>
+<td>获取指定取件的列的版本号</td>
+</tr>
+<tr>
+<td>Get</td>
+<td>setFilter(Filter filter)</td>
+<td>当执行Get操作时设置服务器端的过滤器</td>
+</tr>
+</tbody>
+</table>
+<p>用法示例：</p>
+<div class="cnblogs_code">
+<pre>HTable table = <span>new</span><span> HTable(conf, Bytes.toBytes(tablename));
+Get g </span>= <span>new</span> Get(Bytes.toBytes(row));</pre>
+</div>
+<h2></h2>
+<h2>八、Result</h2>
+<p>关系：org.apache.hadoop.hbase.client.Result</p>
+<p>作用：存储Get或者Scan操作后获取表的单行值。使用此类提供的方法可以直接获取值或者各种Map结构（key-value对）</p>
+<table border="1">
+<tbody>
+<tr>
+<td>返回值</td>
+<td>函数</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>containsColumn(byte[] family, byte[] qualifier)</td>
+<td>检查指定的列是否存在</td>
+</tr>
+<tr>
+<td>NavigableMap&lt;byte[],byte[]&gt;</td>
+<td>getFamilyMap(byte[] family)</td>
+<td>获取对应列族所包含的修饰符与值的键值对</td>
+</tr>
+<tr>
+<td>byte[]</td>
+<td>getValue(byte[] family, byte[] qualifier)</td>
+<td>获取对应列的最新值</td>
+</tr>
+</tbody>
+</table>
+<h2></h2>
+<h2>九、ResultScanner</h2>
+<p>关系：Interface</p>
+<p>作用：客户端获取值的接口</p>
+<table border="1">
+<tbody>
+<tr>
+<td>返回值</td>
+<td>函数</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>void</td>
+<td>close()</td>
+<td>关闭scanner并释放分配给它的资源</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>next()</td>
+<td>获取下一行的值<br><br></td>
+
+
+
+</tr>
+
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+<div></div>
+<div></div>
+<div></div>
+<div>转自&nbsp;<a href="http://www.cnblogs.com/NicholasLee/archive/2012/09/13/2683432.html">http://www.cnblogs.com/NicholasLee/archive/2012/09/13/2683432.html</a></div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="blog_post_info"><div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/ggjucheng/category/372994.html">hadoop</a></div>
+<div id="EntryTag"></div>
+<div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/ggjucheng" target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./HBase Java API类介绍 - ggjucheng - 博客园_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ggjucheng/" target="_blank"><img src="./HBase Java API类介绍 - ggjucheng - 博客园_files/u360373.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/ggjucheng/">ggjucheng</a><br>
+<a href="http://home.cnblogs.com/u/ggjucheng/followees">关注 - 6</a><br>
+<a href="http://home.cnblogs.com/u/ggjucheng/followers">粉丝 - 244</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+<a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+	<div class="diggit" onclick="votePost(cb_entryId,&#39;Digg&#39;)"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="votePost(cb_entryId,&#39;Bury&#39;)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/ggjucheng/p/3380169.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/ggjucheng/p/3380169.html" title="发布于2013-10-21 11:08">HBase体系结构(转)</a><br><a href="http://www.cnblogs.com/ggjucheng/p/3381328.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/ggjucheng/p/3381328.html" title="发布于2013-10-21 20:39">通过Java Api与HBase交互(转)</a><br></div>
+</div>
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2013-10-21 11:26</span> <a href="http://www.cnblogs.com/ggjucheng/">ggjucheng</a> 阅读(<span id="post_view_count">282</span>) 评论(<span id="post_comment_count">0</span>)  <a href="http://www.cnblogs.com/ggjucheng/admin/EditPosts.aspx?postid=3380267" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/ggjucheng/p/3380267.html#" onclick="AddToWz(3380267);return false;">收藏</a>
+	</div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=104392,cb_entryId=3380267,cb_blogApp=currentBlogApp,cb_blogUserGuid='d3935eec-4025-e111-b422-842b2b196315',cb_entryCreatedDate='2013/10/21 11:26:00';loadViewCount(cb_entryId);</script>
+
+<a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="http://www.cnblogs.com/ggjucheng/p/3380267.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/ggjucheng/p/3380267.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"><a target="_blank" href="http://q.cnblogs.com/">程序员问答平台，解决您的技术难题</a></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="ad_under_post_holder">
+
+<div id="google_ad_c1" class="c_ad_block">
+    <!-- cnblogs_blogpost_C1_sitehome -->
+    <div id="div-gpt-ad-1346480159711-0" style="width:300px; height:250px;">
+    
+    <div id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom;"></iframe></div><iframe id="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" name="google_ads_iframe_/1090369/cnblogs_blogpost_C1_sitehome_0__hidden__" width="0" height="0" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" src="javascript:"<html><body style='background:transparent'></body></html>"" style="border: 0px; vertical-align: bottom; visibility: hidden; display: none;"></iframe></div>
+</div>
+<div id="blog_news_kb"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/198628/" target="_blank">嘀嘀与快的，腾讯与阿里的巅峰对决</a><br> ·  <a href="http://news.cnblogs.com/n/198627/" target="_blank">每周问问你的团队这10个问题</a><br> ·  <a href="http://news.cnblogs.com/n/198625/" target="_blank">微软语音助手曝新料：比Siri有意思</a><br> ·  <a href="http://news.cnblogs.com/n/198623/" target="_blank">阿里公开信：“手机丢了支付宝就完了”纯属谣言</a><br> ·  <a href="http://news.cnblogs.com/n/198622/" target="_blank">中国到底需要什么样的航母？</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/198414/" target="_blank">深入剖析阿里巴巴云梯YARN集群</a><br> ·  <a href="http://kb.cnblogs.com/page/196718/" target="_blank">关于技术团队管理的胡言乱语</a><br> ·  <a href="http://kb.cnblogs.com/page/197406/" target="_blank">浅谈TCP优化</a><br> ·  <a href="http://kb.cnblogs.com/page/197396/" target="_blank">SSL与TLS的区别以及介绍</a><br> ·  <a href="http://kb.cnblogs.com/page/196945/" target="_blank">DDD &amp; DDDLib在恒拓开源的发展历程与推广经验</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div></div>
+<script type="text/javascript">
+var enableGoogleAd = true;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+fixPostBodyFormat();
+loadAdUnderPost();
+</script>
+<div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2012-10-21 <a href="http://www.cnblogs.com/ggjucheng/archive/2012/10/21/2733147.html">程序的运行顺序(转)</a><br>2012-10-21 <a href="http://www.cnblogs.com/ggjucheng/archive/2012/10/21/2733134.html">常用的程序管理命令(转)</a><br>2012-10-21 <a href="http://www.cnblogs.com/ggjucheng/archive/2012/10/21/2733028.html">shell下的作业管理(转)</a><br></div>
+<script type="text/javascript">
+loadBlogSignature();
+LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+</script>
+<script type="text/javascript">
+    $.ajax({ url: 'http://counter.cnblogs.com/blog/post/' + cb_entryId, type: 'get', dataType: 'script', cache: true });
+</script>
+</div>
+
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © ggjucheng
+</p>
+</div>
+<!--PageEndHtml Block Begin-->
+<script src="./HBase Java API类介绍 - ggjucheng - 博客园_files/stat.php" language="JavaScript"></script><script src="./HBase Java API类介绍 - ggjucheng - 博客园_files/core.php" charset="utf-8" type="text/javascript"></script><script src="./HBase Java API类介绍 - ggjucheng - 博客园_files/online_v3.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=4902471" target="_blank">站长统计</a>
+<!--PageEndHtml Block End-->
+
+
+<iframe id="google_osd_static_frame_2392293121665" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe></body></html>
