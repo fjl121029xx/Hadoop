@@ -31,6 +31,7 @@ public class WordReader extends BaseRichSpout {
     public void nextTuple() {
         Collection<File> files = FileUtils.listFiles(new File(inputPath),
                 FileFilterUtils.notFileFilter(FileFilterUtils.suffixFileFilter(".bak")), null);
+
         for (File f : files) {
             try {
                 List<String> lines = FileUtils.readLines(f, "UTF-8");
