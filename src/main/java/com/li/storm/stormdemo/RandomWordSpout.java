@@ -1,4 +1,4 @@
-package com.li.stormdemo;
+package com.li.storm.stormdemo;
 
 import java.util.Map;
 import java.util.Random;
@@ -47,8 +47,6 @@ public class RandomWordSpout extends BaseRichSpout{
 	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
 
 		this.collector = collector;
-		
-		
 	}
 
 	//声明本spout组件发送出去的tuple中的数据的字段名
@@ -56,7 +54,10 @@ public class RandomWordSpout extends BaseRichSpout{
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
 
 		declarer.declare(new Fields("orignname"));
-		
 	}
 
+	@Override
+	public void ack(Object msgId) {
+		super.ack(msgId);
+	}
 }

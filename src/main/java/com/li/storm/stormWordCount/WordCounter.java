@@ -1,4 +1,4 @@
-package com.li.stormWordCount;
+package com.li.storm.stormWordCount;
 
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.BasicOutputCollector;

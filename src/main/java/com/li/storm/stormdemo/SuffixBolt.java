@@ -1,4 +1,4 @@
-package com.li.stormdemo;
+package com.li.storm.stormdemo;
 
 import java.io.FileWriter;
 import java.io.IOException;

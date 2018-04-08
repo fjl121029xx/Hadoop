@@ -1,4 +1,4 @@
-package com.li.stormdemo;
+package com.li.storm.stormdemo;
 
 import backtype.storm.Config;
 import backtype.storm.StormSubmitter;

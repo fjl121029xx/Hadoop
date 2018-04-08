@@ -1,4 +1,4 @@
-package com.li.stormWordCount;
+package com.li.storm.stormWordCount;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
