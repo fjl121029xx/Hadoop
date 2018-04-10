@@ -1,5 +1,5 @@
 
-SN定期合并fsimage和editlog日志，将edits日志文件大小控制在一个限度下
+Secondary Namenode定期合并fsimage和editlog日志，将edits日志文件大小控制在一个限度下
 
 Secondary namenode处理流程
 1、namenode 响应 Secondary namenode请求,将edit log推送给Secondary namenode,开始重新写一个新的edit log
