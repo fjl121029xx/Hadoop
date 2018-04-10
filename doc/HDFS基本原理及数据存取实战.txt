@@ -1,0 +1,19 @@
+https://blog.csdn.net/sdksdk0/article/details/51622547
+https://blog.csdn.net/kezhong_wxl/article/details/76573901
+http://developer.51cto.com/art/201603/507440.htm
+https://my.oschina.net/shiw019/blog/92771
+
+【Hadoop】HDFS的运行原理
+https://www.cnblogs.com/laov/p/3434917.html
+
+HDFS 原理、架构与特性介绍
+http://www.open-open.com/lib/view/open1376228205209.html
+
+Namenode HA原理详解（脑裂）
+https://blog.csdn.net/u014774781/article/details/51940301
+
+hdfs基本原理:
+    1,分布式的文件系统,它所管理的文件是被切块存储在若干台datanode服务器上
+    2,hdfs提供了一个统一的目录树来定位hdfs中的文件,客户端访问文件时只需要指定目录树的路径,不用关心文件的具体物理位置
+    3,每一个文件的每一个切块,在hdfs集群中都可以保存多个备份
+    4,hdfs中有一个关键进程:namenode,他维护了一个hdfs的目录树及hdfs目录结构与文件真实存储位置的映射关系,而datanode服务进程专门负责接收与管理文件块

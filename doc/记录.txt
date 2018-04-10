@@ -1,2 +1,5 @@
 Hadoop 中利用 mapreduce 读写 mysql 数据
 https://www.cnblogs.com/liquan-anran/p/6257161.html
+
+shuffle的过程分析
+http://www.cnblogs.com/ahu-lichang/p/6665242.html
