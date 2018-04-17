@@ -15,6 +15,9 @@ import backtype.storm.topology.TopologyBuilder;
 /**
  * Apache Storm
  * https://www.w3cschool.cn/apache_storm/apache_storm_core_concepts.html
+ *
+ * 1.1 Storm集群架构
+ * http://www.tianshouzhi.com/api/tutorials/storm/51
  */
 public class TopoMain {
 
