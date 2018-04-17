@@ -16,13 +16,13 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 
 集群规划：
 	主机名		IP				安装的软件					运行的进程
-	weekend01	192.168.1.201	jdk、hadoop					NameNode、DFSZKFailoverController(zkfc)
-	weekend02	192.168.1.202	jdk、hadoop					NameNode、DFSZKFailoverController(zkfc)
-	weekend03	192.168.1.203	jdk、hadoop					ResourceManager
-	weekend04	192.168.1.204	jdk、hadoop					ResourceManager
-	weekend05	192.168.1.205	jdk、hadoop、zookeeper		DataNode、NodeManager、JournalNode、QuorumPeerMain
-	weekend06	192.168.1.206	jdk、hadoop、zookeeper		DataNode、NodeManager、JournalNode、QuorumPeerMain
-	weekend07	192.168.1.207	jdk、hadoop、zookeeper		DataNode、NodeManager、JournalNode、QuorumPeerMain
+	HA1     	192.168.233.146	jdk、hadoop					NameNode、DFSZKFailoverController(zkfc)
+	HA2     	192.168.233.143	jdk、hadoop					NameNode、DFSZKFailoverController(zkfc)
+	HA3     	192.168.233.144	jdk、hadoop					ResourceManager
+	HA4	        192.168.233.145	jdk、hadoop					ResourceManager
+	ZK1 	    192.168.233.140	jdk、hadoop、zookeeper		DataNode、NodeManager、JournalNode、QuorumPeerMain
+	ZK2	        192.168.233.141	jdk、hadoop、zookeeper		DataNode、NodeManager、JournalNode、QuorumPeerMain
+	ZK3	        192.168.233.142	jdk、hadoop、zookeeper		DataNode、NodeManager、JournalNode、QuorumPeerMain
 	
 说明：
 	1.在hadoop2.0中通常由两个NameNode组成，一个处于active状态，另一个处于standby状态。Active NameNode对外提供服务，而Standby NameNode则不对外提供服务，仅同步active namenode的状态，以便能够在它失败时快速进行切换。
@@ -226,16 +226,16 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 
 			2.2.7配置免密码登陆
 				#首先要配置weekend01到weekend02、weekend03、weekend04、weekend05、weekend06、weekend07的免密码登陆
-				#在weekend01上生产一对钥匙
+				#在HA1上生产一对钥匙
 				ssh-keygen -t rsa
 				#将公钥拷贝到其他节点，包括自己
-				ssh-coyp-id weekend01
-				ssh-coyp-id weekend02
-				ssh-coyp-id weekend03
-				ssh-coyp-id weekend04
-				ssh-coyp-id weekend05
-				ssh-coyp-id weekend06
-				ssh-coyp-id weekend07
+				ssh-coyp-id HA1
+				ssh-coyp-id HA2
+				ssh-coyp-id HA3
+				ssh-coyp-id HA4
+				ssh-coyp-id ZK1
+				ssh-coyp-id ZK2
+				ssh-coyp-id ZK3
 				#配置weekend03到weekend04、weekend05、weekend06、weekend07的免密码登陆
 				#在weekend03上生产一对钥匙
 				ssh-keygen -t rsa
