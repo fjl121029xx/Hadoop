@@ -9,3 +9,55 @@ https://blog.csdn.net/suifeng3051/article/details/48053965
 
 Kafka中发布订阅的对象是topic。我们可以为每类数据创建一个topic，把向topic发布消息的客户端成为producer，从topic订阅消息的客户端称为consumer。
 Producers和consumers可以同时从多个topic读写数据。一个kafka集群由一个或多个broker服务器组成，它负责持久化和备份具体的kafka消息。
+
+kafka设计思想
+    kafka broker leaderd的选举 : kafka broker controller，kafka broker follower(这个过程叫controller在Zookeeper注册Watch)。监听，消失
+    Consumergroup : consumer，partition中的message，顺序读取
+    Consumer Rebalance的触发条件
+    Consumer : 处理，offset，delivery gurarantee，Best Practice
+    ！Delivery Mode ： offsite信息，batch发送message，Consumer端，kakfa处理message是没有锁操作的
+    Topic & Partition : Topic，load balance，partition，子queue ，物理结构上，add a new partition
+    Partition Replica
+    Partition leader与follower
+    消息投递可靠性 : broker上的消息会持久化到磁盘上
+    Partition ack
+    message状态
+    message持久化 : 顺序写入
+    message有效期
+    Produer ：partition ack
+    Kafka高吞吐量 : 读写，o(1)的时间复杂度
+    Kafka delivery guarantee(message传送保证) : At most once ,At least once ,Exactly once
+    批量发送
+    push-and-pull
+    Kafka集群中broker之间的关系
+    负载均衡方面
+    同步异步
+    分区机制partition
+    离线数据装载
+    实时数据与离线数据
+    插件支持
+    解耦
+    冗余
+    扩展性
+    峰值
+    可恢复性
+    顺序保证性
+    缓冲
+    异步通信
+Kafka部分名词
+    Broker
+    Topic
+    Partition
+    Segment
+    Producer
+    Consumer
+    Consumer Group
+kafka一些原理概念
+    持久化
+    性能
+    负载均衡
+    Topic模型
+    消息传输一致
+    副本
+    log
+    分布式
