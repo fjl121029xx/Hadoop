@@ -6,3 +6,6 @@ http://www.cnblogs.com/ahu-lichang/p/6665242.html
 
 Hadoop 2.6 MapReduce运行原理详解
 https://blog.csdn.net/u011007180/article/details/52434382
+
+Hadoop学习笔记：MapReduce框架详解
+http://blog.jobbole.com/84089/
