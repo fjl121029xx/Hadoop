@@ -12,6 +12,9 @@ http://www.open-open.com/lib/view/open1376228205209.html
 Namenode HA原理详解（脑裂）
 https://blog.csdn.net/u014774781/article/details/51940301
 
+ HDFS小文件问题解决方案与启发实践
+https://blog.csdn.net/androidlushangderen/article/details/54176511
+
 hdfs基本原理:
     1,分布式的文件系统,它所管理的文件是被切块存储在若干台datanode服务器上
     2,hdfs提供了一个统一的目录树来定位hdfs中的文件,客户端访问文件时只需要指定目录树的路径,不用关心文件的具体物理位置
