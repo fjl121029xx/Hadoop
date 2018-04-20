@@ -15,6 +15,7 @@ public class ProducerDemo {
         props.put("zk.connect", "192.168.233.137:2181,192.168.233.138:2181,192.168.233.139:2181");
         props.put("metadata.broker.list", "192.168.233.137:9092,192.168.233.138:9092,192.168.233.139:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
+        props.put("num.partitions","4");
         ProducerConfig config = new ProducerConfig(props);
         Producer<String, String> producer = new Producer<String, String>(config);
 
