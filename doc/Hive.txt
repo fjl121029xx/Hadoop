@@ -1,2 +1,8 @@
 Hive是基于hadoop的一个数据仓库工具，可以将结构化的数据文件映射为一张数据库表，并提供完整的sql查询功能，可以将sql语句转换为mapreduce任务进行运行。
 Hive体系结构
+
+Hive-UDAF开发指南
+http://dacoolbaby.iteye.com/blog/1827721
+
+Hive之UDF,UDAF自定义函数
+https://blog.csdn.net/kaaosidao/article/details/78199029
