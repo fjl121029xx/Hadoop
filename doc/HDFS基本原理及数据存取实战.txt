@@ -1,7 +1,15 @@
+HDFS基本原理及数据存取实战
 https://blog.csdn.net/sdksdk0/article/details/51622547
+
+深入理解HDFS的架构和原理
 https://blog.csdn.net/kezhong_wxl/article/details/76573901
+
 http://developer.51cto.com/art/201603/507440.htm
+
 https://my.oschina.net/shiw019/blog/92771
+
+官方HDFS架构设计原理说明(上)
+https://blog.csdn.net/gangchengzhong/article/details/71403321
 
 【Hadoop】HDFS的运行原理
 https://www.cnblogs.com/laov/p/3434917.html
