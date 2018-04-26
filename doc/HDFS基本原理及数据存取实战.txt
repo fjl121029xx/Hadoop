@@ -20,6 +20,9 @@ http://www.open-open.com/lib/view/open1376228205209.html
 Namenode HA原理详解（脑裂）
 https://blog.csdn.net/u014774781/article/details/51940301
 
+Hive探秘--文件格式与压缩格式
+https://www.cnblogs.com/loveling-0239/p/7382805.html
+
  HDFS小文件问题解决方案与启发实践
 https://blog.csdn.net/androidlushangderen/article/details/54176511
 
