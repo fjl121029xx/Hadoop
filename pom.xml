@@ -55,6 +55,13 @@
             <artifactId>hadoop-mapreduce-client-common</artifactId>
             <version>2.6.5</version>
         </dependency>
+        <!-- mrunit -->
+        <dependency>
+            <groupId>org.apache.mrunit</groupId>
+            <artifactId>mrunit</artifactId>
+            <version>1.1.0</version>
+            <classifier>hadoop2</classifier>
+        </dependency>
         <!-- hive udf -->
         <dependency>
             <groupId>org.apache.hive</groupId>

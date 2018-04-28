@@ -4,6 +4,8 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mrunit.mapreduce.MapDriver;
+import org.junit.Test;
 
 import java.io.IOException;
 
@@ -40,5 +42,21 @@ public class MaxTemperatureMapper extends Mapper<LongWritable, Text, Text, IntWr
     @Override
     protected void cleanup(Context context) throws IOException, InterruptedException {
         super.cleanup(context);
+    }
+
+    @Test
+    public void processValidRecord() {
+
+        Text value = new Text("0207010010999992010010100004+70933-008667FM-12+0009ENJA V0202601N003010090019N0200001N1-00611-00811102721ADDAA106000091AY121061AY211061GF105991051081004501001001MA1999999102601MD1510001+9999MW1021REMSYN088AAXX  01001 01001 11470 52603 11061 21081 30260 40272 55000 60001 70221 85800 333 91105;EQDQ01  00002PRCP06");
+
+        try {
+            new MapDriver<LongWritable,Text,Text,IntWritable>()
+                    .withMapper(new MaxTemperatureMapper())
+                    .withInput(new LongWritable(0),value)
+                    .withOutput(new Text("1950"),new IntWritable(-11))
+                    .runTest();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
