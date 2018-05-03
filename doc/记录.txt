@@ -9,3 +9,7 @@ https://blog.csdn.net/u011007180/article/details/52434382
 
 Hadoop学习笔记：MapReduce框架详解
 http://blog.jobbole.com/84089/
+
+
+MapReduce作业(job)是客户端需要执行的一个工作单元：它包括输入数据、MapReduce程序和配置信息
+Hadoop在存储有输入数据(HDFS中的数据)的节点上运行map任务，可以获得最佳性能，因为它无需使用宝贵的集群贷款资源。

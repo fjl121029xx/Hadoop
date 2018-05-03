@@ -37,6 +37,7 @@ public class WCRunner {
         FileOutputFormat.setOutputPath(wcjob, new Path("d:/wordcount/out2/"));
 
         //将job提交给集群运行
+        //提交作业并等待执行完成
         wcjob.waitForCompletion(true);
     }
 }

@@ -37,27 +37,27 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 			cd /weekend/zookeeper-3.4.5/conf/
 			cp zoo_sample.cfg zoo.cfg
 			vim zoo.cfg
-			修改：dataDir=/weekend/zookeeper-3.4.5/tmp
+			修改：dataDir=/usr/local/zookeeper-3.4.5/tmp
 			在最后添加：
-			server.1=weekend05:2888:3888
-			server.2=weekend06:2888:3888
-			server.3=weekend07:2888:3888
+			server.1=ZK1:2888:3888
+			server.2=ZK2:2888:3888
+			server.3=ZK3:2888:3888
 			保存退出
 			然后创建一个tmp文件夹
 			mkdir /weekend/zookeeper-3.4.5/tmp
 			再创建一个空文件
 			touch /weekend/zookeeper-3.4.5/tmp/myid
 			最后向该文件写入ID
-			echo 1 > /weekend/zookeeper-3.4.5/tmp/myid
+			echo 1 > /usr/local/zookeeper-3.4.5/tmp/myid
 		1.3将配置好的zookeeper拷贝到其他节点(首先分别在weekend06、weekend07根目录下创建一个weekend目录：mkdir /weekend)
-			scp -r /weekend/zookeeper-3.4.5/ weekend06:/weekend/
-			scp -r /weekend/zookeeper-3.4.5/ weekend07:/weekend/
+			scp -r /usr/local/zookeeper-3.4.5/ ZK2:/usr/local/
+			scp -r /usr/local/zookeeper-3.4.5/ ZK3:/usr/local/
 			
-			注意：修改weekend06、weekend07对应/weekend/zookeeper-3.4.5/tmp/myid内容
+			注意：修改ZK2、ZK3对应/usr/local/zookeeper-3.4.5/tmp/myid内容
 			weekend06：
-				echo 2 > /weekend/zookeeper-3.4.5/tmp/myid
+				echo 2 > /usr/local/zookeeper-3.4.5/tmp/myid
 			weekend07：
-				echo 3 > /weekend/zookeeper-3.4.5/tmp/myid
+				echo 3 > /usr/local/zookeeper-3.4.5/tmp/myid
 	
 	2.安装配置hadoop集群（在weekend01上操作）
 		2.1解压
@@ -91,7 +91,7 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 					<!-- 指定zookeeper地址 -->
 					<property>
 						<name>ha.zookeeper.quorum</name>
-						<value>192.168.233.140:2181,192.168.233.141:2181,192.168.233.142:2181</value>
+						<value>ZK1:2181,ZK2:2181,ZK3:2181</value>
 					</property>
 				</configuration>
 				
@@ -110,27 +110,27 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 					<!-- nn1的RPC通信地址 -->
 					<property>
 						<name>dfs.namenode.rpc-address.ns1.nn1</name>
-						<value>192.168.233.146:9000</value>
+						<value>HA1:9000</value>
 					</property>
 					<!-- nn1的http通信地址 -->
 					<property>
 						<name>dfs.namenode.http-address.ns1.nn1</name>
-						<value>192.168.233.146:50070</value>
+						<value>HA1:50070</value>
 					</property>
 					<!-- nn2的RPC通信地址 -->
 					<property>
 						<name>dfs.namenode.rpc-address.ns1.nn2</name>
-						<value>192.168.233.143:9000</value>
+						<value>HA2:9000</value>
 					</property>
 					<!-- nn2的http通信地址 -->
 					<property>
 						<name>dfs.namenode.http-address.ns1.nn2</name>
-						<value>192.168.233.143:50070</value>
+						<value>HA2:50070</value>
 					</property>
 					<!-- 指定NameNode的元数据在JournalNode上的存放位置 -->
 					<property>
 						<name>dfs.namenode.shared.edits.dir</name>
-						<value>qjournal://192.168.233.140:8485;192.168.233.141:8485;192.168.233.142:8485/ns1</value>
+						<value>qjournal://ZK1:8485;ZK2:8485;ZK3:8485/ns1</value>
 					</property>
 					<!-- 指定JournalNode在本地磁盘存放数据的位置 -->
 					<property>
@@ -201,16 +201,16 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 						<!-- 分别指定RM的地址 -->
 						<property>
 						   <name>yarn.resourcemanager.hostname.rm1</name>
-						   <value>192.168.233.144</value>
+						   <value>HA3</value>
 						</property>
 						<property>
 						   <name>yarn.resourcemanager.hostname.rm2</name>
-						   <value>192.168.233.145</value>
+						   <value>HA4</value>
 						</property>
 						<!-- 指定zk集群地址 -->
 						<property>
 						   <name>yarn.resourcemanager.zk-address</name>
-						   <value>192.168.233.140:2181,192.168.233.141:2181,192.168.233.142:2181</value>
+						   <value>ZK1:2181,ZK2:2181,ZK3:2181</value>
 						</property>
 						<property>
 						   <name>yarn.nodemanager.aux-services</name>

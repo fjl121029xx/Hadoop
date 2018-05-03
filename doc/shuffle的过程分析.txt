@@ -20,3 +20,12 @@ Reduce端：
     3、reducer
     最后将合并后的结果作为输入传入reduce任务中。（注意：当Reducer的输入文件确定后，整个Shuffle操作才最终结束。之后就是Reducer的执行了，最后Reducer会把
 结果存到HDFS上。）
+
+
+
+
+
+
+7.3 Shuffle和排序
+
+    MapReduce保证每个reducer的输入都是按键排序的。
