@@ -141,6 +141,17 @@
             <version>2.0.0</version>
         </dependency>
 
+        <!-- flume 采集日志-->
+        <dependency>
+            <groupId>org.apache.flume.flume-ng-clients</groupId>
+            <artifactId>flume-ng-log4jappender</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flume.flume-ng-clients</groupId>
+            <artifactId>flume-ng-log4jappender</artifactId>
+            <version>1.7.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>hadoop</finalName>

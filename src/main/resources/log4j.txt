@@ -1,37 +1,37 @@
-#ÈÕÖ¾Êä³ö¼¶±ğ
-log4j.rootLogger=debug,stdout,D,E  
+#ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+log4j.rootLogger=debug,stdout,D,E
 
-#ÉèÖÃstdoutµÄÈÕÖ¾Êä³ö¿ØÖÆÌ¨
-log4j.appender.stdout=org.apache.log4j.ConsoleAppender  
-#Êä³öÈÕÖ¾µ½¿ØÖÆÌ¨µÄ·½Ê½£¬Ä¬ÈÏÎªSystem.out
-log4j.appender.stdout.Target = System.out  
-#ÉèÖÃÊ¹ÓÃÁé»î²¼¾Ö
-log4j.appender.stdout.layout=org.apache.log4j.PatternLayout  
-#Áé»î¶¨ÒåÊä³ö¸ñÊ½
-log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} -[%p]  method:[%c (%rms)] - %m%n  
+#ï¿½ï¿½ï¿½ï¿½stdoutï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+#ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½Ä·ï¿½Ê½ï¿½ï¿½Ä¬ï¿½ï¿½ÎªSystem.out
+log4j.appender.stdout.Target = System.out
+#ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½î²¼ï¿½ï¿½
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+#ï¿½ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} -[%p]  method:[%c (%rms)] - %m%n
 
-#Ã¿Ìì²úÉúÒ»¸öÈÕÖ¾ÎÄ¼ş
-log4j.appender.D=org.apache.log4j.DailyRollingFileAppender  
-#ÉèÖÃµÄÊä³öÈÕÖ¾
-log4j.appender.D.File=d:/logs/all/log.txt  
-#ÉèÖÃµÄÈÕÖ¾×î´óÏŞÖÆ
-log4j.appender.D.MaxFileSize=6000KB  
-#×î¶àÖ»±£´æ20¸ö±¸·İÎÄ¼ş
-log4j.appender.D.MaxBackupIndex=20  
-#Êä³öINFO¼¶±ğÒÔÉÏµÄÈÕÖ¾
-og4j.appender.D.Threshold=debug  
-log4j.appender.D.Append = true  
-log4j.appender.D.ImmediateFlush = true  
+#Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½Ä¼ï¿½
+log4j.appender.D=org.apache.log4j.DailyRollingFileAppender
+#ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾
+log4j.appender.D.File=d:/logs/all/log.txt
+#ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+log4j.appender.D.MaxFileSize=6000KB
+#ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½20ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
+log4j.appender.D.MaxBackupIndex=20
+#ï¿½ï¿½ï¿½INFOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½Ö¾
+og4j.appender.D.Threshold=debug
+log4j.appender.D.Append = true
+log4j.appender.D.ImmediateFlush = true
 #log4j.appender.D.DatePattern ='.'yyyy-MM-dd
-#ÉèÖÃÊ¹ÓÃÁé»î²¼¾Ö
-log4j.appender.D.layout=org.apache.log4j.PatternLayout  
-#Áé»î¶¨ÒåÊä³ö¸ñÊ½
-log4j.appender.D.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} -[%p]  method:[%l (%rms)] - %m%n  
+#ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½î²¼ï¿½ï¿½
+log4j.appender.D.layout=org.apache.log4j.PatternLayout
+#ï¿½ï¿½î¶¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+log4j.appender.D.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} -[%p]  method:[%l (%rms)] - %m%n
 
-log4j.appender.E = org.apache.log4j.DailyRollingFileAppender  
-log4j.appender.E.File =d:/error/error.txt  
-log4j.appender.E.Append = true  
-log4j.appender.E.Threshold = ERROR  
+log4j.appender.E = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.E.File =d:/error/error.txt
+log4j.appender.E.Append = true
+log4j.appender.E.Threshold = ERROR
 #log4j.appender.E.DatePattern = '_'yyyyMMdd'.log'
-log4j.appender.E.layout = org.apache.log4j.PatternLayout  
-log4j.appender.E.layout.ConversionPattern = %d{yyyy-MM-dd HH:mm:ss,SSS} -[%p]  method:[%l (%rms)] - %m%n  
+log4j.appender.E.layout = org.apache.log4j.PatternLayout
+log4j.appender.E.layout.ConversionPattern = %d{yyyy-MM-dd HH:mm:ss,SSS} -[%p]  method:[%l (%rms)] - %m%n

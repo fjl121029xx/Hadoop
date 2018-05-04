@@ -294,5 +294,8 @@
     <orderEntry type="library" name="Maven: org.apache.twill:twill-discovery-core:0.6.0-incubating" level="project" />
     <orderEntry type="library" name="Maven: org.apache.twill:twill-zookeeper:0.6.0-incubating" level="project" />
     <orderEntry type="library" name="Maven: co.cask.tephra:tephra-hbase-compat-1.0:0.6.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.flume.flume-ng-clients:flume-ng-log4jappender:1.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.flume:flume-ng-sdk:1.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.avro:avro-ipc:1.7.4" level="project" />
   </component>
 </module>
