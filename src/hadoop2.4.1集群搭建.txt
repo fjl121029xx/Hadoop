@@ -59,7 +59,7 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 			weekend07：
 				echo 3 > /usr/local/zookeeper-3.4.5/tmp/myid
 	
-	2.安装配置hadoop集群（在weekend01上操作）
+	2.安装配置hadoop集群（在HA1上操作）
 		2.1解压
 			tar -zxvf hadoop-2.4.1.tar.gz -C /weekend/
 		2.2配置HDFS（hadoop2.0所有的配置文件都在$HADOOP_HOME/etc/hadoop目录下）
@@ -220,12 +220,12 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 			
 				
 			2.2.6修改slaves(slaves是指定子节点的位置，因为要在weekend01上启动HDFS、在weekend03启动yarn，所以weekend01上的slaves文件指定的是datanode的位置，weekend03上的slaves文件指定的是nodemanager的位置)
-				192.168.233.140
-				192.168.233.141
-				192.168.233.142
+				ZK1
+				ZK2
+				ZK3
 
 			2.2.7配置免密码登陆
-				#首先要配置weekend01到weekend02、weekend03、weekend04、weekend05、weekend06、weekend07的免密码登陆
+				#首先要配置HA1到HA2、HA3、HA4、ZK1、ZK2、ZK3的免密码登陆
 				#在HA1上生产一对钥匙
 				ssh-keygen -t rsa
 				#将公钥拷贝到其他节点，包括自己
@@ -236,52 +236,52 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 				ssh-coyp-id ZK1
 				ssh-coyp-id ZK2
 				ssh-coyp-id ZK3
-				#配置weekend03到weekend04、weekend05、weekend06、weekend07的免密码登陆
-				#在weekend03上生产一对钥匙
+				#配置HA3到HA4、ZK1、ZK2、ZK3的免密码登陆
+				#在HA3上生产一对钥匙
 				ssh-keygen -t rsa
 				#将公钥拷贝到其他节点
-				ssh-coyp-id weekend04
-				ssh-coyp-id weekend05
-				ssh-coyp-id weekend06
-				ssh-coyp-id weekend07
+				ssh-coyp-id HA4
+				ssh-coyp-id ZK1
+				ssh-coyp-id ZK2
+				ssh-coyp-id ZK3
 				#注意：两个namenode之间要配置ssh免密码登陆，别忘了配置weekend02到weekend01的免登陆
-				在weekend02上生产一对钥匙
+				在HA2上生产一对钥匙
 				ssh-keygen -t rsa
-				ssh-coyp-id -i weekend01				
+				ssh-coyp-id -i HA1
 		
 		2.4将配置好的hadoop拷贝到其他节点
-			scp -r /weekend/ weekend02:/
-			scp -r /weekend/ weekend03:/
-			scp -r /weekend/hadoop-2.4.1/ hadoop@weekend04:/weekend/
-			scp -r /weekend/hadoop-2.4.1/ hadoop@weekend05:/weekend/
-			scp -r /weekend/hadoop-2.4.1/ hadoop@weekend06:/weekend/
-			scp -r /weekend/hadoop-2.4.1/ hadoop@weekend07:/weekend/
+			scp -r /weekend/hadoop-2.4.1/  hadoop@HA2:/weekend/
+			scp -r /weekend/hadoop-2.4.1/  hadoop@HA3:/weekend/
+			scp -r /weekend/hadoop-2.4.1/  hadoop@HA4:/weekend/
+			scp -r /weekend/hadoop-2.4.1/  hadoop@ZK1:/weekend/
+			scp -r /weekend/hadoop-2.4.1/  hadoop@ZK2:/weekend/
+			scp -r /weekend/hadoop-2.4.1/  hadoop@ZK3:/weekend/
 		###注意：严格按照下面的步骤
-		2.5启动zookeeper集群（分别在weekend05、weekend06、tcast07上启动zk）
+		2.5启动zookeeper集群（分别在ZK1、ZK2、ZK3上启动zk）
 			cd /weekend/zookeeper-3.4.5/bin/
 			./zkServer.sh start
 			#查看状态：一个leader，两个follower
 			./zkServer.sh status
 			
-		2.6启动journalnode（分别在在weekend05、weekend06、tcast07上执行）
+		2.6启动journalnode（分别在在ZK1、ZK2、ZK3上执行）
 			cd /weekend/hadoop-2.4.1
 			sbin/hadoop-daemon.sh start journalnode
-			#运行jps命令检验，weekend05、weekend06、weekend07上多了JournalNode进程
+			#运行jps命令检验，ZK1、ZK2、ZK3上多了JournalNode进程
 		
 		2.7格式化HDFS
 			#在weekend01上执行命令:
 			hdfs namenode -format
 			#格式化后会在根据core-site.xml中的hadoop.tmp.dir配置生成个文件，这里我配置的是/weekend/hadoop-2.4.1/tmp，然后将/weekend/hadoop-2.4.1/tmp拷贝到weekend02的/weekend/hadoop-2.4.1/下。
-			scp -r tmp/ weekend02:/home/hadoop/app/hadoop-2.4.1/
+			scp -r tmp/ HA2:/home/hadoop/app/hadoop-2.4.1/
 			##也可以这样，建议hdfs namenode -bootstrapStandby
 		
-		2.8格式化ZKFC(在weekend01上执行即可)
+		2.8格式化ZKFC(在HA1上执行即可)
 			hdfs zkfc -formatZK
 		
-		2.9启动HDFS(在weekend01上执行)
+		2.9启动HDFS(在HA1上执行)
 			sbin/start-dfs.sh
 
-		2.10启动YARN(#####注意#####：是在weekend03上执行start-yarn.sh，把namenode和resourcemanager分开是因为性能问题，因为他们都要占用大量资源，所以把他们分开了，他们分开了就要分别在不同的机器上启动)
+		2.10启动YARN(#####注意#####：是在HA3上执行start-yarn.sh，把namenode和resourcemanager分开是因为性能问题，因为他们都要占用大量资源，所以把他们分开了，他们分开了就要分别在不同的机器上启动)
 			sbin/start-yarn.sh
 
 

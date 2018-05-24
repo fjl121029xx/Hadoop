@@ -6,3 +6,12 @@ http://dacoolbaby.iteye.com/blog/1827721
 
 Hive之UDF,UDAF自定义函数
 https://blog.csdn.net/kaaosidao/article/details/78199029
+
+
+hive的表逻辑上由存储的数据和描述表中数据形式的相关元数据组成。
+
+分区  partition by()
+桶   cluster by () into 4 buckets
+
+对于map端连接的情况，首先两个表以相同方式划分桶，处理左边表内某个桶的mapper知道右边表内相匹配的行在对应的桶内，这样，mapper
+只需要获取那个桶即可进行连接。
