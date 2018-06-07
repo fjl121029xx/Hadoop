@@ -12,6 +12,9 @@ import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectIn
 import org.apache.hadoop.hive.serde2.typeinfo.TypeInfo;
 import org.apache.hadoop.hive.serde2.io.DoubleWritable;
 
+/**
+ * https://blog.csdn.net/kent7306/article/details/50110067
+ */
 public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
     @Override
     public GenericUDAFEvaluator getEvaluator(TypeInfo[] parameters)
@@ -27,12 +30,22 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
         private DoubleWritable result;
 
         @Override
+        // 确定各个阶段输入输出参数的数据格式ObjectInspectors
+        /**
+         * PARTIAL1, map阶段的map阶段
+         * PARTIAL2, map端的Combiner阶段
+         * FINAL, mapreduce的reduce阶段
+         * COMPLETE mapreduce只有map，没有reduce
+         */
+        /**
+         * 确定各个阶段输入输出参数的数据格式ObjectInspectorsj
+         */
         public ObjectInspector init(Mode m, ObjectInspector[] parameters)
                 throws HiveException {
             super.init(m, parameters);
 
             //init input //必须得有
-            if (m == Mode.PARTIAL1 || m == Mode.COMPLETE){
+            if (m == Mode.PARTIAL1 || m == Mode.COMPLETE) {
                 inputOI = (PrimitiveObjectInspector) parameters[0];
                 inputOI2 = (PrimitiveObjectInspector) parameters[1];
 //              result = new DoubleWritable(0);
@@ -42,14 +55,16 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
                 outputOI = (PrimitiveObjectInspector) parameters[0];
                 result = new DoubleWritable(0);
                 return PrimitiveObjectInspectorFactory.writableDoubleObjectInspector;
-            }else{
+            } else {
                 result = new DoubleWritable(0);
                 return PrimitiveObjectInspectorFactory.writableDoubleObjectInspector;
             }
 
         }
 
-        /** class for storing count value. */
+        /**
+         * class for storing count value.
+         */
         static class SumAgg implements AggregationBuffer {
             boolean empty;
             double value;
@@ -58,6 +73,9 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
         @Override
         //创建新的聚合计算的需要的内存，用来存储mapper,combiner,reducer运算过程中的相加总和。
         //使用buffer对象前，先进行内存的清空——reset
+        /**
+         * 保存数据聚集结果的类
+         */
         public AggregationBuffer getNewAggregationBuffer() throws HiveException {
             SumAgg buffer = new SumAgg();
             reset(buffer);
@@ -67,14 +85,25 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
         @Override
         //重置为0
         //mapreduce支持mapper和reducer的重用，所以为了兼容，也需要做内存的重用。
+        /**
+         * 重置聚集结果
+         */
         public void reset(AggregationBuffer agg) throws HiveException {
             ((SumAgg) agg).value = 0.0;
             ((SumAgg) agg).empty = true;
         }
 
         private boolean warned = false;
+
         //迭代
         //只要把保存当前和的对象agg，再加上输入的参数，就可以了。
+
+        /**
+         * map阶段，迭代处理输入sql传过来的列数据
+         * @param agg
+         * @param parameters
+         * @throws HiveException
+         */
         @Override
         public void iterate(AggregationBuffer agg, Object[] parameters)
                 throws HiveException {
@@ -84,7 +113,7 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
             }
             try {
                 double flag = PrimitiveObjectInspectorUtils.getDouble(parameters[1], inputOI2);
-                if(flag > 1.0)   //参数条件
+                if (flag > 1.0)   //参数条件
                     merge(agg, parameters[0]);   //这里将迭代数据放入combiner进行合并
             } catch (NumberFormatException e) {
                 if (!warned) {
@@ -118,7 +147,7 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
         }
 
         @Override
-        public Object terminate(AggregationBuffer agg){
+        public Object terminate(AggregationBuffer agg) {
             SumAgg myagg = (SumAgg) agg;
             result.set(myagg.value);
             return result;
