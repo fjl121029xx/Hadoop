@@ -70,24 +70,28 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
             double value;
         }
 
+        /**
+         * 保存数据聚集结果的类
+         * @return
+         * @throws HiveException
+         */
         @Override
         //创建新的聚合计算的需要的内存，用来存储mapper,combiner,reducer运算过程中的相加总和。
         //使用buffer对象前，先进行内存的清空——reset
-        /**
-         * 保存数据聚集结果的类
-         */
         public AggregationBuffer getNewAggregationBuffer() throws HiveException {
             SumAgg buffer = new SumAgg();
             reset(buffer);
             return buffer;
         }
 
+        /**
+         * 重置聚集结果
+         * @param agg
+         * @throws HiveException
+         */
         @Override
         //重置为0
         //mapreduce支持mapper和reducer的重用，所以为了兼容，也需要做内存的重用。
-        /**
-         * 重置聚集结果
-         */
         public void reset(AggregationBuffer agg) throws HiveException {
             ((SumAgg) agg).value = 0.0;
             ((SumAgg) agg).empty = true;
@@ -123,6 +127,11 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
 
         }
 
+        /**
+         * combiner合并map返回的结果，还有reducer合并mapper或combiner返回的结果。
+         * @param agg
+         * @param partial
+         */
         @Override
         //这里的操作就是具体的聚合操作。
         public void merge(AggregationBuffer agg, Object partial) {
@@ -140,12 +149,21 @@ public class GenericUdafMemberLevel2 extends AbstractGenericUDAFResolver {
             }
         }
 
-
+        /**
+         * // map与combiner结束返回结果，得到部分数据聚集结果
+         * @param agg
+         * @return
+         */
         @Override
         public Object terminatePartial(AggregationBuffer agg) {
             return terminate(agg);
         }
 
+        /**
+         * reducer阶段，输出最终结果
+         * @param agg
+         * @return
+         */
         @Override
         public Object terminate(AggregationBuffer agg) {
             SumAgg myagg = (SumAgg) agg;
