@@ -17,7 +17,7 @@
 <!-- Site specific YARN configuration properties -->
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>hadoop</value> 
+    <value>192.168.65.130</value>
   </property>
   <property>
     <name>yarn.nodemanager.aux-services</name>

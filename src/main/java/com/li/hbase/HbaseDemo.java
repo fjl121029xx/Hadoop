@@ -103,10 +103,13 @@ public class HbaseDemo {
 
 
     public static void main(String[] args) throws Exception {
+
         Configuration conf = HBaseConfiguration.create();
         conf.set("hbase.zookeeper.quorum", "192.168.65.130");
-        HBaseAdmin admin = new HBaseAdmin(conf);
+        conf.set("hbase.zookeeper.property.clientPort", "2181");
+        conf.set("hbase.rootdir", "hdfs://192.168.65.130:9000/hbase");
 
+        HBaseAdmin admin = new HBaseAdmin(conf);
         HTableDescriptor td = new HTableDescriptor("account");
         HColumnDescriptor cd = new HColumnDescriptor("info");
 
