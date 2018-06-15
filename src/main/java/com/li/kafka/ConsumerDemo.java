@@ -12,37 +12,36 @@ import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 
 public class ConsumerDemo {
-	private static final String topic = "mysons";
-	private static final Integer threads = 1;
+    private static final String topic = "wordcount";
+    private static final Integer threads = 1;
 
-	public static void main(String[] args) {
-		
-		Properties props = new Properties();
-		props.put("zookeeper.connect", "weekend01:2181,weekend02:2181,weekend03:2181");
-		props.put("group.id", "1111");
-		props.put("auto.offset.reset", "smallest");
+    public static void main(String[] args) {
 
-		ConsumerConfig config = new ConsumerConfig(props);
-		ConsumerConnector consumer =Consumer.createJavaConsumerConnector(config);
-		Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
-		topicCountMap.put(topic, 1);
-		topicCountMap.put("mygirls", 1);
-		topicCountMap.put("myboys", 1);
-		Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
-		List<KafkaStream<byte[], byte[]>> streams = consumerMap.get("mygirls");
-		
-		for(final KafkaStream<byte[], byte[]> kafkaStream : streams){
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					for(MessageAndMetadata<byte[], byte[]> mm : kafkaStream){
-						String msg = new String(mm.message());
-						System.out.println(msg);
-					}
-				}
-			
-			}).start();
-		
-		}
-	}
+        Properties props = new Properties();
+        props.put("zookeeper.connect", "192.168.65.129:2181");
+        props.put("group.id", "group1");
+        props.put("auto.offset.reset", "smallest");
+
+        ConsumerConfig config = new ConsumerConfig(props);
+        ConsumerConnector consumer = Consumer.createJavaConsumerConnector(config);
+        Map<String, Integer> topicCountMap = new HashMap<>();
+        topicCountMap.put(topic, 1);
+
+        Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
+        List<KafkaStream<byte[], byte[]>> streams = consumerMap.get("wordcount");
+
+        for (final KafkaStream<byte[], byte[]> kafkaStream : streams) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (MessageAndMetadata<byte[], byte[]> mm : kafkaStream) {
+                        String msg = new String(mm.message());
+                        System.out.println(msg);
+                    }
+                }
+
+            }).start();
+
+        }
+    }
 }
