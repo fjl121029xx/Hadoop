@@ -1,0 +1,14 @@
+sqoop export --connect jdbc:mysql://hbase01:3306/sca --username sca --password 123456 \
+--table sca_rule \
+--export-dir /sca/topkurls \
+--columns url \
+--input-fields-terminated-by '\t'
+
+
+
+
+sqoop export --connect jdbc:mysql://weekend01:3306/urlrule --username root --password root \
+--table urlinfo \
+--export-dir /llyy/topkurl3/ \
+--columns url \
+--input-fields-terminated-by '\t'
