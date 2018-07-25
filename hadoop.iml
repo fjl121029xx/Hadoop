@@ -33,7 +33,7 @@
     <orderEntry type="module-library">
       <library name="Maven: jdk.tools:jdk.tools:1.6">
         <CLASSES>
-          <root url="jar://D:/Program Files (x86)/Java/jdk1.8.0_171/lib/tools.jar!/" />
+          <root url="jar://H:/Program Files/Java/jdk1.8.0_171/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -193,16 +193,14 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:log4j-over-slf4j:1.6.6" level="project" />
     <orderEntry type="library" name="Maven: jline:jline:2.11" level="project" />
     <orderEntry type="library" name="Maven: org.apache.storm:storm-redis:0.10.0" level="project" />
-    <orderEntry type="library" name="Maven: redis.clients:jedis:2.7.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-pool2:2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.kafka:kafka_2.11:0.9.0.1" level="project" />
-    <orderEntry type="library" name="Maven: com.101tec:zkclient:0.7" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.kafka:kafka-clients:0.9.0.1" level="project" />
-    <orderEntry type="library" name="Maven: net.jpountz.lz4:lz4:1.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-xml_2.11:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.11.7" level="project" />
-    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.kafka:kafka_2.11:0.8.2.1" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-xml_2.11:1.0.2" level="project" />
     <orderEntry type="library" name="Maven: net.sf.jopt-simple:jopt-simple:3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.101tec:zkclient:0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.11.5" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.kafka:kafka-clients:0.8.2.1" level="project" />
+    <orderEntry type="library" name="Maven: net.jpountz.lz4:lz4:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.storm:storm-kafka:0.9.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.curator:curator-framework:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.hive:hive-common:2.0.0" level="project" />
@@ -294,8 +292,7 @@
     <orderEntry type="library" name="Maven: org.pentaho:pentaho-aggdesigner-algorithm:5.1.5-jhyde" level="project" />
     <orderEntry type="library" name="Maven: org.apache.calcite:calcite-avatica:1.5.0" level="project" />
     <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.flume.flume-ng-clients:flume-ng-log4jappender:1.7.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.flume:flume-ng-sdk:1.7.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.avro:avro-ipc:1.7.4" level="project" />
+    <orderEntry type="library" name="Maven: redis.clients:jedis:2.9.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-pool2:2.4.2" level="project" />
   </component>
 </module>

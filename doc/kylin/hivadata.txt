@@ -1,0 +1,2 @@
+create table animate2(area String,eventname String,loginYear int,loginMonth int,loginDay int ,loginHour int,loginMinute int,loginTime bigint,subject int,terminal String,userName String) row format delimited fields terminated by ',';
+load data inpath 'hdfs://192.168.100.26:8020/ED_TEST_DATA/data/animate' into table animate2;

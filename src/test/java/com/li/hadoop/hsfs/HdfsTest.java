@@ -61,8 +61,8 @@ public class HdfsTest {
     @Test
     public void download() throws IOException {
 
-        Path src = new Path("hdfs://hadoop:9000/bb/qingshu.txt");
-        Path dst = new Path("d:/qingshu.txt");
+        Path src = new Path("hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/07/05/");
+        Path dst = new Path("h:/qingshu/");
 
         fs.copyToLocalFile(false,src, dst,true);
     }

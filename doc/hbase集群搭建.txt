@@ -29,7 +29,7 @@
         </property>
 	</configuration>
 	
-	vim regionservers
+	vim regionserverscd ..
 	weekend03
 	weekend04
 	weekend05
