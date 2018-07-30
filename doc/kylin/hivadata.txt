@@ -1,2 +1,38 @@
-create table animate2(area String,eventname String,loginYear int,loginMonth int,loginDay int ,loginHour int,loginMinute int,loginTime bigint,subject int,terminal String,userName String) row format delimited fields terminated by ',';
-load data inpath 'hdfs://192.168.100.26:8020/ED_TEST_DATA/data/animate' into table animate2;
+#活跃用户
+create EXTERNAL table animate3(area String,eventname String,loginYear int,loginMonth int,loginDay int ,loginHour int,loginMinute int,subject int,terminal String,userName String) partitioned by (loginTime string) row format delimited fields terminated by ',';
+load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180703/part-00000' into table animate3 partition(loginTime='20180703');
+load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180704/part-00000' into table animate3 partition(loginTime='20180704');
+load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180705/part-00000' into table animate3 partition(loginTime='20180705');
+load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180730/part-00000' into table animate3 partition(loginTime='20180730');
+hive -S -e "load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180730/part-00000' into table animate3 partition(loginTime='20180730')";
+
+
+
+#视频播放
+#6.3.1,1,app_ztk618388060,null,110,120,119,null,null,10010,null,null,0,2018,07,30,17,1749
+#6.3.1,1,app_ztk618388060,null,110,120,119,null,null,10010,null,null,0,2018,07,30,17,1749
+#6.3.1,1,app_ztk618388060,null,110,120,119,null,null,10010,null,null,0,2018,07,30,17,1749
+
+#视频播放hive表
+create EXTERNAL table videoplayrecord1(
+    cv String,
+    terminal int,
+    userName String,
+    rid String,
+    playTime bigint,
+    wholeTime bigint,
+    userPlayTime bigint,
+    roomId String,
+    sessionId String,
+    videoIdWithTeacher String,
+    videoIdWithoutTeacher String,
+    joinCode String,
+    syllabusId String,
+    recordYear int,
+    recordMonth int,
+    recordDay int,
+    recordHour int,
+    recordMinute int)
+partitioned by (loginTime string)
+row format delimited
+fields terminated by ',';
