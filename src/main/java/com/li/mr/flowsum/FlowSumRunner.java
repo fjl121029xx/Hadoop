@@ -18,7 +18,8 @@ import org.apache.hadoop.util.ToolRunner;
 /**
  * 这是job描述和提交类规范写法
  */
-public class FlowSumRunner extends Configured implements Tool {
+public class
+FlowSumRunner extends Configured implements Tool {
     /**
      * Execute the command with the given arguments.
      * 根据用户统计流量

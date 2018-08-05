@@ -14,6 +14,7 @@ public class NcdcRecordParser {
 
         year = record.substring(15, 19);
         String ariTemperatureString;
+        
 
         if (record.charAt(87) == '+') {
             ariTemperatureString = record.substring(88, 92);

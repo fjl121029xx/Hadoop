@@ -22,7 +22,7 @@ Hive只在一个节点上安装即可
 	添加如下内容：
 	<property>
 	  <name>javax.jdo.option.ConnectionURL</name>
-	  <value>jdbc:mysql://hadoop:3306/hive?createDatabaseIfNotExist=true</value>
+	  <value>jdbc:mysql://DevelopServer:3306/hive?createDatabaseIfNotExist=true</value>
 	  <description>JDBC connect string for a JDBC metastore</description>
 	</property>
 
