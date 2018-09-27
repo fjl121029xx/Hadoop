@@ -62,7 +62,7 @@ select * from tab_ip_cluster tablesample(bucket 2 out of 3 on id);
 
 
 //PARTITION  ·ÖÇø±í
-create table tab_ip_part(id int,name string,ip string,country string) 
+create table tabse_ip_part(id int,name string,ip string,country string)
     partitioned by (year string)
     row format delimited fields terminated by ',';
     

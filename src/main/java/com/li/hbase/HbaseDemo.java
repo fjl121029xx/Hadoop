@@ -2,75 +2,84 @@ package com.li.hbase;
 
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.KeyValue;
-import org.apache.hadoop.hbase.client.Delete;
-import org.apache.hadoop.hbase.client.Get;
-import org.apache.hadoop.hbase.client.HBaseAdmin;
-import org.apache.hadoop.hbase.client.HTable;
-import org.apache.hadoop.hbase.client.HTableInterface;
-import org.apache.hadoop.hbase.client.HTablePool;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Result;
-import org.apache.hadoop.hbase.client.ResultScanner;
-import org.apache.hadoop.hbase.client.Scan;
+import org.apache.hadoop.hbase.*;
+import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HbaseDemo {
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    private Configuration conf = null;
+public class HbaseDemo {
+    public static Configuration conf = null;
+    private static Connection connection;
+
+    public static final String ZK = "192.168.100.27,192.168.100.28,192.168.100.29";
+    public static final String CL = "2181";
+    public static final String DIR = "/master-hbase";
+
+    static {
+
+        conf = HBaseConfiguration.create();
+        conf.set("hbase.zookeeper.quorum", HbaseDemo.ZK);
+//        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
+        conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
+        conf.set("hbase.rootdir", HbaseDemo.DIR);
+
+        try {
+            connection = ConnectionFactory.createConnection(conf);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Before
     public void init() {
         conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
+        conf.set("hbase.zookeeper.quorum", HbaseDemo.ZK);
+//        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
+        conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
+        conf.set("hbase.rootdir", HbaseDemo.DIR);
+
+        try {
+            connection = ConnectionFactory.createConnection(conf);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void list() throws Exception {
+
+        HBaseAdmin admin = new HBaseAdmin(conf);
+
+        TableName[] tableNames = admin.listTableNames();
+
+        for (int i = 0; i < tableNames.length; i++) {
+            TableName tn = tableNames[i];
+            System.out.println(new String(tn.getName()));
+        }
+        System.out.println(tableNames);
     }
 
     @Test
     public void testDrop() throws Exception {
+
         HBaseAdmin admin = new HBaseAdmin(conf);
-        admin.disableTable("account");
-        admin.deleteTable("account");
+        admin.disableTable("test_tr_accuracy_analyze");
+        admin.deleteTable("test_tr_accuracy_analyze");
         admin.close();
     }
 
-    @Test
-    public void testPut() throws Exception {
-        HTable table = new HTable(conf, "user");
-        Put put = new Put(Bytes.toBytes("rk0003"));
-        put.add(Bytes.toBytes("info"), Bytes.toBytes("name"), Bytes.toBytes("liuyan"));
-        table.put(put);
-        table.close();
-    }
-
-    @Test
-    public void testGet() throws Exception {
-        //HTablePool pool = new HTablePool(conf, 10);
-        //HTable table = (HTable) pool.getTable("user");
-        HTable table = new HTable(conf, "user");
-        Get get = new Get(Bytes.toBytes("rk0001"));
-        //get.addColumn(Bytes.toBytes("info"), Bytes.toBytes("name"));
-        get.setMaxVersions(5);
-        Result result = table.get(get);
-        //result.getValue(family, qualifier)
-        for (KeyValue kv : result.list()) {
-            String family = new String(kv.getFamily());
-            System.out.println(family);
-            String qualifier = new String(kv.getQualifier());
-            System.out.println(qualifier);
-            System.out.println(new String(kv.getValue()));
-        }
-        table.close();
-    }
 
     @Test
     public void testScan() throws Exception {
         HTablePool pool = new HTablePool(conf, 10);
-        HTableInterface table = pool.getTable("user");
+        HTableInterface table = pool.getTable("test_tr_accuracy_analyze");
         Scan scan = new Scan(Bytes.toBytes("rk0001"), Bytes.toBytes("rk0002"));
         scan.addFamily(Bytes.toBytes("info"));
         ResultScanner scanner = table.getScanner(scan);
@@ -85,7 +94,6 @@ public class HbaseDemo {
              }
              */
             byte[] value = r.getValue(Bytes.toBytes("info"), Bytes.toBytes("name"));
-            System.out.println(new String(value));
         }
         pool.close();
     }
@@ -93,34 +101,142 @@ public class HbaseDemo {
 
     @Test
     public void testDel() throws Exception {
-        HTable table = new HTable(conf, "user");
-        Delete del = new Delete(Bytes.toBytes("rk0001"));
-        del.deleteColumn(Bytes.toBytes("data"), Bytes.toBytes("pic"));
+        HTable table = new HTable(conf, "test_tr_accuracy_analyze2");
+        Delete del = new Delete(Bytes.toBytes("9"));
+//        del.deleteColumn(Bytes.toBytes("data"), Bytes.toBytes("pic"));
         table.delete(del);
         table.close();
     }
 
-
     public static void main(String[] args) throws Exception {
 
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
-        conf.set("hbase.zookeeper.property.clientPort", "2181");
-        conf.set("hbase.rootdir", "hdfs://192.168.65.130:9000/hbase");
+//        conf.set("hbase.zookeeper.quorum", "192.168.100.2,192.168.100.3,192.168.100.4");
+//        conf.set("hbase.zookeeper.quorum", "192.168.100.191");
+        conf.set("hbase.zookeeper.quorum", HbaseDemo.ZK);
+        conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
+        conf.set("hbase.rootdir", HbaseDemo.DIR);
 
         HBaseAdmin admin = new HBaseAdmin(conf);
-        HTableDescriptor td = new HTableDescriptor("account");
-        HColumnDescriptor cd = new HColumnDescriptor("info");
 
-        cd.setMaxVersions(10);
-        td.addFamily(cd);
-        admin.createTable(td);
+        HTableDescriptor table = new HTableDescriptor("v_question_user_cache_wrong");
+        //v_question_user_cache_wrong
+        //v_question_user_cache_finish
+        //v_question_user_cache_collect
+        HColumnDescriptor columnFamily = new HColumnDescriptor("questioninfo");
+        columnFamily.setMaxVersions(10);
+        table.addFamily(columnFamily);
+
+
+        admin.createTable(table);
         admin.close();
 
     }
 
-    public void createTable(String tableName, int maxVersion, String... cf) {
+    /* public static void main(String[] args) throws Exception {
 
+         Configuration conf = HBaseConfiguration.create();
+ //        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
+         conf.set("hbase.zookeeper.quorum","192.168.100.191");
+         conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
+         conf.set("hbase.rootdir", HbaseDemo.DIR);
+
+         HBaseAdmin admin = new HBaseAdmin(conf);
+
+         HTableDescriptor table = new HTableDescriptor(AccuracyBean.TEST_HBASE_TABLE);
+
+         HColumnDescriptor columnFamily = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS);
+         columnFamily.setMaxVersions(10);
+         table.addFamily(columnFamily);
+
+         HColumnDescriptor columnFamily2 = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS2);
+         columnFamily2.setMaxVersions(10);
+         table.addFamily(columnFamily2);
+
+         HColumnDescriptor columnFamily3 = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS3);
+         columnFamily2.setMaxVersions(10);
+         table.addFamily(columnFamily3);
+
+         HColumnDescriptor columnFamily4 = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS4);
+         columnFamily2.setMaxVersions(10);
+         table.addFamily(columnFamily4);
+
+         admin.createTable(table);
+         admin.close();
+
+     }*/
+    @Test
+    public void testPut() throws Exception {
+
+        HTable table = new HTable(conf, "test_tr_accuracy_analyze2");
+
+
+        Put put = new Put(Bytes.toBytes("101"));
+        put.addColumn(Bytes.toBytes("accuracy_result"), Bytes.toBytes("correct"), Bytes.toBytes("138"));
+        put.addColumn(Bytes.toBytes("accuracy_result"), Bytes.toBytes("error"), Bytes.toBytes("113"));
+        put.addColumn(Bytes.toBytes("accuracy_result"), Bytes.toBytes("sum"), Bytes.toBytes("251"));
+        put.addColumn(Bytes.toBytes("accuracy_result"), Bytes.toBytes("accuracy"), Bytes.toBytes("0.55"));
+        put.addColumn(Bytes.toBytes("accuracy_result"), Bytes.toBytes("submitTime"), Bytes.toBytes("2018-06-13"));
+        put.addColumn(Bytes.toBytes("accuracy_result"), Bytes.toBytes("evaluationAnswerTime"), Bytes.toBytes("483"));
+        put.addColumn(Bytes.toBytes("accuracy_result"), Bytes.toBytes("evaluationAnswerTime"), Bytes.toBytes("483"));
+
+        table.put(put);
+        table.close();
+    }
+
+
+
+    public static Object getObject(String tablename, String course, Class clazz) throws Exception {
+
+        HTable table = new HTable(conf, tablename);
+        Get get = new Get(Bytes.toBytes(course));
+        get.setMaxVersions(1);
+        Result result = table.get(get);
+
+        List<Cell> cells = result.listCells();
+        if (cells == null || cells.size() < 1) {
+
+            return null;
+        }
+        Map<String, String> map = new HashMap<>();
+        for (Cell c : cells) {
+            byte[] qualifier = c.getQualifier();
+            byte[] valueArray = c.getValueArray();
+
+            map.put(new String(qualifier), new String(valueArray, c.getValueOffset(), c.getValueLength()));
+        }
+
+        Object o = clazz.newInstance();
+
+        Method[] declaredMethods = clazz.getDeclaredMethods();
+        for (Method m : declaredMethods) {
+            String mName = m.getName();
+            if (mName.startsWith("set")) {
+
+                String set = mName.replace("set", "");
+                Class pType = m.getParameterTypes()[0];
+
+                String s1 = set.substring(0, 1).toLowerCase();
+                String s2 = set.substring(1, set.length());
+                if (pType.getName().equals("java.lang.Long")) {
+
+                    if (map.get(s1 + s2) != null){
+
+                        m.invoke(o, Long.parseLong(map.get(s1 + s2)));
+                    }
+                } else if (pType.getName().equals("java.lang.String")) {
+
+                    m.invoke(o, map.get(s1 + s2));
+                } else if (pType.getName().equals("java.lang.Double")) {
+
+                    m.invoke(o, Double.parseDouble(map.get(s1 + s2)));
+                }
+            }
+        }
+
+        table.close();
+
+        return o;
     }
 
 }
