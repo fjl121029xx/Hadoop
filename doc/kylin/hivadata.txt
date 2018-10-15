@@ -45,4 +45,7 @@ select from_unixtime(1534388634901,'yyyyMMdd') from dual;
 
 
 
+hive -S -e create table active_user(area String,enventName String ,activeYear int,activeMonth int,activeDay int,activeWeek int ,activeHour int ,activeMinute,subject int,terminale String,userName String ) partitioned by (recordTime String) row format delimited fields terminated by ',';
 
+
+hive -S -e "create table active_user ( area String,enventName String ,activeYear int,activeMonth int,activeDay int,activeWeek int ,activeHour int ,activeMinute int,subject int,terminale String,userName String ) partitioned by (recordTime String) row format delimited fields terminated by ',';"
