@@ -50,8 +50,8 @@ public class HdfsTest {
     @Test
     public void upload2() throws IOException {
 
-        Path src = new Path("D:/hivedata");
-        Path dst = new Path("hdfs://192.168.233.134:9000/hive/hivedata2");
+        Path src = new Path("F:\\part-00107");
+        Path dst = new Path("hdfs://huatu68:9000/");
 
         fs.copyFromLocalFile(src,dst);
     }
