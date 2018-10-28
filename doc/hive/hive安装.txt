@@ -56,7 +56,7 @@ Hive只在一个节点上安装即可
 	建分区表
 	create table td_part(id bigint, account string, income double, expenses double, time string) partitioned by (logdate string) row format delimited fields terminated by '\t';
 	建外部表
-	create external table td_ext(id bigint, account string, income double, expenses double, time string) row format delimited fields terminated by '\t' location '/td_ext';
+	create external table td_e xt(id bigint, account string, income double, expenses double, time string) row format delimited fields terminated by '\t' location '/td_ext';
 
 7.创建分区表
 	普通表和分区表区别：有大量数据增加的需要建分区表

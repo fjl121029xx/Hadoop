@@ -19,10 +19,10 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://master:9000/</value>
+    <value>hdfs://100-49:8020/</value>
   </property>
   <property>
     <name>hadoop.tmp.dir</name>
-    <value>/usr/local/hadoop-2.7.6/tmp</value>
+    <value>/usr/local/hadoop-2.6.5/tmp</value>
   </property>
 </configuration>

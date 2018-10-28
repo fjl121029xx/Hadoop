@@ -1,5 +1,8 @@
 #活跃用户
-create EXTERNAL table animate3(area String,eventname String,loginYear int,loginMonth int,loginDay int ,loginHour int,loginMinute int,subject int,terminal String,userName String) partitioned by (loginTime string) row format delimited fields terminated by ',';
+create table animate3(area String,eventname String,loginYear int,loginMonth int,loginDay int ,loginHour int,loginMinute int,subject int,terminal String,userName String) partitioned by (loginTime string) row format delimited fields terminated by ',';
+
+
+
 load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180703/part-00000' into table animate3 partition(loginTime='20180703');
 load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180704/part-00000' into table animate3 partition(loginTime='20180704');
 load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/20180705/part-00000' into table animate3 partition(loginTime='20180705');
@@ -13,26 +16,36 @@ hive -S -e "load data inpath 'hdfs://192.168.100.26:8020/kylin_test_data/2018073
 #6.3.1,1,app_ztk618388060,null,110,120,119,null,null,10010,null,null,0,2018,07,30,17,1749
 #6.3.1,1,app_ztk618388060,null,110,120,119,null,null,10010,null,null,0,2018,07,30,17,1749
 
-#视频播放hive表
-create EXTERNAL table videoplayrecord1(
-    cv String,
-    terminal int,
-    userName String,
-    rid String,
-    playTime bigint,
-    wholeTime bigint,
-    userPlayTime bigint,
-    roomId String,
-    sessionId String,
-    videoIdWithTeacher String,
-    videoIdWithoutTeacher String,
-    joinCode String,
-    syllabusId String,
-    recordYear int,
-    recordMonth int,
-    recordDay int,
-    recordHour int,
-    recordMinute int)
-partitioned by (loginTime string)
-row format delimited
-fields terminated by ',';
+#视频播放hive临时表
+hive -S -e create table temp_videoplayrecord( tag String, cv String, terminal int, userName String, rid String,  playTime bigint,  wholeTime bigint, userPlayTime bigint, roomId String, sessionId String, videoIdWithTeacher String, videoIdWithoutTeacher String, joinCode String, syllabusId String, classId bigint, coursewareId bigint, recordYear int, recordMonth int, recordDay int, recordHour int, recordMinute int) partitioned by (recordTime string) row format delimited fields terminated by ',';
+
+hive -S -e "create table videoplayrecord  ( cv String,terminal int,userName String,rid String,playTime bigint,wholeTime bigint,userPlayTime bigint,videoId  String ,syllabusId String, type int,recordYear int, recordMonth int,recordDay int,recordHour int,recordMinute int) partitioned by (recordTime string) row format delimited fields terminated by ','";
+
+hive -S -e " insert overwrite table videoplayrecord partition(recordTime = ${sysyear}${sysmonth}09)  select cv,terminal,userName,rid,playTime,wholeTime,userPlayTime, (case when videoIdWithoutTeacher != null then concat('videoIdWithoutTeacher-',videoIdWithoutTeacher)  when videoIdWithTeacher != null then concat('videoIdWithoutTeacher-',videoIdWithoutTeacher)  when roomId != null then case when sessionId  != null then concat('roomId-',roomId,'-sessionId-',sessionId)  else concat('roomId-',roomId) end  when joinCode != null then concat('gensee-',joinCode) when classId = 0 and coursewareId = 0 then concat('classId-',classId,'-coursewareId-',coursewareId ) else 0 end ) as videoId,(case when classId = 0 and coursewareId = 0 then 1 else 0 end) as type,recordYear,recordMonth,recordDay,recordHour,recordMinute from temp_videoplayrecord "
+
+
+#做题记录topicrecord course
+#
+#
+
+hive -S -e create table temp_topicrecord( tag String, questionId bigint, userId bigint, time bigint, correct int,  knowledgePoint bigint,  questionSource int, courseWareId bigint, courseWareType int, submitTime bigint, subjectId bigint, step bigint, listened int) partitioned by (recordTime string) row format delimited fields terminated by '\t';
+
+hive -S -e create table topicrecord(userId bigint,knowledgePoint bigint,itemId String,correct int,time bigint,submitTime bigint, subjectId bigint, step bigint, listened int,recordYear int, recordMonth int,recordDay int,recordHour int,recordMinute int)partitioned by (recordTime string) row format delimited fields terminated by ',';
+
+
+hive -S -e "insert overwrite table topicrecord "
+select userId,knowledgePoint,concat(questionSource,'_',courseWareId,'_',courseWareType) as itemId,questionId ,correct ,time,submitTime,subjectId,step,listened,from_unixtime(ceil(submitTime/1000),'yyyy') as recordYear,from_unixtime(ceil(submitTime/1000),'MM') as recordMonth , from_unixtime(ceil(submitTime/1000),'dd') as recordDay, from_unixtime(ceil(submitTime/1000),'HH') as recordHour, from_unixtime(ceil(submitTime/1000),'HHmm') as recordMinth from temp_topicrecord order by submitTime ;
+
+
+
+select from_unixtime(1534388634901,'yyyyMMdd') from dual;
+###############################################
+#itemId=question_source-courseware_id-courseware_type-question_id
+
+
+
+
+hive -S -e create table active_user(area String,enventName String ,activeYear int,activeMonth int,activeDay int,activeWeek int ,activeHour int ,activeMinute,subject int,terminale String,userName String ) partitioned by (recordTime String) row format delimited fields terminated by ',';
+
+
+hive -S -e "create table active_user ( area String,enventName String ,activeYear int,activeMonth int,activeDay int,activeWeek int ,activeHour int ,activeMinute int,subject int,terminale String,userName String ) partitioned by (recordTime String) row format delimited fields terminated by ',';"

@@ -6,9 +6,7 @@ sqoop export --connect jdbc:mysql://hbase01:3306/sca --username sca --password 1
 
 
 
+sqoop list-databases --connect jdbc:mysql://192.168.100.18/ -username vhuatu -password vhuatu_2013
 
-sqoop export --connect jdbc:mysql://weekend01:3306/urlrule --username root --password root \
---table urlinfo \
---export-dir /llyy/topkurl3/ \
---columns url \
---input-fields-terminated-by '\t'
+
+sqoop export --connect jdbc:mysql://192.168.100.18/vhuatu --username vhuatu --password vhuatu_2013  --table v_question_user_cache_wrong  --export-dir hdfs://192.168.100.26/ztk_question_record/v_question_user_cache_wrong/ --input-fields-terminated-by '\t'
