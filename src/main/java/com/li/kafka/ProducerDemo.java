@@ -24,8 +24,8 @@ public class ProducerDemo {
     private static final Properties props = new Properties();
 
     static {
-        props.put("zookeeper.connect", "192.168.100.26:2188");
-        props.put("metadata.broker.list", "192.168.100.26:9092");
+        props.put("zookeeper.connect", "192.168.100.68:2181,192.168.100.70:2181,192.168.100.72:2181");
+        props.put("metadata.broker.list", "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         props.put("num.partitions", "3");
     }
@@ -37,43 +37,44 @@ public class ProducerDemo {
 
         String taskId = UUID.randomUUID().toString();
 
-        String aus = "{\"usa\":" +
-                "[" +
-                "{\"conditionKey\":\"subject\",\"isEqual\":1,\"conditionValue\":\"1,100100594\"}," +
-                "{\"conditionKey\":\"area\",\"isEqual\":0,\"conditionValue\":\"-9\"}," +
-                "{\"conditionKey\":\"terminal\",\"isEqual\":1,\"conditionValue\":\"2\"}]}";
-        int logic = 1;
-        long begDate = 1530604662956L;
-        long endDate = 1531795857526L;
-        String dateType = "shi";
-
-        String key = aus + "+" + logic + "+" + begDate + "+" + endDate + "+" + dateType;
-        Jedis jedis = new Jedis("192.168.100.26", 6379);
-        String result = jedis.get(key);
-        if (result != null && !result.equals("")) {
-
-            System.out.println(result);
-        } else {
-            producer.send(new KeyedMessage<String, String>("animate",
-                    "" + taskId + "=/bin/sh /sparkwork/animate.sh " +
-                            aus + " " +
-                            logic + " " +
-                            begDate + " " +
-                            endDate + " " +
-                            dateType + " "));
-
-            String re;
-            while (true) {
-
-                String s = jedis.get(key);
-                if (s != null && !s.equals("")) {
-                    re = s;
-                    break;
-                }
-            }
-
-            System.out.println(re);
-        }
+        producer.send(new KeyedMessage<String, String>("question-record",taskId));
+//        String aus = "{\"usa\":" +
+//                "[" +
+//                "{\"conditionKey\":\"subject\",\"isEqual\":1,\"conditionValue\":\"1,100100594\"}," +
+//                "{\"conditionKey\":\"area\",\"isEqual\":0,\"conditionValue\":\"-9\"}," +
+//                "{\"conditionKey\":\"terminal\",\"isEqual\":1,\"conditionValue\":\"2\"}]}";
+//        int logic = 1;
+//        long begDate = 1530604662956L;
+//        long endDate = 1531795857526L;
+//        String dateType = "shi";
+//
+//        String key = aus + "+" + logic + "+" + begDate + "+" + endDate + "+" + dateType;
+//        Jedis jedis = new Jedis("192.168.100.26", 6379);
+//        String result = jedis.get(key);
+//        if (result != null && !result.equals("")) {
+//
+//            System.out.println(result);
+//        } else {
+//            producer.send(new KeyedMessage<String, String>("animate",
+//                    "" + taskId + "=/bin/sh /sparkwork/animate.sh " +
+//                            aus + " " +
+//                            logic + " " +
+//                            begDate + " " +
+//                            endDate + " " +
+//                            dateType + " "));
+//
+//            String re;
+//            while (true) {
+//
+//                String s = jedis.get(key);
+//                if (s != null && !s.equals("")) {
+//                    re = s;
+//                    break;
+//                }
+//            }
+//
+//            System.out.println(re);
+//        }
 
 
     }
