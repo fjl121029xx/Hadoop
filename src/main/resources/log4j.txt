@@ -5,7 +5,8 @@ log4j.rootLogger=debug,stdout,D,E
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 #�����־������̨�ķ�ʽ��Ĭ��ΪSystem.out
 log4j.appender.stdout.Target = System.out
-#����ʹ������
+#����ʹ������l
+
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 #���������ʽ
 log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss,SSS} -[%p]  method:[%c (%rms)] - %m%n

@@ -10,9 +10,12 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <scala.version>2.11.5</scala.version>
+        <scala.version>2.11.8</scala.version>
         <scala.compat.version>2.11</scala.compat.version>
-        <spark.version>1.6.1</spark.version>
+        <spark.version>2.1.0</spark.version>
+        <flink.version>1.6.2</flink.version>
+        <hadoop.version>2.7.7</hadoop.version>
+        <kafka.version>2.0.0</kafka.version>
     </properties>
     <repositories>
         <repository>
@@ -23,7 +26,9 @@
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
             </releases>
-            <snapshots><enabled>false</enabled></snapshots>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
 
     </repositories>
@@ -32,28 +37,28 @@
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
-            <version>2.6.5</version>
+            <version>${hadoop.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-hdfs</artifactId>
-            <version>2.6.5</version>
+            <version>${hadoop.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-mapreduce-client-core</artifactId>
-            <version>2.6.5</version>
+            <version>${hadoop.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-mapreduce-client-jobclient</artifactId>
-            <version>2.6.5</version>
+            <version>${hadoop.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-mapreduce-client-common</artifactId>
-            <version>2.6.5</version>
+            <version>${hadoop.version}</version>
         </dependency>
         <!-- mrunit -->
         <dependency>
@@ -95,24 +100,24 @@
             <artifactId>storm-redis</artifactId>
             <version>0.10.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka_2.11</artifactId>
-            <version>0.8.2.1</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.storm/storm-kafka -->
         <dependency>
             <groupId>org.apache.storm</groupId>
             <artifactId>storm-kafka</artifactId>
             <version>0.9.3</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>0.9.0.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
             <version>3.4.0</version>
-            <type>pom</type>
         </dependency>
         <!-- hive -->
         <dependency>
@@ -142,25 +147,37 @@
             <artifactId>jedis</artifactId>
             <version>LATEST</version>
         </dependency>
+
         <!-- Use this dependency if you are using the DataStream API -->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java_2.10</artifactId>
-            <version>1.1.4</version>
-        </dependency>
-        <!-- Use this dependency if you are using the DataSet API -->
-        <dependency>
-            <groupId>org.apache.flink</groupId>
             <artifactId>flink-java</artifactId>
-            <version>1.1.4</version>
+            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-clients_2.10</artifactId>
-            <version>1.1.4</version>
+            <artifactId>flink-streaming-java_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-wikiedits_2.11</artifactId>
+            <version>${flink.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka-0.10 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka-0.10_2.11</artifactId>
+            <version>1.6.2</version>
+        </dependency>
     </dependencies>
+
     <build>
         <finalName>hadoop</finalName>
         <plugins>
