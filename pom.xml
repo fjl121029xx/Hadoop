@@ -176,6 +176,14 @@
             <artifactId>flink-connector-kafka-0.10_2.11</artifactId>
             <version>1.6.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.facebook.presto/presto-client -->
+        <dependency>
+            <groupId>com.facebook.presto</groupId>
+            <artifactId>presto-client</artifactId>
+            <version>0.203</version>
+        </dependency>
+
     </dependencies>
 
     <build>

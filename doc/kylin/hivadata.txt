@@ -56,7 +56,7 @@ hive -S -e "create table v_huatu_order_par ( itemId String,title String ,\
 terminal String,v_year String,gradeType String,subjectType String ,\
 type int,payType String,classType String,\
 moneyReceipt bigint,userId String, \
-userName String,productId String,\
+userName String,productId String,area String\
 state int,payYear String,payMonth String,payWeek String)  partitioned by (payday String) row format delimited fields terminated by '_';"
 
 
@@ -76,7 +76,7 @@ insert into table  v_huatu_order_par PARTITION (payDay)
 select itemId,title,terminal,v_year,
 gradeType,subjectType,type,payType,
 classType,moneyReceipt,userId,userName,
-productId,state,
+productId,state,area,
 from_unixtime(payTime,'yyyy') as  payYear,
 from_unixtime(payTime,'yyyy-MM') payMonth,
 from_unixtime(payTime,'yyyy-MM-dd') payDay,
@@ -84,8 +84,8 @@ from_unixtime(payTime,'yyyy-ww') payWeek
 from (
     select itemId,title,terminal,userId,
     userName,gradeType,year as v_year,
-    subjectType,type,payType,classType,
+    subjectType,type,payType,classType,area,
     moneyReceipt,productId,state,cast(((payTime-(payTime%1000))/1000) as bigint) as payTime from v_huatu_order) a;
 
 
-    insert into table  v_huatu_order_par PARTITION (payDay) select itemId,title,terminal,v_year,gradeType,subjectType,type,payType,classType,moneyReceipt,userId,userName,productId,state,from_unixtime(payTime,'yyyy') as  payYear,from_unixtime(payTime,'yyyy-MM') payMonth,from_unixtime(payTime,'yyyy-ww') payWeek,from_unixtime(payTime,'yyyy-MM-dd') as  payDay from (select itemId,title,terminal,userId,userName,gradeType,year as v_year,subjectType,type,payType,classType,moneyReceipt,productId,state,cast(((payTime-(payTime%1000))/1000) as bigint) as payTime from v_huatu_order where payTime >= 1514736000000) a;
+    insert into table  v_huatu_order_par PARTITION (payDay) select itemId,title,terminal,v_year,gradeType,subjectType,type,payType,classType,area,moneyReceipt,userId,userName,productId,state,from_unixtime(payTime,'yyyy') as  payYear,from_unixtime(payTime,'yyyy-MM') payMonth,from_unixtime(payTime,'yyyy-ww') payWeek,from_unixtime(payTime,'yyyy-MM-dd') as  payDay from (select itemId,title,area,terminal,userId,userName,gradeType,year as v_year,subjectType,type,payType,classType,moneyReceipt,productId,state,cast(((payTime-(payTime%1000))/1000) as bigint) as payTime from v_huatu_order where payTime >= 1514736000000) a;
