@@ -1,4 +1,4 @@
-package com.li.flink.message;
+package com.li.flink.readKafka;
 
 import org.apache.flink.streaming.api.functions.AssignerWithPunctuatedWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;

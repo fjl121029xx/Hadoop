@@ -1,4 +1,4 @@
-package com.li.flink.message;
+package com.li.flink.readKafka;
 
 import com.sun.management.OperatingSystemMXBean;
 

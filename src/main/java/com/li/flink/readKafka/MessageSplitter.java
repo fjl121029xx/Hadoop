@@ -1,4 +1,4 @@
-package com.li.flink.message;
+package com.li.flink.readKafka;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;

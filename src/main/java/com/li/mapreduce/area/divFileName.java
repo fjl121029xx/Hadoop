@@ -84,13 +84,13 @@ public class divFileName {
             FlowBean flowBean = new FlowBean(key.toString(), sum_up_flow, sum_down_flow);
 
 //            context.write(flowBean, NullWritable.get());
-            mos.write(flowBean, NullWritable.get(), flowBean.getPhone());
+
         }
     }
 
     /**
      * http://blog.csdn.net/ukakasu/article/details/47302279
-     * MapReduce中自定义文件输出名
+     * MapReduce中自定义文件输出名 mos.write(flowBean, NullWritable.get(), flowBean.getPhone());
      * <p>
      * https://my.oschina.net/leejun2005/blog/94706
      * MapReduce中的自定义多目录/文件名输出HDFS

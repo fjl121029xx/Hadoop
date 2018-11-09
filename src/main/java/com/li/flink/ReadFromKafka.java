@@ -1,8 +1,7 @@
 package com.li.flink;
 
-import com.li.flink.message.MessageSplitter;
-import com.li.flink.message.MessageWaterEmitter;
-import org.apache.flink.api.common.functions.FlatMapFunction;
+import com.li.flink.readKafka.MessageSplitter;
+import com.li.flink.readKafka.MessageWaterEmitter;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.TimeCharacteristic;
