@@ -301,7 +301,11 @@ hadoop dfsadmin -safemode leave
 
 ./yarn-daemon.sh start resourcemanager
 
-		
+
+        hdfs haadmin -getServiceState nn1
+
+		hdfs haadmin -transitionToActive --forcemanual nn2
+
 	到此，hadoop-2.4.1配置完毕，可以统计浏览器访问:
 		http://192.168.233.143:50070
 		NameNode 'weekend01:9000' (active)
