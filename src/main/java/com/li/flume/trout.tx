@@ -1,0 +1,672 @@
+Warning: No configuration directory set! Use --conf <dir> to override.
+Info: Including Hadoop libraries found via (/usr/local/hadoop-2.7.3/bin/hadoop) for HDFS access
+Info: Excluding /usr/local/hadoop-2.7.3/share/hadoop/common/lib/slf4j-api-1.7.10.jar from classpath
+Info: Excluding /usr/local/hadoop-2.7.3/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar from classpath
+Info: Including HBASE libraries found via (/usr/local/hbase-1.4.5/bin/hbase) for HBASE access
+Info: Excluding /usr/local/hbase-1.4.5/lib/slf4j-api-1.7.7.jar from classpath
+Info: Excluding /usr/local/hbase-1.4.5/lib/slf4j-log4j12-1.7.10.jar from classpath
+Info: Excluding /usr/local/hadoop-2.7.3/share/hadoop/common/lib/slf4j-api-1.7.10.jar from classpath
+Info: Excluding /usr/local/hadoop-2.7.3/share/hadoop/common/lib/slf4j-log4j12-1.7.10.jar from classpath
+Info: Including Hive libraries found via (/usr/local/apache-hive-2.1.1-bin) for Hive access
+Info: Including HCatalog libraries found via (/usr/local/apache-hive-2.1.1-bin/hcatalog) for Hive access
++ exec /usr/local/jdk1.8.0_91/bin/java -Xmx20m -Dflume.root.logger=INFO,console -cp '/usr/local/apache-flume-1.6.0-bin/lib/*:/usr/local/hadoop-2.7.3/etc/hadoop:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/activation-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/apacheds-i18n-2.0.0-M15.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/apacheds-kerberos-codec-2.0.0-M15.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/api-asn1-api-1.0.0-M20.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/api-util-1.0.0-M20.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/avro-1.7.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-beanutils-1.7.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-beanutils-core-1.8.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-cli-1.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-codec-1.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-collections-3.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-configuration-1.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-digester-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-httpclient-3.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-lang-2.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-math3-3.1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-net-3.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/curator-client-2.7.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/curator-framework-2.7.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/curator-recipes-2.7.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/gson-2.2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/guava-11.0.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/hadoop-annotations-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/hadoop-auth-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/hamcrest-core-1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/htrace-core-3.1.0-incubating.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/httpclient-4.2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/httpcore-4.2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/java-xmlbuilder-0.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jaxb-api-2.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jersey-json-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jets3t-0.9.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jettison-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jetty-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jsch-0.1.42.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jsp-api-2.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jsr305-3.0.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/junit-4.11.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/mockito-all-1.8.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/paranamer-2.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/servlet-api-2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/snappy-java-1.0.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/stax-api-1.0-2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/xmlenc-0.52.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/xz-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/zookeeper-3.4.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/hadoop-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/hadoop-common-2.7.3-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/hadoop-nfs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/jdiff:/usr/local/hadoop-2.7.3/share/hadoop/common/lib:/usr/local/hadoop-2.7.3/share/hadoop/common/sources:/usr/local/hadoop-2.7.3/share/hadoop/common/templates:/usr/local/hadoop-2.7.3/share/hadoop/hdfs:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-cli-1.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-codec-1.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-daemon-1.0.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-lang-2.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/guava-11.0.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/htrace-core-3.1.0-incubating.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jetty-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jsr305-3.0.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/netty-all-4.0.23.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/servlet-api-2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/xercesImpl-2.9.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/xml-apis-1.3.04.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/xmlenc-0.52.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/hadoop-hdfs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/hadoop-hdfs-2.7.3-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/hadoop-hdfs-nfs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/jdiff:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/sources:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/templates:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/webapps:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/activation-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/aopalliance-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-cli-1.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-codec-1.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-collections-3.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-lang-2.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/guava-11.0.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/guice-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/guice-servlet-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/javax.inject-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jaxb-api-2.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-client-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-guice-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-json-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jettison-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jetty-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jsr305-3.0.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/servlet-api-2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/stax-api-1.0-2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/xz-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/zookeeper-3.4.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/zookeeper-3.4.6-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-api-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-applications-unmanaged-am-launcher-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-client-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-registry-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-applicationhistoryservice-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-nodemanager-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-resourcemanager-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-sharedcachemanager-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-tests-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-web-proxy-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib:/usr/local/hadoop-2.7.3/share/hadoop/yarn/sources:/usr/local/hadoop-2.7.3/share/hadoop/yarn/test:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/aopalliance-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/avro-1.7.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/guice-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/guice-servlet-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/hadoop-annotations-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/hamcrest-core-1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/javax.inject-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jersey-guice-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/junit-4.11.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/paranamer-2.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/snappy-java-1.0.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/xz-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-app-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-plugins-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.3-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-shuffle-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib-examples:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/sources:/usr/local/hadoop-2.7.3/contrib/capacity-scheduler/*.jar:/usr/local/hbase-1.4.5/conf:/usr/local/jdk1.8.0_91/lib/tools.jar:/usr/local/hbase-1.4.5:/usr/local/hbase-1.4.5/lib/activation-1.1.jar:/usr/local/hbase-1.4.5/lib/apacheds-i18n-2.0.0-M15.jar:/usr/local/hbase-1.4.5/lib/apacheds-kerberos-codec-2.0.0-M15.jar:/usr/local/hbase-1.4.5/lib/api-asn1-api-1.0.0-M20.jar:/usr/local/hbase-1.4.5/lib/api-util-1.0.0-M20.jar:/usr/local/hbase-1.4.5/lib/asm-3.1.jar:/usr/local/hbase-1.4.5/lib/avro-1.7.7.jar:/usr/local/hbase-1.4.5/lib/commons-beanutils-1.7.0.jar:/usr/local/hbase-1.4.5/lib/commons-beanutils-core-1.8.0.jar:/usr/local/hbase-1.4.5/lib/commons-cli-1.2.jar:/usr/local/hbase-1.4.5/lib/commons-codec-1.9.jar:/usr/local/hbase-1.4.5/lib/commons-collections-3.2.2.jar:/usr/local/hbase-1.4.5/lib/commons-compress-1.4.1.jar:/usr/local/hbase-1.4.5/lib/commons-configuration-1.6.jar:/usr/local/hbase-1.4.5/lib/commons-daemon-1.0.13.jar:/usr/local/hbase-1.4.5/lib/commons-digester-1.8.jar:/usr/local/hbase-1.4.5/lib/commons-el-1.0.jar:/usr/local/hbase-1.4.5/lib/commons-httpclient-3.1.jar:/usr/local/hbase-1.4.5/lib/commons-io-2.4.jar:/usr/local/hbase-1.4.5/lib/commons-lang-2.6.jar:/usr/local/hbase-1.4.5/lib/commons-logging-1.2.jar:/usr/local/hbase-1.4.5/lib/commons-math-2.2.jar:/usr/local/hbase-1.4.5/lib/commons-math3-3.1.1.jar:/usr/local/hbase-1.4.5/lib/commons-net-3.1.jar:/usr/local/hbase-1.4.5/lib/curator-client-2.7.1.jar:/usr/local/hbase-1.4.5/lib/curator-framework-2.7.1.jar:/usr/local/hbase-1.4.5/lib/curator-recipes-2.7.1.jar:/usr/local/hbase-1.4.5/lib/disruptor-3.3.0.jar:/usr/local/hbase-1.4.5/lib/findbugs-annotations-1.3.9-1.jar:/usr/local/hbase-1.4.5/lib/gson-2.2.4.jar:/usr/local/hbase-1.4.5/lib/guava-12.0.1.jar:/usr/local/hbase-1.4.5/lib/hadoop-annotations-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-auth-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-client-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-common-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-hdfs-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-mapreduce-client-app-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-mapreduce-client-common-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-mapreduce-client-core-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-mapreduce-client-jobclient-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-mapreduce-client-shuffle-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-yarn-api-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-yarn-client-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-yarn-common-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hadoop-yarn-server-common-2.7.4.jar:/usr/local/hbase-1.4.5/lib/hbase-annotations-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-annotations-1.4.5-tests.jar:/usr/local/hbase-1.4.5/lib/hbase-client-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-common-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-common-1.4.5-tests.jar:/usr/local/hbase-1.4.5/lib/hbase-examples-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-external-blockcache-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-hadoop2-compat-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-hadoop-compat-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-it-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-it-1.4.5-tests.jar:/usr/local/hbase-1.4.5/lib/hbase-metrics-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-metrics-api-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-prefix-tree-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-procedure-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-protocol-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-resource-bundle-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-rest-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-rsgroup-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-server-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-server-1.4.5-tests.jar:/usr/local/hbase-1.4.5/lib/hbase-shell-1.4.5.jar:/usr/local/hbase-1.4.5/lib/hbase-thrift-1.4.5.jar:/usr/local/hbase-1.4.5/lib/htrace-core-3.1.0-incubating.jar:/usr/local/hbase-1.4.5/lib/httpclient-4.5.2.jar:/usr/local/hbase-1.4.5/lib/httpcore-4.4.4.jar:/usr/local/hbase-1.4.5/lib/jackson-core-asl-1.9.13.jar:/usr/local/hbase-1.4.5/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hbase-1.4.5/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hbase-1.4.5/lib/jackson-xc-1.9.13.jar:/usr/local/hbase-1.4.5/lib/jamon-runtime-2.4.1.jar:/usr/local/hbase-1.4.5/lib/jasper-compiler-5.5.23.jar:/usr/local/hbase-1.4.5/lib/jasper-runtime-5.5.23.jar:/usr/local/hbase-1.4.5/lib/jaxb-api-2.2.2.jar:/usr/local/hbase-1.4.5/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hbase-1.4.5/lib/jcodings-1.0.8.jar:/usr/local/hbase-1.4.5/lib/jersey-client-1.9.jar:/usr/local/hbase-1.4.5/lib/jersey-core-1.9.jar:/usr/local/hbase-1.4.5/lib/jersey-json-1.9.jar:/usr/local/hbase-1.4.5/lib/jersey-server-1.9.jar:/usr/local/hbase-1.4.5/lib/jettison-1.3.3.jar:/usr/local/hbase-1.4.5/lib/jetty-6.1.26.jar:/usr/local/hbase-1.4.5/lib/jetty-sslengine-6.1.26.jar:/usr/local/hbase-1.4.5/lib/jetty-util-6.1.26.jar:/usr/local/hbase-1.4.5/lib/joni-2.1.2.jar:/usr/local/hbase-1.4.5/lib/jruby-complete-1.6.8.jar:/usr/local/hbase-1.4.5/lib/jsch-0.1.54.jar:/usr/local/hbase-1.4.5/lib/jsp-2.1-6.1.14.jar:/usr/local/hbase-1.4.5/lib/jsp-api-2.1-6.1.14.jar:/usr/local/hbase-1.4.5/lib/junit-4.12.jar:/usr/local/hbase-1.4.5/lib/leveldbjni-all-1.8.jar:/usr/local/hbase-1.4.5/lib/libthrift-0.9.3.jar:/usr/local/hbase-1.4.5/lib/log4j-1.2.17.jar:/usr/local/hbase-1.4.5/lib/metrics-core-2.2.0.jar:/usr/local/hbase-1.4.5/lib/metrics-core-3.1.2.jar:/usr/local/hbase-1.4.5/lib/netty-all-4.1.8.Final.jar:/usr/local/hbase-1.4.5/lib/paranamer-2.3.jar:/usr/local/hbase-1.4.5/lib/protobuf-java-2.5.0.jar:/usr/local/hbase-1.4.5/lib/servlet-api-2.5-6.1.14.jar:/usr/local/hbase-1.4.5/lib/snappy-java-1.0.5.jar:/usr/local/hbase-1.4.5/lib/spymemcached-2.11.6.jar:/usr/local/hbase-1.4.5/lib/xmlenc-0.52.jar:/usr/local/hbase-1.4.5/lib/xz-1.0.jar:/usr/local/hbase-1.4.5/lib/zookeeper-3.4.10.jar:/usr/local/hadoop-2.7.3/etc/hadoop:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/activation-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/apacheds-i18n-2.0.0-M15.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/apacheds-kerberos-codec-2.0.0-M15.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/api-asn1-api-1.0.0-M20.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/api-util-1.0.0-M20.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/avro-1.7.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-beanutils-1.7.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-beanutils-core-1.8.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-cli-1.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-codec-1.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-collections-3.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-configuration-1.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-digester-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-httpclient-3.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-lang-2.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-math3-3.1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/commons-net-3.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/curator-client-2.7.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/curator-framework-2.7.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/curator-recipes-2.7.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/gson-2.2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/guava-11.0.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/hadoop-annotations-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/hadoop-auth-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/hamcrest-core-1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/htrace-core-3.1.0-incubating.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/httpclient-4.2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/httpcore-4.2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/java-xmlbuilder-0.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jaxb-api-2.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jersey-json-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jets3t-0.9.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jettison-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jetty-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jsch-0.1.42.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jsp-api-2.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/jsr305-3.0.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/junit-4.11.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/mockito-all-1.8.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/paranamer-2.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/servlet-api-2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/snappy-java-1.0.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/stax-api-1.0-2.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/xmlenc-0.52.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/xz-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/lib/zookeeper-3.4.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/hadoop-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/hadoop-common-2.7.3-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/hadoop-nfs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/common/jdiff:/usr/local/hadoop-2.7.3/share/hadoop/common/lib:/usr/local/hadoop-2.7.3/share/hadoop/common/sources:/usr/local/hadoop-2.7.3/share/hadoop/common/templates:/usr/local/hadoop-2.7.3/share/hadoop/hdfs:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-cli-1.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-codec-1.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-daemon-1.0.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-lang-2.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/guava-11.0.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/htrace-core-3.1.0-incubating.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jetty-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/jsr305-3.0.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/netty-all-4.0.23.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/servlet-api-2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/xercesImpl-2.9.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/xml-apis-1.3.04.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib/xmlenc-0.52.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/hadoop-hdfs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/hadoop-hdfs-2.7.3-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/hadoop-hdfs-nfs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/jdiff:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/lib:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/sources:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/templates:/usr/local/hadoop-2.7.3/share/hadoop/hdfs/webapps:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/activation-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/aopalliance-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-cli-1.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-codec-1.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-collections-3.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-lang-2.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/commons-logging-1.1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/guava-11.0.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/guice-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/guice-servlet-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-jaxrs-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jackson-xc-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/javax.inject-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jaxb-api-2.2.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jaxb-impl-2.2.3-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-client-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-guice-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-json-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jettison-1.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jetty-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jetty-util-6.1.26.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/jsr305-3.0.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/servlet-api-2.5.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/stax-api-1.0-2.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/xz-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/zookeeper-3.4.6.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib/zookeeper-3.4.6-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-api-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-applications-distributedshell-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-applications-unmanaged-am-launcher-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-client-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-registry-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-applicationhistoryservice-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-nodemanager-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-resourcemanager-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-sharedcachemanager-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-tests-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/hadoop-yarn-server-web-proxy-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/yarn/lib:/usr/local/hadoop-2.7.3/share/hadoop/yarn/sources:/usr/local/hadoop-2.7.3/share/hadoop/yarn/test:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/aopalliance-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/asm-3.2.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/avro-1.7.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/commons-compress-1.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/commons-io-2.4.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/guice-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/guice-servlet-3.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/hadoop-annotations-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/hamcrest-core-1.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jackson-core-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jackson-mapper-asl-1.9.13.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/javax.inject-1.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jersey-core-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jersey-guice-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/jersey-server-1.9.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/junit-4.11.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/leveldbjni-all-1.8.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/log4j-1.2.17.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/netty-3.6.2.Final.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/paranamer-2.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/protobuf-java-2.5.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/snappy-java-1.0.4.1.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib/xz-1.0.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-app-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-common-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-hs-plugins-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.3-tests.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-client-shuffle-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/lib-examples:/usr/local/hadoop-2.7.3/share/hadoop/mapreduce/sources:/usr/local/hadoop-2.7.3/contrib/capacity-scheduler/*.jar:/usr/local/hbase-1.4.5/conf:/usr/local/apache-hive-2.1.1-bin/lib/*:/usr/local/apache-hive-2.1.1-bin/hcatalog/share/hcatalog/*' -Djava.library.path=:/usr/local/hadoop-2.7.3/lib/native:/usr/local/hadoop-2.7.3/lib/native org.apache.flume.node.Application --name flume-log-agent /usr/local/apache-flume-1.6.0-bin/conf --conf-file /usr/local/apache-flume-1.6.0-bin/conf/flume-log-agent.conf
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/apache-flume-1.6.0-bin/lib/slf4j-log4j12-1.6.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/apache-hive-2.1.1-bin/lib/log4j-slf4j-impl-2.4.1.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+18/08/14 10:56:47 INFO node.PollingPropertiesFileConfigurationProvider: Configuration provider starting
+18/08/14 10:56:47 INFO node.PollingPropertiesFileConfigurationProvider: Reloading configuration file:/usr/local/apache-flume-1.6.0-bin/conf/flume-log-agent.conf
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Added sinks: logger-sink Agent: flume-log-agent
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Processing:logger-sink
+18/08/14 10:56:47 INFO conf.FlumeConfiguration: Post-validation flume configuration contains configuration for agents: [flume-log-agent]
+18/08/14 10:56:47 INFO node.AbstractConfigurationProvider: Creating channels
+18/08/14 10:56:47 INFO channel.DefaultChannelFactory: Creating instance of channel memory-channel type memory
+18/08/14 10:56:47 INFO node.AbstractConfigurationProvider: Created channel memory-channel
+18/08/14 10:56:47 INFO source.DefaultSourceFactory: Creating instance of source arvo-source, type avro
+18/08/14 10:56:47 INFO interceptor.StaticInterceptor: Creating RegexFilteringInterceptor: regex=topicRecord,excludeEvents=false
+18/08/14 10:56:47 INFO sink.DefaultSinkFactory: Creating instance of sink: logger-sink, type: hdfs
+18/08/14 10:56:47 INFO node.AbstractConfigurationProvider: Channel memory-channel connected to [arvo-source, logger-sink]
+18/08/14 10:56:47 INFO node.Application: Starting new configuration:{ sourceRunners:{arvo-source=EventDrivenSourceRunner: { source:Avro source arvo-source: { bindAddress: 192.168.100.26, port: 41414 } }} sinkRunners:{logger-sink=SinkRunner: { policy:org.apache.flume.sink.DefaultSinkProcessor@615268c8 counterGroup:{ name:null counters:{} } }} channels:{memory-channel=org.apache.flume.channel.MemoryChannel{name: memory-channel}} }
+18/08/14 10:56:47 INFO node.Application: Starting Channel memory-channel
+18/08/14 10:56:47 INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: CHANNEL, name: memory-channel: Successfully registered new MBean.
+18/08/14 10:56:47 INFO instrumentation.MonitoredCounterGroup: Component type: CHANNEL, name: memory-channel started
+18/08/14 10:56:47 INFO node.Application: Starting Sink logger-sink
+18/08/14 10:56:47 INFO node.Application: Starting Source arvo-source
+18/08/14 10:56:47 INFO source.AvroSource: Starting Avro source arvo-source: { bindAddress: 192.168.100.26, port: 41414 }...
+18/08/14 10:56:47 INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: SINK, name: logger-sink: Successfully registered new MBean.
+18/08/14 10:56:47 INFO instrumentation.MonitoredCounterGroup: Component type: SINK, name: logger-sink started
+18/08/14 10:56:48 INFO instrumentation.MonitoredCounterGroup: Monitored counter group for type: SOURCE, name: arvo-source: Successfully registered new MBean.
+18/08/14 10:56:48 INFO instrumentation.MonitoredCounterGroup: Component type: SOURCE, name: arvo-source started
+18/08/14 10:56:48 INFO source.AvroSource: Avro source arvo-source started.
+18/08/14 10:58:35 INFO ipc.NettyServer: [id: 0x21c69056, /192.168.100.49:39560 => /192.168.100.26:41414] OPEN
+18/08/14 10:58:35 INFO ipc.NettyServer: [id: 0x21c69056, /192.168.100.49:39560 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 10:58:35 INFO ipc.NettyServer: [id: 0x21c69056, /192.168.100.49:39560 => /192.168.100.26:41414] CONNECTED: /192.168.100.49:39560
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x6562d4ac, /192.168.100.27:43884 => /192.168.100.26:41414] OPEN
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x6562d4ac, /192.168.100.27:43884 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x6562d4ac, /192.168.100.27:43884 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:43884
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x94640b7c, /192.168.100.29:54936 => /192.168.100.26:41414] OPEN
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x94640b7c, /192.168.100.29:54936 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x94640b7c, /192.168.100.29:54936 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:54936
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x038f5a69, /192.168.100.28:41804 => /192.168.100.26:41414] OPEN
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x038f5a69, /192.168.100.28:41804 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 10:58:41 INFO ipc.NettyServer: [id: 0x038f5a69, /192.168.100.28:41804 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:41804
+18/08/14 10:59:15 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/14 10:59:16 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/14/10-mqlog.1534215555764.log.tmp
+18/08/14 11:59:18 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/14/10-mqlog.1534215555764.log.tmp
+18/08/14 11:59:19 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/14/10-mqlog.1534215555764.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/14/10-mqlog.1534215555764.log
+18/08/14 11:59:19 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/14 16:30:31 INFO ipc.NettyServer: [id: 0x21c69056, /192.168.100.49:39560 :> /192.168.100.26:41414] DISCONNECTED
+18/08/14 16:30:31 INFO ipc.NettyServer: [id: 0x21c69056, /192.168.100.49:39560 :> /192.168.100.26:41414] UNBOUND
+18/08/14 16:30:31 INFO ipc.NettyServer: [id: 0x21c69056, /192.168.100.49:39560 :> /192.168.100.26:41414] CLOSED
+18/08/14 16:30:31 INFO ipc.NettyServer: Connection to /192.168.100.49:39560 disconnected.
+18/08/14 16:30:31 INFO ipc.NettyServer: [id: 0xad63f754, /192.168.100.49:37870 => /192.168.100.26:41414] OPEN
+18/08/14 16:30:31 INFO ipc.NettyServer: [id: 0xad63f754, /192.168.100.49:37870 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 16:30:31 INFO ipc.NettyServer: [id: 0xad63f754, /192.168.100.49:37870 => /192.168.100.26:41414] CONNECTED: /192.168.100.49:37870
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x94640b7c, /192.168.100.29:54936 :> /192.168.100.26:41414] DISCONNECTED
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x94640b7c, /192.168.100.29:54936 :> /192.168.100.26:41414] UNBOUND
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x94640b7c, /192.168.100.29:54936 :> /192.168.100.26:41414] CLOSED
+18/08/14 18:31:20 INFO ipc.NettyServer: Connection to /192.168.100.29:54936 disconnected.
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x038f5a69, /192.168.100.28:41804 :> /192.168.100.26:41414] DISCONNECTED
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x038f5a69, /192.168.100.28:41804 :> /192.168.100.26:41414] UNBOUND
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x038f5a69, /192.168.100.28:41804 :> /192.168.100.26:41414] CLOSED
+18/08/14 18:31:20 INFO ipc.NettyServer: Connection to /192.168.100.28:41804 disconnected.
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0xddf67521, /192.168.100.28:42844 => /192.168.100.26:41414] OPEN
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0xddf67521, /192.168.100.28:42844 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0xddf67521, /192.168.100.28:42844 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:42844
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x6562d4ac, /192.168.100.27:43884 :> /192.168.100.26:41414] DISCONNECTED
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x6562d4ac, /192.168.100.27:43884 :> /192.168.100.26:41414] UNBOUND
+18/08/14 18:31:20 INFO ipc.NettyServer: [id: 0x6562d4ac, /192.168.100.27:43884 :> /192.168.100.26:41414] CLOSED
+18/08/14 18:31:20 INFO ipc.NettyServer: Connection to /192.168.100.27:43884 disconnected.
+18/08/14 18:31:21 INFO ipc.NettyServer: [id: 0xddf67521, /192.168.100.28:42844 :> /192.168.100.26:41414] DISCONNECTED
+18/08/14 18:31:21 INFO ipc.NettyServer: [id: 0xddf67521, /192.168.100.28:42844 :> /192.168.100.26:41414] UNBOUND
+18/08/14 18:31:21 INFO ipc.NettyServer: [id: 0xddf67521, /192.168.100.28:42844 :> /192.168.100.26:41414] CLOSED
+18/08/14 18:31:21 INFO ipc.NettyServer: Connection to /192.168.100.28:42844 disconnected.
+18/08/14 18:31:24 INFO ipc.NettyServer: [id: 0x94805053, /192.168.100.29:52361 => /192.168.100.26:41414] OPEN
+18/08/14 18:31:24 INFO ipc.NettyServer: [id: 0x94805053, /192.168.100.29:52361 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 18:31:24 INFO ipc.NettyServer: [id: 0x94805053, /192.168.100.29:52361 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:52361
+18/08/14 18:31:34 INFO ipc.NettyServer: [id: 0xea6947b9, /192.168.100.27:43457 => /192.168.100.26:41414] OPEN
+18/08/14 18:31:34 INFO ipc.NettyServer: [id: 0xea6947b9, /192.168.100.27:43457 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 18:31:34 INFO ipc.NettyServer: [id: 0xea6947b9, /192.168.100.27:43457 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:43457
+18/08/14 18:31:35 INFO ipc.NettyServer: [id: 0xe83eb070, /192.168.100.29:56557 => /192.168.100.26:41414] OPEN
+18/08/14 18:31:35 INFO ipc.NettyServer: [id: 0xe83eb070, /192.168.100.29:56557 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 18:31:35 INFO ipc.NettyServer: [id: 0xe83eb070, /192.168.100.29:56557 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:56557
+18/08/14 18:31:35 INFO ipc.NettyServer: [id: 0x97bbc835, /192.168.100.28:47391 => /192.168.100.26:41414] OPEN
+18/08/14 18:31:35 INFO ipc.NettyServer: [id: 0x97bbc835, /192.168.100.28:47391 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/14 18:31:35 INFO ipc.NettyServer: [id: 0x97bbc835, /192.168.100.28:47391 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:47391
+18/08/15 02:44:56 INFO ipc.NettyServer: [id: 0xea6947b9, /192.168.100.27:43457 :> /192.168.100.26:41414] DISCONNECTED
+18/08/15 02:44:56 INFO ipc.NettyServer: [id: 0xea6947b9, /192.168.100.27:43457 :> /192.168.100.26:41414] UNBOUND
+18/08/15 02:44:56 INFO ipc.NettyServer: [id: 0xea6947b9, /192.168.100.27:43457 :> /192.168.100.26:41414] CLOSED
+18/08/15 02:44:56 INFO ipc.NettyServer: Connection to /192.168.100.27:43457 disconnected.
+18/08/15 02:44:58 INFO ipc.NettyServer: [id: 0xf85cd1ce, /192.168.100.27:33620 => /192.168.100.26:41414] OPEN
+18/08/15 02:44:58 INFO ipc.NettyServer: [id: 0xf85cd1ce, /192.168.100.27:33620 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/15 02:44:58 INFO ipc.NettyServer: [id: 0xf85cd1ce, /192.168.100.27:33620 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:33620
+18/08/15 06:43:31 INFO ipc.NettyServer: [id: 0x97bbc835, /192.168.100.28:47391 :> /192.168.100.26:41414] DISCONNECTED
+18/08/15 06:43:31 INFO ipc.NettyServer: [id: 0x97bbc835, /192.168.100.28:47391 :> /192.168.100.26:41414] UNBOUND
+18/08/15 06:43:31 INFO ipc.NettyServer: [id: 0x97bbc835, /192.168.100.28:47391 :> /192.168.100.26:41414] CLOSED
+18/08/15 06:43:31 INFO ipc.NettyServer: Connection to /192.168.100.28:47391 disconnected.
+18/08/15 06:43:33 INFO ipc.NettyServer: [id: 0xb7692e1c, /192.168.100.27:56835 => /192.168.100.26:41414] OPEN
+18/08/15 06:43:33 INFO ipc.NettyServer: [id: 0xb7692e1c, /192.168.100.27:56835 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/15 06:43:33 INFO ipc.NettyServer: [id: 0xb7692e1c, /192.168.100.27:56835 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:56835
+18/08/15 06:43:35 INFO ipc.NettyServer: [id: 0xe83eb070, /192.168.100.29:56557 :> /192.168.100.26:41414] DISCONNECTED
+18/08/15 06:43:35 INFO ipc.NettyServer: [id: 0xe83eb070, /192.168.100.29:56557 :> /192.168.100.26:41414] UNBOUND
+18/08/15 06:43:35 INFO ipc.NettyServer: [id: 0xe83eb070, /192.168.100.29:56557 :> /192.168.100.26:41414] CLOSED
+18/08/15 06:43:35 INFO ipc.NettyServer: Connection to /192.168.100.29:56557 disconnected.
+18/08/15 06:43:38 INFO ipc.NettyServer: [id: 0xf1e8d0f6, /192.168.100.28:34303 => /192.168.100.26:41414] OPEN
+18/08/15 06:43:38 INFO ipc.NettyServer: [id: 0xf1e8d0f6, /192.168.100.28:34303 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/15 06:43:38 INFO ipc.NettyServer: [id: 0xf1e8d0f6, /192.168.100.28:34303 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:34303
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xf1e8d0f6, /192.168.100.28:34303 :> /192.168.100.26:41414] DISCONNECTED
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xf1e8d0f6, /192.168.100.28:34303 :> /192.168.100.26:41414] UNBOUND
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xf1e8d0f6, /192.168.100.28:34303 :> /192.168.100.26:41414] CLOSED
+18/08/15 06:43:43 INFO ipc.NettyServer: Connection to /192.168.100.28:34303 disconnected.
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xb7692e1c, /192.168.100.27:56835 :> /192.168.100.26:41414] DISCONNECTED
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xb7692e1c, /192.168.100.27:56835 :> /192.168.100.26:41414] UNBOUND
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xb7692e1c, /192.168.100.27:56835 :> /192.168.100.26:41414] CLOSED
+18/08/15 06:43:43 INFO ipc.NettyServer: Connection to /192.168.100.27:56835 disconnected.
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xf85cd1ce, /192.168.100.27:33620 :> /192.168.100.26:41414] DISCONNECTED
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xf85cd1ce, /192.168.100.27:33620 :> /192.168.100.26:41414] UNBOUND
+18/08/15 06:43:43 INFO ipc.NettyServer: [id: 0xf85cd1ce, /192.168.100.27:33620 :> /192.168.100.26:41414] CLOSED
+18/08/15 06:43:43 INFO ipc.NettyServer: Connection to /192.168.100.27:33620 disconnected.
+18/08/15 06:43:50 INFO ipc.NettyServer: [id: 0x94805053, /192.168.100.29:52361 :> /192.168.100.26:41414] DISCONNECTED
+18/08/15 06:43:50 INFO ipc.NettyServer: [id: 0x94805053, /192.168.100.29:52361 :> /192.168.100.26:41414] UNBOUND
+18/08/15 06:43:50 INFO ipc.NettyServer: [id: 0x94805053, /192.168.100.29:52361 :> /192.168.100.26:41414] CLOSED
+18/08/15 06:43:50 INFO ipc.NettyServer: Connection to /192.168.100.29:52361 disconnected.
+18/08/17 09:10:27 INFO ipc.NettyServer: [id: 0xf321379c, /192.168.100.29:35126 => /192.168.100.26:41414] OPEN
+18/08/17 09:10:27 INFO ipc.NettyServer: [id: 0xf321379c, /192.168.100.29:35126 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 09:10:27 INFO ipc.NettyServer: [id: 0xf321379c, /192.168.100.29:35126 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:35126
+18/08/17 09:10:36 INFO ipc.NettyServer: [id: 0xaaa6ab8b, /192.168.100.27:35559 => /192.168.100.26:41414] OPEN
+18/08/17 09:10:36 INFO ipc.NettyServer: [id: 0xaaa6ab8b, /192.168.100.27:35559 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 09:10:36 INFO ipc.NettyServer: [id: 0xaaa6ab8b, /192.168.100.27:35559 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:35559
+18/08/17 09:10:36 INFO ipc.NettyServer: [id: 0x2818e433, /192.168.100.29:35130 => /192.168.100.26:41414] OPEN
+18/08/17 09:10:36 INFO ipc.NettyServer: [id: 0x2818e433, /192.168.100.29:35130 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 09:10:36 INFO ipc.NettyServer: [id: 0x2818e433, /192.168.100.29:35130 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:35130
+18/08/17 09:10:37 INFO ipc.NettyServer: [id: 0x88e046a4, /192.168.100.28:33943 => /192.168.100.26:41414] OPEN
+18/08/17 09:10:37 INFO ipc.NettyServer: [id: 0x88e046a4, /192.168.100.28:33943 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 09:10:37 INFO ipc.NettyServer: [id: 0x88e046a4, /192.168.100.28:33943 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:33943
+18/08/17 15:27:15 INFO ipc.NettyServer: [id: 0x2818e433, /192.168.100.29:35130 :> /192.168.100.26:41414] DISCONNECTED
+18/08/17 15:27:15 INFO ipc.NettyServer: [id: 0x2818e433, /192.168.100.29:35130 :> /192.168.100.26:41414] UNBOUND
+18/08/17 15:27:15 INFO ipc.NettyServer: [id: 0x2818e433, /192.168.100.29:35130 :> /192.168.100.26:41414] CLOSED
+18/08/17 15:27:15 INFO ipc.NettyServer: Connection to /192.168.100.29:35130 disconnected.
+18/08/17 15:27:17 INFO ipc.NettyServer: [id: 0x37fd94e2, /192.168.100.27:38032 => /192.168.100.26:41414] OPEN
+18/08/17 15:27:17 INFO ipc.NettyServer: [id: 0x37fd94e2, /192.168.100.27:38032 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 15:27:17 INFO ipc.NettyServer: [id: 0x37fd94e2, /192.168.100.27:38032 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:38032
+18/08/17 15:31:13 INFO ipc.NettyServer: [id: 0xf321379c, /192.168.100.29:35126 :> /192.168.100.26:41414] DISCONNECTED
+18/08/17 15:31:13 INFO ipc.NettyServer: [id: 0xf321379c, /192.168.100.29:35126 :> /192.168.100.26:41414] UNBOUND
+18/08/17 15:31:13 INFO ipc.NettyServer: [id: 0xf321379c, /192.168.100.29:35126 :> /192.168.100.26:41414] CLOSED
+18/08/17 15:31:13 INFO ipc.NettyServer: Connection to /192.168.100.29:35126 disconnected.
+18/08/17 15:38:18 INFO ipc.NettyServer: [id: 0x88e046a4, /192.168.100.28:33943 :> /192.168.100.26:41414] DISCONNECTED
+18/08/17 15:38:18 INFO ipc.NettyServer: [id: 0x88e046a4, /192.168.100.28:33943 :> /192.168.100.26:41414] UNBOUND
+18/08/17 15:38:18 INFO ipc.NettyServer: [id: 0x88e046a4, /192.168.100.28:33943 :> /192.168.100.26:41414] CLOSED
+18/08/17 15:38:18 INFO ipc.NettyServer: Connection to /192.168.100.28:33943 disconnected.
+18/08/17 15:38:19 INFO ipc.NettyServer: [id: 0x4c936025, /192.168.100.28:48974 => /192.168.100.26:41414] OPEN
+18/08/17 15:38:19 INFO ipc.NettyServer: [id: 0x4c936025, /192.168.100.28:48974 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 15:38:19 INFO ipc.NettyServer: [id: 0x4c936025, /192.168.100.28:48974 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:48974
+18/08/17 15:39:05 INFO ipc.NettyServer: [id: 0xaaa6ab8b, /192.168.100.27:35559 :> /192.168.100.26:41414] DISCONNECTED
+18/08/17 15:39:05 INFO ipc.NettyServer: [id: 0xaaa6ab8b, /192.168.100.27:35559 :> /192.168.100.26:41414] UNBOUND
+18/08/17 15:39:05 INFO ipc.NettyServer: [id: 0xaaa6ab8b, /192.168.100.27:35559 :> /192.168.100.26:41414] CLOSED
+18/08/17 15:39:05 INFO ipc.NettyServer: Connection to /192.168.100.27:35559 disconnected.
+18/08/17 15:39:06 INFO ipc.NettyServer: [id: 0xaa5b5539, /192.168.100.27:38503 => /192.168.100.26:41414] OPEN
+18/08/17 15:39:06 INFO ipc.NettyServer: [id: 0xaa5b5539, /192.168.100.27:38503 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 15:39:06 INFO ipc.NettyServer: [id: 0xaa5b5539, /192.168.100.27:38503 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:38503
+18/08/17 15:50:31 INFO ipc.NettyServer: [id: 0xaa5b5539, /192.168.100.27:38503 :> /192.168.100.26:41414] DISCONNECTED
+18/08/17 15:50:31 INFO ipc.NettyServer: [id: 0xaa5b5539, /192.168.100.27:38503 :> /192.168.100.26:41414] UNBOUND
+18/08/17 15:50:31 INFO ipc.NettyServer: [id: 0xaa5b5539, /192.168.100.27:38503 :> /192.168.100.26:41414] CLOSED
+18/08/17 15:50:31 INFO ipc.NettyServer: Connection to /192.168.100.27:38503 disconnected.
+18/08/17 15:50:32 INFO ipc.NettyServer: [id: 0x6ab340d4, /192.168.100.27:39255 => /192.168.100.26:41414] OPEN
+18/08/17 15:50:32 INFO ipc.NettyServer: [id: 0x6ab340d4, /192.168.100.27:39255 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/17 15:50:32 INFO ipc.NettyServer: [id: 0x6ab340d4, /192.168.100.27:39255 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:39255
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x37fd94e2, /192.168.100.27:38032 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x37fd94e2, /192.168.100.27:38032 :> /192.168.100.26:41414] UNBOUND
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x37fd94e2, /192.168.100.27:38032 :> /192.168.100.26:41414] CLOSED
+18/08/20 09:27:36 INFO ipc.NettyServer: Connection to /192.168.100.27:38032 disconnected.
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x6ab340d4, /192.168.100.27:39255 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x6ab340d4, /192.168.100.27:39255 :> /192.168.100.26:41414] UNBOUND
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x6ab340d4, /192.168.100.27:39255 :> /192.168.100.26:41414] CLOSED
+18/08/20 09:27:36 INFO ipc.NettyServer: Connection to /192.168.100.27:39255 disconnected.
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x4c936025, /192.168.100.28:48974 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x4c936025, /192.168.100.28:48974 :> /192.168.100.26:41414] UNBOUND
+18/08/20 09:27:36 INFO ipc.NettyServer: [id: 0x4c936025, /192.168.100.28:48974 :> /192.168.100.26:41414] CLOSED
+18/08/20 09:27:36 INFO ipc.NettyServer: Connection to /192.168.100.28:48974 disconnected.
+18/08/20 13:22:38 INFO ipc.NettyServer: [id: 0x60b735bf, /192.168.100.28:52770 => /192.168.100.26:41414] OPEN
+18/08/20 13:22:38 INFO ipc.NettyServer: [id: 0x60b735bf, /192.168.100.28:52770 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 13:22:38 INFO ipc.NettyServer: [id: 0x60b735bf, /192.168.100.28:52770 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:52770
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0xce6b60fe, /192.168.100.29:39934 => /192.168.100.26:41414] OPEN
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0xce6b60fe, /192.168.100.29:39934 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0xce6b60fe, /192.168.100.29:39934 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:39934
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0xe612677b, /192.168.100.28:52774 => /192.168.100.26:41414] OPEN
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0xe612677b, /192.168.100.28:52774 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0xe612677b, /192.168.100.28:52774 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:52774
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0x079f87e0, /192.168.100.27:41952 => /192.168.100.26:41414] OPEN
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0x079f87e0, /192.168.100.27:41952 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 13:22:46 INFO ipc.NettyServer: [id: 0x079f87e0, /192.168.100.27:41952 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:41952
+18/08/20 13:23:09 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/20 13:23:09 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/13-mqlog.1534742589710.log.tmp
+18/08/20 14:23:09 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/13-mqlog.1534742589710.log.tmp
+18/08/20 14:23:09 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/13-mqlog.1534742589710.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/13-mqlog.1534742589710.log
+18/08/20 14:23:09 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/20 15:31:07 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/20 15:31:07 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/15-mqlog.1534750267632.log.tmp
+18/08/20 16:31:07 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/15-mqlog.1534750267632.log.tmp
+18/08/20 16:31:07 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/15-mqlog.1534750267632.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/20/15-mqlog.1534750267632.log
+18/08/20 16:31:07 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/20 20:04:01 INFO ipc.NettyServer: [id: 0x60b735bf, /192.168.100.28:52770 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 20:04:01 INFO ipc.NettyServer: [id: 0x60b735bf, /192.168.100.28:52770 :> /192.168.100.26:41414] UNBOUND
+18/08/20 20:04:01 INFO ipc.NettyServer: [id: 0x60b735bf, /192.168.100.28:52770 :> /192.168.100.26:41414] CLOSED
+18/08/20 20:04:01 INFO ipc.NettyServer: Connection to /192.168.100.28:52770 disconnected.
+18/08/20 20:09:19 INFO ipc.NettyServer: [id: 0x05d001af, /192.168.100.28:52573 => /192.168.100.26:41414] OPEN
+18/08/20 20:09:19 INFO ipc.NettyServer: [id: 0x05d001af, /192.168.100.28:52573 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 20:09:19 INFO ipc.NettyServer: [id: 0x05d001af, /192.168.100.28:52573 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:52573
+18/08/20 20:12:12 INFO ipc.NettyServer: [id: 0x05d001af, /192.168.100.28:52573 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 20:12:12 INFO ipc.NettyServer: [id: 0x05d001af, /192.168.100.28:52573 :> /192.168.100.26:41414] UNBOUND
+18/08/20 20:12:12 INFO ipc.NettyServer: [id: 0x05d001af, /192.168.100.28:52573 :> /192.168.100.26:41414] CLOSED
+18/08/20 20:12:12 INFO ipc.NettyServer: Connection to /192.168.100.28:52573 disconnected.
+18/08/20 20:12:28 INFO ipc.NettyServer: [id: 0x6acece3d, /192.168.100.28:52668 => /192.168.100.26:41414] OPEN
+18/08/20 20:12:28 INFO ipc.NettyServer: [id: 0x6acece3d, /192.168.100.28:52668 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 20:12:28 INFO ipc.NettyServer: [id: 0x6acece3d, /192.168.100.28:52668 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:52668
+18/08/20 20:13:33 INFO ipc.NettyServer: [id: 0x6acece3d, /192.168.100.28:52668 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 20:13:33 INFO ipc.NettyServer: [id: 0x6acece3d, /192.168.100.28:52668 :> /192.168.100.26:41414] UNBOUND
+18/08/20 20:13:33 INFO ipc.NettyServer: [id: 0x6acece3d, /192.168.100.28:52668 :> /192.168.100.26:41414] CLOSED
+18/08/20 20:13:33 INFO ipc.NettyServer: Connection to /192.168.100.28:52668 disconnected.
+18/08/20 20:13:39 INFO ipc.NettyServer: [id: 0xf9985607, /192.168.100.28:52733 => /192.168.100.26:41414] OPEN
+18/08/20 20:13:39 INFO ipc.NettyServer: [id: 0xf9985607, /192.168.100.28:52733 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 20:13:39 INFO ipc.NettyServer: [id: 0xf9985607, /192.168.100.28:52733 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:52733
+18/08/20 20:20:23 INFO ipc.NettyServer: [id: 0xf9985607, /192.168.100.28:52733 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 20:20:23 INFO ipc.NettyServer: [id: 0xf9985607, /192.168.100.28:52733 :> /192.168.100.26:41414] UNBOUND
+18/08/20 20:20:23 INFO ipc.NettyServer: [id: 0xf9985607, /192.168.100.28:52733 :> /192.168.100.26:41414] CLOSED
+18/08/20 20:20:23 INFO ipc.NettyServer: Connection to /192.168.100.28:52733 disconnected.
+18/08/20 20:21:57 INFO ipc.NettyServer: [id: 0x12c566c1, /192.168.100.28:52887 => /192.168.100.26:41414] OPEN
+18/08/20 20:21:57 INFO ipc.NettyServer: [id: 0x12c566c1, /192.168.100.28:52887 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 20:21:57 INFO ipc.NettyServer: [id: 0x12c566c1, /192.168.100.28:52887 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:52887
+18/08/20 20:23:17 INFO ipc.NettyServer: [id: 0x12c566c1, /192.168.100.28:52887 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 20:23:17 INFO ipc.NettyServer: [id: 0x12c566c1, /192.168.100.28:52887 :> /192.168.100.26:41414] UNBOUND
+18/08/20 20:23:17 INFO ipc.NettyServer: [id: 0x12c566c1, /192.168.100.28:52887 :> /192.168.100.26:41414] CLOSED
+18/08/20 20:23:17 INFO ipc.NettyServer: Connection to /192.168.100.28:52887 disconnected.
+18/08/20 21:16:30 INFO ipc.NettyServer: [id: 0xe612677b, /192.168.100.28:52774 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 21:16:30 INFO ipc.NettyServer: [id: 0xe612677b, /192.168.100.28:52774 :> /192.168.100.26:41414] UNBOUND
+18/08/20 21:16:30 INFO ipc.NettyServer: [id: 0xe612677b, /192.168.100.28:52774 :> /192.168.100.26:41414] CLOSED
+18/08/20 21:16:30 INFO ipc.NettyServer: Connection to /192.168.100.28:52774 disconnected.
+18/08/20 21:16:32 INFO ipc.NettyServer: [id: 0x1cac44c2, /192.168.100.27:57629 => /192.168.100.26:41414] OPEN
+18/08/20 21:16:32 INFO ipc.NettyServer: [id: 0x1cac44c2, /192.168.100.27:57629 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 21:16:32 INFO ipc.NettyServer: [id: 0x1cac44c2, /192.168.100.27:57629 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:57629
+18/08/20 21:17:21 INFO ipc.NettyServer: [id: 0x079f87e0, /192.168.100.27:41952 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 21:17:21 INFO ipc.NettyServer: [id: 0x079f87e0, /192.168.100.27:41952 :> /192.168.100.26:41414] UNBOUND
+18/08/20 21:17:21 INFO ipc.NettyServer: [id: 0x079f87e0, /192.168.100.27:41952 :> /192.168.100.26:41414] CLOSED
+18/08/20 21:17:21 INFO ipc.NettyServer: Connection to /192.168.100.27:41952 disconnected.
+18/08/20 21:17:23 INFO ipc.NettyServer: [id: 0xb637b31a, /192.168.100.27:57643 => /192.168.100.26:41414] OPEN
+18/08/20 21:17:23 INFO ipc.NettyServer: [id: 0xb637b31a, /192.168.100.27:57643 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 21:17:23 INFO ipc.NettyServer: [id: 0xb637b31a, /192.168.100.27:57643 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:57643
+18/08/20 21:17:29 INFO ipc.NettyServer: [id: 0xce6b60fe, /192.168.100.29:39934 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 21:17:29 INFO ipc.NettyServer: [id: 0xce6b60fe, /192.168.100.29:39934 :> /192.168.100.26:41414] UNBOUND
+18/08/20 21:17:29 INFO ipc.NettyServer: [id: 0xce6b60fe, /192.168.100.29:39934 :> /192.168.100.26:41414] CLOSED
+18/08/20 21:17:29 INFO ipc.NettyServer: Connection to /192.168.100.29:39934 disconnected.
+18/08/20 21:17:32 INFO ipc.NettyServer: [id: 0x9d0871a3, /192.168.100.28:56525 => /192.168.100.26:41414] OPEN
+18/08/20 21:17:32 INFO ipc.NettyServer: [id: 0x9d0871a3, /192.168.100.28:56525 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/20 21:17:32 INFO ipc.NettyServer: [id: 0x9d0871a3, /192.168.100.28:56525 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:56525
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0xb637b31a, /192.168.100.27:57643 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0xb637b31a, /192.168.100.27:57643 :> /192.168.100.26:41414] UNBOUND
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0xb637b31a, /192.168.100.27:57643 :> /192.168.100.26:41414] CLOSED
+18/08/20 21:33:42 INFO ipc.NettyServer: Connection to /192.168.100.27:57643 disconnected.
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0x1cac44c2, /192.168.100.27:57629 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0x1cac44c2, /192.168.100.27:57629 :> /192.168.100.26:41414] UNBOUND
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0x1cac44c2, /192.168.100.27:57629 :> /192.168.100.26:41414] CLOSED
+18/08/20 21:33:42 INFO ipc.NettyServer: Connection to /192.168.100.27:57629 disconnected.
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0x9d0871a3, /192.168.100.28:56525 :> /192.168.100.26:41414] DISCONNECTED
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0x9d0871a3, /192.168.100.28:56525 :> /192.168.100.26:41414] UNBOUND
+18/08/20 21:33:42 INFO ipc.NettyServer: [id: 0x9d0871a3, /192.168.100.28:56525 :> /192.168.100.26:41414] CLOSED
+18/08/20 21:33:42 INFO ipc.NettyServer: Connection to /192.168.100.28:56525 disconnected.
+18/08/22 11:37:11 INFO ipc.NettyServer: [id: 0x5e6d0af9, /192.168.100.28:49577 => /192.168.100.26:41414] OPEN
+18/08/22 11:37:11 INFO ipc.NettyServer: [id: 0x5e6d0af9, /192.168.100.28:49577 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/22 11:37:11 INFO ipc.NettyServer: [id: 0x5e6d0af9, /192.168.100.28:49577 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:49577
+18/08/22 11:37:19 INFO ipc.NettyServer: [id: 0x33735bb0, /192.168.100.27:43683 => /192.168.100.26:41414] OPEN
+18/08/22 11:37:19 INFO ipc.NettyServer: [id: 0x33735bb0, /192.168.100.27:43683 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/22 11:37:19 INFO ipc.NettyServer: [id: 0x33735bb0, /192.168.100.27:43683 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:43683
+18/08/22 11:37:20 INFO ipc.NettyServer: [id: 0xf2ad4258, /192.168.100.28:49585 => /192.168.100.26:41414] OPEN
+18/08/22 11:37:20 INFO ipc.NettyServer: [id: 0xf2ad4258, /192.168.100.28:49585 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/22 11:37:20 INFO ipc.NettyServer: [id: 0xf2ad4258, /192.168.100.28:49585 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:49585
+18/08/22 11:37:20 INFO ipc.NettyServer: [id: 0x0f9e7d01, /192.168.100.29:35078 => /192.168.100.26:41414] OPEN
+18/08/22 11:37:20 INFO ipc.NettyServer: [id: 0x0f9e7d01, /192.168.100.29:35078 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/22 11:37:20 INFO ipc.NettyServer: [id: 0x0f9e7d01, /192.168.100.29:35078 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:35078
+18/08/23 09:29:20 INFO ipc.NettyServer: [id: 0xf2ad4258, /192.168.100.28:49585 :> /192.168.100.26:41414] DISCONNECTED
+18/08/23 09:29:21 INFO ipc.NettyServer: [id: 0xf2ad4258, /192.168.100.28:49585 :> /192.168.100.26:41414] UNBOUND
+18/08/23 09:29:21 INFO ipc.NettyServer: [id: 0xf2ad4258, /192.168.100.28:49585 :> /192.168.100.26:41414] CLOSED
+18/08/23 09:29:21 INFO ipc.NettyServer: Connection to /192.168.100.28:49585 disconnected.
+18/08/23 09:29:21 INFO ipc.NettyServer: [id: 0x0f9e7d01, /192.168.100.29:35078 :> /192.168.100.26:41414] DISCONNECTED
+18/08/23 09:29:21 INFO ipc.NettyServer: [id: 0x0f9e7d01, /192.168.100.29:35078 :> /192.168.100.26:41414] UNBOUND
+18/08/23 09:29:21 INFO ipc.NettyServer: [id: 0x0f9e7d01, /192.168.100.29:35078 :> /192.168.100.26:41414] CLOSED
+18/08/23 09:29:21 INFO ipc.NettyServer: Connection to /192.168.100.29:35078 disconnected.
+18/08/23 09:29:23 INFO ipc.NettyServer: [id: 0xb2677eb3, /192.168.100.29:59426 => /192.168.100.26:41414] OPEN
+18/08/23 09:29:23 INFO ipc.NettyServer: [id: 0xb2677eb3, /192.168.100.29:59426 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/23 09:29:23 INFO ipc.NettyServer: [id: 0xb2677eb3, /192.168.100.29:59426 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:59426
+18/08/23 09:29:23 INFO ipc.NettyServer: [id: 0xaa468d30, /192.168.100.28:46129 => /192.168.100.26:41414] OPEN
+18/08/23 09:29:23 INFO ipc.NettyServer: [id: 0xaa468d30, /192.168.100.28:46129 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/23 09:29:23 INFO ipc.NettyServer: [id: 0xaa468d30, /192.168.100.28:46129 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:46129
+18/08/23 09:29:33 INFO ipc.NettyServer: [id: 0x33735bb0, /192.168.100.27:43683 :> /192.168.100.26:41414] DISCONNECTED
+18/08/23 09:29:33 INFO ipc.NettyServer: [id: 0x33735bb0, /192.168.100.27:43683 :> /192.168.100.26:41414] UNBOUND
+18/08/23 09:29:33 INFO ipc.NettyServer: [id: 0x33735bb0, /192.168.100.27:43683 :> /192.168.100.26:41414] CLOSED
+18/08/23 09:29:33 INFO ipc.NettyServer: Connection to /192.168.100.27:43683 disconnected.
+18/08/23 09:29:35 INFO ipc.NettyServer: [id: 0xe4cfd713, /192.168.100.27:57492 => /192.168.100.26:41414] OPEN
+18/08/23 09:29:35 INFO ipc.NettyServer: [id: 0xe4cfd713, /192.168.100.27:57492 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/23 09:29:35 INFO ipc.NettyServer: [id: 0xe4cfd713, /192.168.100.27:57492 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:57492
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xe4cfd713, /192.168.100.27:57492 :> /192.168.100.26:41414] DISCONNECTED
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xe4cfd713, /192.168.100.27:57492 :> /192.168.100.26:41414] UNBOUND
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xe4cfd713, /192.168.100.27:57492 :> /192.168.100.26:41414] CLOSED
+18/08/23 09:29:39 INFO ipc.NettyServer: Connection to /192.168.100.27:57492 disconnected.
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xb2677eb3, /192.168.100.29:59426 :> /192.168.100.26:41414] DISCONNECTED
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xb2677eb3, /192.168.100.29:59426 :> /192.168.100.26:41414] UNBOUND
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xb2677eb3, /192.168.100.29:59426 :> /192.168.100.26:41414] CLOSED
+18/08/23 09:29:39 INFO ipc.NettyServer: Connection to /192.168.100.29:59426 disconnected.
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xaa468d30, /192.168.100.28:46129 :> /192.168.100.26:41414] DISCONNECTED
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xaa468d30, /192.168.100.28:46129 :> /192.168.100.26:41414] UNBOUND
+18/08/23 09:29:39 INFO ipc.NettyServer: [id: 0xaa468d30, /192.168.100.28:46129 :> /192.168.100.26:41414] CLOSED
+18/08/23 09:29:39 INFO ipc.NettyServer: Connection to /192.168.100.28:46129 disconnected.
+18/08/23 09:29:53 INFO ipc.NettyServer: [id: 0x5e6d0af9, /192.168.100.28:49577 :> /192.168.100.26:41414] DISCONNECTED
+18/08/23 09:29:53 INFO ipc.NettyServer: [id: 0x5e6d0af9, /192.168.100.28:49577 :> /192.168.100.26:41414] UNBOUND
+18/08/23 09:29:53 INFO ipc.NettyServer: [id: 0x5e6d0af9, /192.168.100.28:49577 :> /192.168.100.26:41414] CLOSED
+18/08/23 09:29:53 INFO ipc.NettyServer: Connection to /192.168.100.28:49577 disconnected.
+18/08/23 09:34:36 INFO ipc.NettyServer: [id: 0x43331830, /192.168.100.27:57623 => /192.168.100.26:41414] OPEN
+18/08/23 09:34:36 INFO ipc.NettyServer: [id: 0x43331830, /192.168.100.27:57623 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/23 09:34:36 INFO ipc.NettyServer: [id: 0x43331830, /192.168.100.27:57623 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:57623
+18/08/23 09:34:45 INFO ipc.NettyServer: [id: 0xbf82a127, /192.168.100.29:60981 => /192.168.100.26:41414] OPEN
+18/08/23 09:34:45 INFO ipc.NettyServer: [id: 0xbf82a127, /192.168.100.29:60981 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/23 09:34:45 INFO ipc.NettyServer: [id: 0xbf82a127, /192.168.100.29:60981 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:60981
+18/08/23 09:34:46 INFO ipc.NettyServer: [id: 0x40fba489, /192.168.100.28:49349 => /192.168.100.26:41414] OPEN
+18/08/23 09:34:46 INFO ipc.NettyServer: [id: 0x40fba489, /192.168.100.28:49349 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/23 09:34:46 INFO ipc.NettyServer: [id: 0x40fba489, /192.168.100.28:49349 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:49349
+18/08/23 09:34:46 INFO ipc.NettyServer: [id: 0xab9dbdbb, /192.168.100.27:57645 => /192.168.100.26:41414] OPEN
+18/08/23 09:34:46 INFO ipc.NettyServer: [id: 0xab9dbdbb, /192.168.100.27:57645 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/23 09:34:46 INFO ipc.NettyServer: [id: 0xab9dbdbb, /192.168.100.27:57645 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:57645
+18/08/23 15:17:09 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/23 15:17:09 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/15-mqlog.1535008629405.log.tmp
+18/08/23 16:17:09 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/15-mqlog.1535008629405.log.tmp
+18/08/23 16:17:09 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/15-mqlog.1535008629405.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/15-mqlog.1535008629405.log
+18/08/23 16:17:09 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/23 20:56:55 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/23 20:56:55 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/20-mqlog.1535029015894.log.tmp
+18/08/23 21:56:56 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/20-mqlog.1535029015894.log.tmp
+18/08/23 21:56:56 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/20-mqlog.1535029015894.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/23/20-mqlog.1535029015894.log
+18/08/23 21:56:56 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/24 04:59:42 INFO ipc.NettyServer: [id: 0x43331830, /192.168.100.27:57623 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 04:59:42 INFO ipc.NettyServer: [id: 0x43331830, /192.168.100.27:57623 :> /192.168.100.26:41414] UNBOUND
+18/08/24 04:59:42 INFO ipc.NettyServer: [id: 0x43331830, /192.168.100.27:57623 :> /192.168.100.26:41414] CLOSED
+18/08/24 04:59:42 INFO ipc.NettyServer: Connection to /192.168.100.27:57623 disconnected.
+18/08/24 05:03:06 INFO ipc.NettyServer: [id: 0x4f4eef54, /192.168.100.27:51261 => /192.168.100.26:41414] OPEN
+18/08/24 05:03:06 INFO ipc.NettyServer: [id: 0x4f4eef54, /192.168.100.27:51261 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 05:03:06 INFO ipc.NettyServer: [id: 0x4f4eef54, /192.168.100.27:51261 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:51261
+18/08/24 05:19:19 INFO ipc.NettyServer: [id: 0x4f4eef54, /192.168.100.27:51261 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 05:19:19 INFO ipc.NettyServer: [id: 0x4f4eef54, /192.168.100.27:51261 :> /192.168.100.26:41414] UNBOUND
+18/08/24 05:19:19 INFO ipc.NettyServer: [id: 0x4f4eef54, /192.168.100.27:51261 :> /192.168.100.26:41414] CLOSED
+18/08/24 05:19:19 INFO ipc.NettyServer: Connection to /192.168.100.27:51261 disconnected.
+18/08/24 05:20:33 INFO ipc.NettyServer: [id: 0x8099c143, /192.168.100.27:52261 => /192.168.100.26:41414] OPEN
+18/08/24 05:20:33 INFO ipc.NettyServer: [id: 0x8099c143, /192.168.100.27:52261 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 05:20:33 INFO ipc.NettyServer: [id: 0x8099c143, /192.168.100.27:52261 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:52261
+18/08/24 05:22:50 INFO ipc.NettyServer: [id: 0x8099c143, /192.168.100.27:52261 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 05:22:50 INFO ipc.NettyServer: [id: 0x8099c143, /192.168.100.27:52261 :> /192.168.100.26:41414] UNBOUND
+18/08/24 05:22:50 INFO ipc.NettyServer: [id: 0x8099c143, /192.168.100.27:52261 :> /192.168.100.26:41414] CLOSED
+18/08/24 05:22:50 INFO ipc.NettyServer: Connection to /192.168.100.27:52261 disconnected.
+18/08/24 05:23:41 INFO ipc.NettyServer: [id: 0x1d4e2168, /192.168.100.27:52350 => /192.168.100.26:41414] OPEN
+18/08/24 05:23:41 INFO ipc.NettyServer: [id: 0x1d4e2168, /192.168.100.27:52350 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 05:23:41 INFO ipc.NettyServer: [id: 0x1d4e2168, /192.168.100.27:52350 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:52350
+18/08/24 05:27:32 INFO ipc.NettyServer: [id: 0x1d4e2168, /192.168.100.27:52350 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 05:27:32 INFO ipc.NettyServer: [id: 0x1d4e2168, /192.168.100.27:52350 :> /192.168.100.26:41414] UNBOUND
+18/08/24 05:27:32 INFO ipc.NettyServer: [id: 0x1d4e2168, /192.168.100.27:52350 :> /192.168.100.26:41414] CLOSED
+18/08/24 05:27:32 INFO ipc.NettyServer: Connection to /192.168.100.27:52350 disconnected.
+18/08/24 05:28:22 INFO ipc.NettyServer: [id: 0x83cd0960, /192.168.100.27:52697 => /192.168.100.26:41414] OPEN
+18/08/24 05:28:22 INFO ipc.NettyServer: [id: 0x83cd0960, /192.168.100.27:52697 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 05:28:22 INFO ipc.NettyServer: [id: 0x83cd0960, /192.168.100.27:52697 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:52697
+18/08/24 05:33:21 INFO ipc.NettyServer: [id: 0x83cd0960, /192.168.100.27:52697 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 05:33:21 INFO ipc.NettyServer: [id: 0x83cd0960, /192.168.100.27:52697 :> /192.168.100.26:41414] UNBOUND
+18/08/24 05:33:21 INFO ipc.NettyServer: [id: 0x83cd0960, /192.168.100.27:52697 :> /192.168.100.26:41414] CLOSED
+18/08/24 05:33:21 INFO ipc.NettyServer: Connection to /192.168.100.27:52697 disconnected.
+18/08/24 06:44:35 INFO ipc.NettyServer: [id: 0xbf82a127, /192.168.100.29:60981 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 06:44:35 INFO ipc.NettyServer: [id: 0xbf82a127, /192.168.100.29:60981 :> /192.168.100.26:41414] UNBOUND
+18/08/24 06:44:35 INFO ipc.NettyServer: [id: 0xbf82a127, /192.168.100.29:60981 :> /192.168.100.26:41414] CLOSED
+18/08/24 06:44:35 INFO ipc.NettyServer: Connection to /192.168.100.29:60981 disconnected.
+18/08/24 06:44:35 INFO ipc.NettyServer: [id: 0xe6b5a099, /192.168.100.29:57317 => /192.168.100.26:41414] OPEN
+18/08/24 06:44:35 INFO ipc.NettyServer: [id: 0xe6b5a099, /192.168.100.29:57317 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 06:44:35 INFO ipc.NettyServer: [id: 0xe6b5a099, /192.168.100.29:57317 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:57317
+18/08/24 07:05:30 INFO ipc.NettyServer: [id: 0x40fba489, /192.168.100.28:49349 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 07:05:30 INFO ipc.NettyServer: [id: 0x40fba489, /192.168.100.28:49349 :> /192.168.100.26:41414] UNBOUND
+18/08/24 07:05:30 INFO ipc.NettyServer: [id: 0x40fba489, /192.168.100.28:49349 :> /192.168.100.26:41414] CLOSED
+18/08/24 07:05:30 INFO ipc.NettyServer: Connection to /192.168.100.28:49349 disconnected.
+18/08/24 07:05:30 INFO ipc.NettyServer: [id: 0xab9dbdbb, /192.168.100.27:57645 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 07:05:30 INFO ipc.NettyServer: [id: 0xab9dbdbb, /192.168.100.27:57645 :> /192.168.100.26:41414] UNBOUND
+18/08/24 07:05:30 INFO ipc.NettyServer: [id: 0xab9dbdbb, /192.168.100.27:57645 :> /192.168.100.26:41414] CLOSED
+18/08/24 07:05:30 INFO ipc.NettyServer: Connection to /192.168.100.27:57645 disconnected.
+18/08/24 07:05:32 INFO ipc.NettyServer: [id: 0xa642be87, /192.168.100.28:49671 => /192.168.100.26:41414] OPEN
+18/08/24 07:05:32 INFO ipc.NettyServer: [id: 0xa642be87, /192.168.100.28:49671 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 07:05:32 INFO ipc.NettyServer: [id: 0xa642be87, /192.168.100.28:49671 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:49671
+18/08/24 07:05:37 INFO ipc.NettyServer: [id: 0x395310f4, /192.168.100.27:58146 => /192.168.100.26:41414] OPEN
+18/08/24 07:05:37 INFO ipc.NettyServer: [id: 0x395310f4, /192.168.100.27:58146 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 07:05:37 INFO ipc.NettyServer: [id: 0x395310f4, /192.168.100.27:58146 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:58146
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0xe6b5a099, /192.168.100.29:57317 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0xe6b5a099, /192.168.100.29:57317 :> /192.168.100.26:41414] UNBOUND
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0xe6b5a099, /192.168.100.29:57317 :> /192.168.100.26:41414] CLOSED
+18/08/24 07:16:02 INFO ipc.NettyServer: Connection to /192.168.100.29:57317 disconnected.
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0xa642be87, /192.168.100.28:49671 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0xa642be87, /192.168.100.28:49671 :> /192.168.100.26:41414] UNBOUND
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0xa642be87, /192.168.100.28:49671 :> /192.168.100.26:41414] CLOSED
+18/08/24 07:16:02 INFO ipc.NettyServer: Connection to /192.168.100.28:49671 disconnected.
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0x395310f4, /192.168.100.27:58146 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0x395310f4, /192.168.100.27:58146 :> /192.168.100.26:41414] UNBOUND
+18/08/24 07:16:02 INFO ipc.NettyServer: [id: 0x395310f4, /192.168.100.27:58146 :> /192.168.100.26:41414] CLOSED
+18/08/24 07:16:02 INFO ipc.NettyServer: Connection to /192.168.100.27:58146 disconnected.
+18/08/24 09:43:03 INFO ipc.NettyServer: [id: 0x5a96f92f, /192.168.100.28:47758 => /192.168.100.26:41414] OPEN
+18/08/24 09:43:03 INFO ipc.NettyServer: [id: 0x5a96f92f, /192.168.100.28:47758 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 09:43:03 INFO ipc.NettyServer: [id: 0x5a96f92f, /192.168.100.28:47758 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:47758
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0xa2e48d64, /192.168.100.29:42529 => /192.168.100.26:41414] OPEN
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0xa2e48d64, /192.168.100.29:42529 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0xa2e48d64, /192.168.100.29:42529 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:42529
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0x9fb1d430, /192.168.100.27:39031 => /192.168.100.26:41414] OPEN
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0x9fb1d430, /192.168.100.27:39031 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0x9fb1d430, /192.168.100.27:39031 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:39031
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0x5228e420, /192.168.100.28:47797 => /192.168.100.26:41414] OPEN
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0x5228e420, /192.168.100.28:47797 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 09:43:12 INFO ipc.NettyServer: [id: 0x5228e420, /192.168.100.28:47797 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:47797
+18/08/24 18:06:22 INFO ipc.NettyServer: [id: 0xd695b23c, /192.168.100.28:42818 => /192.168.100.26:41414] OPEN
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0xa2e48d64, /192.168.100.29:42529 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0xa2e48d64, /192.168.100.29:42529 :> /192.168.100.26:41414] UNBOUND
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0xa2e48d64, /192.168.100.29:42529 :> /192.168.100.26:41414] CLOSED
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x38110acb, /192.168.100.29:60432 => /192.168.100.26:41414] OPEN
+18/08/24 18:06:36 INFO ipc.NettyServer: Connection to /192.168.100.29:42529 disconnected.
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x9fb1d430, /192.168.100.27:39031 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x9fb1d430, /192.168.100.27:39031 :> /192.168.100.26:41414] UNBOUND
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x5228e420, /192.168.100.28:47797 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x5228e420, /192.168.100.28:47797 :> /192.168.100.26:41414] UNBOUND
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x5228e420, /192.168.100.28:47797 :> /192.168.100.26:41414] CLOSED
+18/08/24 18:06:36 INFO ipc.NettyServer: Connection to /192.168.100.28:47797 disconnected.
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x5a96f92f, /192.168.100.28:47758 :> /192.168.100.26:41414] DISCONNECTED
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x5a96f92f, /192.168.100.28:47758 :> /192.168.100.26:41414] UNBOUND
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x9fb1d430, /192.168.100.27:39031 :> /192.168.100.26:41414] CLOSED
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x606c7298, /192.168.100.27:55067 => /192.168.100.26:41414] OPEN
+18/08/24 18:06:36 INFO ipc.NettyServer: Connection to /192.168.100.27:39031 disconnected.
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x5a96f92f, /192.168.100.28:47758 :> /192.168.100.26:41414] CLOSED
+18/08/24 18:06:36 INFO ipc.NettyServer: Connection to /192.168.100.28:47758 disconnected.
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0xe49dd73f, /192.168.100.28:42819 => /192.168.100.26:41414] OPEN
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0xe49dd73f, /192.168.100.28:42819 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x606c7298, /192.168.100.27:55067 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x606c7298, /192.168.100.27:55067 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:55067
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0xd695b23c, /192.168.100.28:42818 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0x38110acb, /192.168.100.29:60432 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/24 18:06:37 INFO ipc.NettyServer: [id: 0x38110acb, /192.168.100.29:60432 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:60432
+18/08/24 18:06:36 INFO ipc.NettyServer: [id: 0xe49dd73f, /192.168.100.28:42819 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:42819
+18/08/24 18:06:37 INFO ipc.NettyServer: [id: 0xd695b23c, /192.168.100.28:42818 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:42818
+18/08/25 04:52:38 INFO ipc.NettyServer: [id: 0xe49dd73f, /192.168.100.28:42819 :> /192.168.100.26:41414] DISCONNECTED
+18/08/25 04:52:38 INFO ipc.NettyServer: [id: 0xe49dd73f, /192.168.100.28:42819 :> /192.168.100.26:41414] UNBOUND
+18/08/25 04:52:38 INFO ipc.NettyServer: [id: 0xe49dd73f, /192.168.100.28:42819 :> /192.168.100.26:41414] CLOSED
+18/08/25 04:52:38 INFO ipc.NettyServer: Connection to /192.168.100.28:42819 disconnected.
+18/08/25 04:52:58 INFO ipc.NettyServer: [id: 0x401d5181, /192.168.100.28:43647 => /192.168.100.26:41414] OPEN
+18/08/25 04:52:58 INFO ipc.NettyServer: [id: 0x401d5181, /192.168.100.28:43647 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/25 04:52:58 INFO ipc.NettyServer: [id: 0x401d5181, /192.168.100.28:43647 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:43647
+18/08/25 10:14:17 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/25 10:14:18 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/10-mqlog.1535163257948.log.tmp
+18/08/25 11:14:18 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/10-mqlog.1535163257948.log.tmp
+18/08/25 11:14:18 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/10-mqlog.1535163257948.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/10-mqlog.1535163257948.log
+18/08/25 11:14:18 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/25 17:29:20 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/25 17:29:20 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/17-mqlog.1535189360268.log.tmp
+18/08/25 18:29:20 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/17-mqlog.1535189360268.log.tmp
+18/08/25 18:29:20 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/17-mqlog.1535189360268.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/25/17-mqlog.1535189360268.log
+18/08/25 18:29:20 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/26 14:34:01 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/26 14:34:01 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/26/14-mqlog.1535265241463.log.tmp
+18/08/26 15:34:01 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/26/14-mqlog.1535265241463.log.tmp
+18/08/26 15:34:01 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/26/14-mqlog.1535265241463.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/26/14-mqlog.1535265241463.log
+18/08/26 15:34:01 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/27 09:36:50 INFO ipc.NettyServer: [id: 0x606c7298, /192.168.100.27:55067 :> /192.168.100.26:41414] DISCONNECTED
+18/08/27 09:36:50 INFO ipc.NettyServer: [id: 0x606c7298, /192.168.100.27:55067 :> /192.168.100.26:41414] UNBOUND
+18/08/27 09:36:50 INFO ipc.NettyServer: [id: 0x606c7298, /192.168.100.27:55067 :> /192.168.100.26:41414] CLOSED
+18/08/27 09:36:50 INFO ipc.NettyServer: Connection to /192.168.100.27:55067 disconnected.
+18/08/27 09:36:51 INFO ipc.NettyServer: [id: 0x38110acb, /192.168.100.29:60432 :> /192.168.100.26:41414] DISCONNECTED
+18/08/27 09:36:51 INFO ipc.NettyServer: [id: 0x38110acb, /192.168.100.29:60432 :> /192.168.100.26:41414] UNBOUND
+18/08/27 09:36:51 INFO ipc.NettyServer: [id: 0x38110acb, /192.168.100.29:60432 :> /192.168.100.26:41414] CLOSED
+18/08/27 09:36:51 INFO ipc.NettyServer: Connection to /192.168.100.29:60432 disconnected.
+18/08/27 09:36:51 INFO ipc.NettyServer: [id: 0xd695b23c, /192.168.100.28:42818 :> /192.168.100.26:41414] DISCONNECTED
+18/08/27 09:36:51 INFO ipc.NettyServer: [id: 0xd695b23c, /192.168.100.28:42818 :> /192.168.100.26:41414] UNBOUND
+18/08/27 09:36:51 INFO ipc.NettyServer: [id: 0xd695b23c, /192.168.100.28:42818 :> /192.168.100.26:41414] CLOSED
+18/08/27 09:36:51 INFO ipc.NettyServer: Connection to /192.168.100.28:42818 disconnected.
+18/08/27 09:37:10 INFO ipc.NettyServer: [id: 0x401d5181, /192.168.100.28:43647 :> /192.168.100.26:41414] DISCONNECTED
+18/08/27 09:37:10 INFO ipc.NettyServer: [id: 0x401d5181, /192.168.100.28:43647 :> /192.168.100.26:41414] UNBOUND
+18/08/27 09:37:10 INFO ipc.NettyServer: [id: 0x401d5181, /192.168.100.28:43647 :> /192.168.100.26:41414] CLOSED
+18/08/27 09:37:10 INFO ipc.NettyServer: Connection to /192.168.100.28:43647 disconnected.
+18/08/27 09:41:43 INFO ipc.NettyServer: [id: 0x7cf4a547, /192.168.100.27:36302 => /192.168.100.26:41414] OPEN
+18/08/27 09:41:43 INFO ipc.NettyServer: [id: 0x7cf4a547, /192.168.100.27:36302 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/27 09:41:43 INFO ipc.NettyServer: [id: 0x7cf4a547, /192.168.100.27:36302 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:36302
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0xb905cadc, /192.168.100.28:58621 => /192.168.100.26:41414] OPEN
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0xb905cadc, /192.168.100.28:58621 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0xb905cadc, /192.168.100.28:58621 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:58621
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0x4e1cbedd, /192.168.100.27:36407 => /192.168.100.26:41414] OPEN
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0x4e1cbedd, /192.168.100.27:36407 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0x4e1cbedd, /192.168.100.27:36407 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:36407
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0xf1859a26, /192.168.100.29:36659 => /192.168.100.26:41414] OPEN
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0xf1859a26, /192.168.100.29:36659 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/27 09:41:53 INFO ipc.NettyServer: [id: 0xf1859a26, /192.168.100.29:36659 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:36659
+18/08/27 11:04:33 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/27 11:04:33 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/11-mqlog.1535339073676.log.tmp
+18/08/27 12:04:33 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/11-mqlog.1535339073676.log.tmp
+18/08/27 12:04:33 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/11-mqlog.1535339073676.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/11-mqlog.1535339073676.log
+18/08/27 12:04:33 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/27 13:08:13 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/27 13:08:13 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/13-mqlog.1535346493240.log.tmp
+18/08/27 14:08:13 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/13-mqlog.1535346493240.log.tmp
+18/08/27 14:08:13 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/13-mqlog.1535346493240.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/13-mqlog.1535346493240.log
+18/08/27 14:08:13 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/27 14:55:24 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/27 14:55:24 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/14-mqlog.1535352924005.log.tmp
+18/08/27 15:48:02 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/27 15:48:02 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/15-mqlog.1535356082229.log.tmp
+18/08/27 15:55:24 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/14-mqlog.1535352924005.log.tmp
+18/08/27 15:55:24 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/14-mqlog.1535352924005.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/14-mqlog.1535352924005.log
+18/08/27 15:55:24 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/27 16:12:29 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/27 16:12:29 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/16-mqlog.1535357549017.log.tmp
+18/08/27 16:48:02 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/15-mqlog.1535356082229.log.tmp
+18/08/27 16:48:02 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/15-mqlog.1535356082229.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/15-mqlog.1535356082229.log
+18/08/27 16:48:02 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/27 17:12:29 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/16-mqlog.1535357549017.log.tmp
+18/08/27 17:12:29 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/16-mqlog.1535357549017.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/16-mqlog.1535357549017.log
+18/08/27 17:12:29 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/27 17:55:54 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/27 17:55:55 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/17-mqlog.1535363754967.log.tmp
+18/08/27 18:26:44 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/27 18:26:44 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/18-mqlog.1535365604202.log.tmp
+18/08/27 18:55:55 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/17-mqlog.1535363754967.log.tmp
+18/08/27 18:55:55 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/17-mqlog.1535363754967.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/17-mqlog.1535363754967.log
+18/08/27 18:55:55 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/27 19:26:44 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/18-mqlog.1535365604202.log.tmp
+18/08/27 19:26:44 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/18-mqlog.1535365604202.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/27/18-mqlog.1535365604202.log
+18/08/27 19:26:44 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/28 05:19:20 INFO ipc.NettyServer: [id: 0x7cf4a547, /192.168.100.27:36302 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 05:19:20 INFO ipc.NettyServer: [id: 0x7cf4a547, /192.168.100.27:36302 :> /192.168.100.26:41414] UNBOUND
+18/08/28 05:19:20 INFO ipc.NettyServer: [id: 0x7cf4a547, /192.168.100.27:36302 :> /192.168.100.26:41414] CLOSED
+18/08/28 05:19:20 INFO ipc.NettyServer: Connection to /192.168.100.27:36302 disconnected.
+18/08/28 05:22:06 INFO ipc.NettyServer: [id: 0x0b6d6ba8, /192.168.100.27:56555 => /192.168.100.26:41414] OPEN
+18/08/28 05:22:06 INFO ipc.NettyServer: [id: 0x0b6d6ba8, /192.168.100.27:56555 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 05:22:06 INFO ipc.NettyServer: [id: 0x0b6d6ba8, /192.168.100.27:56555 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:56555
+18/08/28 05:30:03 INFO ipc.NettyServer: [id: 0x0b6d6ba8, /192.168.100.27:56555 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 05:30:03 INFO ipc.NettyServer: [id: 0x0b6d6ba8, /192.168.100.27:56555 :> /192.168.100.26:41414] UNBOUND
+18/08/28 05:30:03 INFO ipc.NettyServer: [id: 0x0b6d6ba8, /192.168.100.27:56555 :> /192.168.100.26:41414] CLOSED
+18/08/28 05:30:03 INFO ipc.NettyServer: Connection to /192.168.100.27:56555 disconnected.
+18/08/28 05:33:36 INFO ipc.NettyServer: [id: 0x6fa5f0bf, /192.168.100.27:56756 => /192.168.100.26:41414] OPEN
+18/08/28 05:33:36 INFO ipc.NettyServer: [id: 0x6fa5f0bf, /192.168.100.27:56756 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 05:33:36 INFO ipc.NettyServer: [id: 0x6fa5f0bf, /192.168.100.27:56756 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:56756
+18/08/28 05:34:11 INFO ipc.NettyServer: [id: 0x6fa5f0bf, /192.168.100.27:56756 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 05:34:11 INFO ipc.NettyServer: [id: 0x6fa5f0bf, /192.168.100.27:56756 :> /192.168.100.26:41414] UNBOUND
+18/08/28 05:34:11 INFO ipc.NettyServer: [id: 0x6fa5f0bf, /192.168.100.27:56756 :> /192.168.100.26:41414] CLOSED
+18/08/28 05:34:11 INFO ipc.NettyServer: Connection to /192.168.100.27:56756 disconnected.
+18/08/28 05:37:24 INFO ipc.NettyServer: [id: 0x9cd94dcb, /192.168.100.27:56823 => /192.168.100.26:41414] OPEN
+18/08/28 05:37:24 INFO ipc.NettyServer: [id: 0x9cd94dcb, /192.168.100.27:56823 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 05:37:24 INFO ipc.NettyServer: [id: 0x9cd94dcb, /192.168.100.27:56823 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:56823
+18/08/28 05:37:58 INFO ipc.NettyServer: [id: 0x9cd94dcb, /192.168.100.27:56823 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 05:37:58 INFO ipc.NettyServer: [id: 0x9cd94dcb, /192.168.100.27:56823 :> /192.168.100.26:41414] UNBOUND
+18/08/28 05:37:58 INFO ipc.NettyServer: [id: 0x9cd94dcb, /192.168.100.27:56823 :> /192.168.100.26:41414] CLOSED
+18/08/28 05:37:58 INFO ipc.NettyServer: Connection to /192.168.100.27:56823 disconnected.
+18/08/28 05:38:43 INFO ipc.NettyServer: [id: 0xb905cadc, /192.168.100.28:58621 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 05:38:43 INFO ipc.NettyServer: [id: 0xb905cadc, /192.168.100.28:58621 :> /192.168.100.26:41414] UNBOUND
+18/08/28 05:38:43 INFO ipc.NettyServer: [id: 0xb905cadc, /192.168.100.28:58621 :> /192.168.100.26:41414] CLOSED
+18/08/28 05:38:43 INFO ipc.NettyServer: Connection to /192.168.100.28:58621 disconnected.
+18/08/28 05:38:44 INFO ipc.NettyServer: [id: 0xb369c402, /192.168.100.28:56008 => /192.168.100.26:41414] OPEN
+18/08/28 05:38:44 INFO ipc.NettyServer: [id: 0xb369c402, /192.168.100.28:56008 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 05:38:44 INFO ipc.NettyServer: [id: 0xb369c402, /192.168.100.28:56008 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:56008
+18/08/28 07:56:28 INFO ipc.NettyServer: [id: 0xf1859a26, /192.168.100.29:36659 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 07:56:28 INFO ipc.NettyServer: [id: 0xf1859a26, /192.168.100.29:36659 :> /192.168.100.26:41414] UNBOUND
+18/08/28 07:56:28 INFO ipc.NettyServer: [id: 0xf1859a26, /192.168.100.29:36659 :> /192.168.100.26:41414] CLOSED
+18/08/28 07:56:28 INFO ipc.NettyServer: Connection to /192.168.100.29:36659 disconnected.
+18/08/28 07:56:29 INFO ipc.NettyServer: [id: 0x4e1cbedd, /192.168.100.27:36407 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 07:56:29 INFO ipc.NettyServer: [id: 0x4e1cbedd, /192.168.100.27:36407 :> /192.168.100.26:41414] UNBOUND
+18/08/28 07:56:29 INFO ipc.NettyServer: [id: 0x4e1cbedd, /192.168.100.27:36407 :> /192.168.100.26:41414] CLOSED
+18/08/28 07:56:29 INFO ipc.NettyServer: Connection to /192.168.100.27:36407 disconnected.
+18/08/28 07:56:32 INFO ipc.NettyServer: [id: 0xb4e37548, /192.168.100.27:59592 => /192.168.100.26:41414] OPEN
+18/08/28 07:56:32 INFO ipc.NettyServer: [id: 0xb4e37548, /192.168.100.27:59592 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 07:56:32 INFO ipc.NettyServer: [id: 0xb4e37548, /192.168.100.27:59592 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:59592
+18/08/28 07:56:32 INFO ipc.NettyServer: [id: 0xd5c6b6cd, /192.168.100.29:51374 => /192.168.100.26:41414] OPEN
+18/08/28 07:56:32 INFO ipc.NettyServer: [id: 0xd5c6b6cd, /192.168.100.29:51374 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 07:56:32 INFO ipc.NettyServer: [id: 0xd5c6b6cd, /192.168.100.29:51374 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:51374
+18/08/28 07:56:53 INFO ipc.NettyServer: [id: 0xb369c402, /192.168.100.28:56008 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 07:56:53 INFO ipc.NettyServer: [id: 0xb369c402, /192.168.100.28:56008 :> /192.168.100.26:41414] UNBOUND
+18/08/28 07:56:53 INFO ipc.NettyServer: [id: 0xb369c402, /192.168.100.28:56008 :> /192.168.100.26:41414] CLOSED
+18/08/28 07:56:53 INFO ipc.NettyServer: Connection to /192.168.100.28:56008 disconnected.
+18/08/28 07:56:55 INFO ipc.NettyServer: [id: 0x2832287b, /192.168.100.28:60535 => /192.168.100.26:41414] OPEN
+18/08/28 07:56:55 INFO ipc.NettyServer: [id: 0x2832287b, /192.168.100.28:60535 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 07:56:55 INFO ipc.NettyServer: [id: 0x2832287b, /192.168.100.28:60535 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:60535
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0xd5c6b6cd, /192.168.100.29:51374 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0xd5c6b6cd, /192.168.100.29:51374 :> /192.168.100.26:41414] UNBOUND
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0xd5c6b6cd, /192.168.100.29:51374 :> /192.168.100.26:41414] CLOSED
+18/08/28 09:13:29 INFO ipc.NettyServer: Connection to /192.168.100.29:51374 disconnected.
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0xb4e37548, /192.168.100.27:59592 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0xb4e37548, /192.168.100.27:59592 :> /192.168.100.26:41414] UNBOUND
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0xb4e37548, /192.168.100.27:59592 :> /192.168.100.26:41414] CLOSED
+18/08/28 09:13:29 INFO ipc.NettyServer: Connection to /192.168.100.27:59592 disconnected.
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0x2832287b, /192.168.100.28:60535 :> /192.168.100.26:41414] DISCONNECTED
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0x2832287b, /192.168.100.28:60535 :> /192.168.100.26:41414] UNBOUND
+18/08/28 09:13:29 INFO ipc.NettyServer: [id: 0x2832287b, /192.168.100.28:60535 :> /192.168.100.26:41414] CLOSED
+18/08/28 09:13:29 INFO ipc.NettyServer: Connection to /192.168.100.28:60535 disconnected.
+18/08/28 09:24:28 INFO ipc.NettyServer: [id: 0x65382e61, /192.168.100.28:53379 => /192.168.100.26:41414] OPEN
+18/08/28 09:24:28 INFO ipc.NettyServer: [id: 0x65382e61, /192.168.100.28:53379 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 09:24:28 INFO ipc.NettyServer: [id: 0x65382e61, /192.168.100.28:53379 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:53379
+18/08/28 09:24:37 INFO ipc.NettyServer: [id: 0x26c41783, /192.168.100.27:33097 => /192.168.100.26:41414] OPEN
+18/08/28 09:24:37 INFO ipc.NettyServer: [id: 0x26c41783, /192.168.100.27:33097 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 09:24:37 INFO ipc.NettyServer: [id: 0x26c41783, /192.168.100.27:33097 => /192.168.100.26:41414] CONNECTED: /192.168.100.27:33097
+18/08/28 09:24:38 INFO ipc.NettyServer: [id: 0x619fa8c3, /192.168.100.29:55878 => /192.168.100.26:41414] OPEN
+18/08/28 09:24:38 INFO ipc.NettyServer: [id: 0x619fa8c3, /192.168.100.29:55878 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 09:24:38 INFO ipc.NettyServer: [id: 0x619fa8c3, /192.168.100.29:55878 => /192.168.100.26:41414] CONNECTED: /192.168.100.29:55878
+18/08/28 09:24:38 INFO ipc.NettyServer: [id: 0x72d0598e, /192.168.100.28:53420 => /192.168.100.26:41414] OPEN
+18/08/28 09:24:38 INFO ipc.NettyServer: [id: 0x72d0598e, /192.168.100.28:53420 => /192.168.100.26:41414] BOUND: /192.168.100.26:41414
+18/08/28 09:24:38 INFO ipc.NettyServer: [id: 0x72d0598e, /192.168.100.28:53420 => /192.168.100.26:41414] CONNECTED: /192.168.100.28:53420
+18/08/28 10:21:53 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/28 10:21:53 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/10-mqlog.1535422913739.log.tmp
+18/08/28 11:10:16 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/28 11:10:16 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/11-mqlog.1535425816414.log.tmp
+18/08/28 11:21:53 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/10-mqlog.1535422913739.log.tmp
+18/08/28 11:21:53 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/10-mqlog.1535422913739.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/10-mqlog.1535422913739.log
+18/08/28 11:21:53 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/28 12:10:16 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/11-mqlog.1535425816414.log.tmp
+18/08/28 12:10:16 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/11-mqlog.1535425816414.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/11-mqlog.1535425816414.log
+18/08/28 12:10:16 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/28 13:06:27 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/28 13:06:27 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/13-mqlog.1535432787136.log.tmp
+18/08/28 14:06:27 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/13-mqlog.1535432787136.log.tmp
+18/08/28 14:06:27 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/13-mqlog.1535432787136.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/13-mqlog.1535432787136.log
+18/08/28 14:06:27 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/28 14:58:22 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/28 14:58:22 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/14-mqlog.1535439502532.log.tmp
+18/08/28 15:54:24 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/28 15:54:24 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/15-mqlog.1535442864630.log.tmp
+18/08/28 15:58:22 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/14-mqlog.1535439502532.log.tmp
+18/08/28 15:58:22 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/14-mqlog.1535439502532.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/14-mqlog.1535439502532.log
+18/08/28 15:58:22 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/28 16:54:24 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/15-mqlog.1535442864630.log.tmp
+18/08/28 16:54:24 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/15-mqlog.1535442864630.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/15-mqlog.1535442864630.log
+18/08/28 16:54:24 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/28 22:46:51 INFO hdfs.HDFSDataStream: Serializer = TEXT, UseRawLocalFileSystem = false
+18/08/28 22:46:51 INFO hdfs.BucketWriter: Creating hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/22-mqlog.1535467611171.log.tmp
+18/08/28 23:46:51 INFO hdfs.BucketWriter: Closing hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/22-mqlog.1535467611171.log.tmp
+18/08/28 23:46:51 INFO hdfs.BucketWriter: Renaming hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/22-mqlog.1535467611171.log.tmp to hdfs://192.168.100.26:8020/flume_collect/topicrecord/2018/08/28/22-mqlog.1535467611171.log
+18/08/28 23:46:51 INFO hdfs.HDFSEventSink: Writer callback called.
+18/08/29 09:28:13 INFO ipc.NettyServer: [id: 0x619fa8c3, /192.168.100.29:55878 :> /192.168.100.26:41414] DISCONNECTED
+18/08/29 09:28:14 INFO ipc.NettyServer: [id: 0x619fa8c3, /192.168.100.29:55878 :> /192.168.100.26:41414] UNBOUND
+18/08/29 09:28:14 INFO ipc.NettyServer: [id: 0x619fa8c3, /192.168.100.29:55878 :> /192.168.100.26:41414] CLOSED
+18/08/29 09:28:14 INFO ipc.NettyServer: Connection to /192.168.100.29:55878 disconnected.
+18/08/29 09:28:14 INFO ipc.NettyServer: [id: 0x72d0598e, /192.168.100.28:53420 :> /192.168.100.26:41414] DISCONNECTED
+18/08/29 09:28:14 INFO ipc.NettyServer: [id: 0x72d0598e, /192.168.100.28:53420 :> /192.168.100.26:41414] UNBOUND
+18/08/29 09:28:14 INFO ipc.NettyServer: [id: 0x72d0598e, /192.168.100.28:53420 :> /192.168.100.26:41414] CLOSED
+18/08/29 09:28:14 INFO ipc.NettyServer: Connection to /192.168.100.28:53420 disconnected.
+18/08/29 09:28:18 INFO ipc.NettyServer: [id: 0x26c41783, /192.168.100.27:33097 :> /192.168.100.26:41414] DISCONNECTED
+18/08/29 09:28:18 INFO ipc.NettyServer: [id: 0x26c41783, /192.168.100.27:33097 :> /192.168.100.26:41414] UNBOUND
+18/08/29 09:28:18 INFO ipc.NettyServer: [id: 0x26c41783, /192.168.100.27:33097 :> /192.168.100.26:41414] CLOSED
+18/08/29 09:28:18 INFO ipc.NettyServer: Connection to /192.168.100.27:33097 disconnected.
+18/08/29 09:28:26 INFO ipc.NettyServer: [id: 0x65382e61, /192.168.100.28:53379 :> /192.168.100.26:41414] DISCONNECTED
+18/08/29 09:28:26 INFO ipc.NettyServer: [id: 0x65382e61, /192.168.100.28:53379 :> /192.168.100.26:41414] UNBOUND
+18/08/29 09:28:26 INFO ipc.NettyServer: [id: 0x65382e61, /192.168.100.28:53379 :> /192.168.100.26:41414] CLOSED
+18/08/29 09:28:26 INFO ipc.NettyServer: Connection to /192.168.100.28:53379 disconnected.

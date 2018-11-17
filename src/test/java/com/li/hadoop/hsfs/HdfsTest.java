@@ -50,8 +50,8 @@ public class HdfsTest {
     @Test
     public void upload2() throws IOException {
 
-        Path src = new Path("D:/BaiduNetdiskDownload/实验截图对应数据/2008/010330-99999-2008");
-        Path dst = new Path("hdfs://192.168.233.155:9000/max/");
+        Path src = new Path("F:\\part-00107");
+        Path dst = new Path("hdfs://huatu68:9000/");
 
         fs.copyFromLocalFile(src,dst);
     }

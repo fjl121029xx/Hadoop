@@ -8,7 +8,7 @@ public class Tools {
             new Configuration();
 
     static {
-        Configuration.set("fs.defaultFS","hdfs://192.168.233.155:9000/");
+        Configuration.set("fs.defaultFS","hdfs://huatu68:9000/");
         System.setProperty("HADOOP_USER_NAME","root");
     }
 }

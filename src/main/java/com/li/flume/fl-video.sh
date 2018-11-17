@@ -1,0 +1,1 @@
+ nohup ../bin/flume-ng agent  --name flume-log-agent  /usr/local/apache-flume-1.6.0-bin/conf  --conf-file /usr/local/apache-flume-1.6.0-bin/conf/flume-videoplay-log-agent.conf  -Dflume.root.logger=INFO,console > videoplayout.tx 2>&1 &
