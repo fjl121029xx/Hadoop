@@ -17,16 +17,19 @@ public class KafkaEventSchema implements DeserializationSchema<KafkaEvent>, Seri
 
     @Override
     public KafkaEvent deserialize(byte[] message) throws IOException {
+
         return KafkaEvent.fromString(new String(message));
     }
 
     @Override
     public boolean isEndOfStream(KafkaEvent nextElement) {
+
         return false;
     }
 
     @Override
     public TypeInformation<KafkaEvent> getProducedType() {
+
         return TypeInformation.of(KafkaEvent.class);
     }
 }

@@ -21,14 +21,14 @@ public class ReadFromKafka {
                                 parameterTool.getProperties())
                                 .assignTimestampsAndWatermarks(new CustomWatermarkExtractor())).keyBy("word")
                 .map(new RollingAdditionMapper());
-        input.print();
-//        input.addSink(
-//                new FlinkKafkaProducer010<KafkaEvent>(
-//                        parameterTool.getRequired("output-topic"),
-//                        new KafkaEventSchema(),
-//                        parameterTool.getProperties()
-//                )
-//        );
+//        input.print();
+        input.addSink(
+                new FlinkKafkaProducer010<KafkaEvent>(
+                        parameterTool.getRequired("output-topic"),
+                        new KafkaEventSchema(),
+                        parameterTool.getProperties()
+                )
+        );
 
         env.execute("kafka 0.10 Hello World");
     }
