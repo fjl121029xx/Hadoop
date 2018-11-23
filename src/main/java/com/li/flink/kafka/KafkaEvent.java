@@ -1,7 +1,11 @@
 package com.li.flink.kafka;
 
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Builder
 @NoArgsConstructor
@@ -13,14 +17,21 @@ import lombok.*;
 
 public class KafkaEvent {
 
-    private String word;
-    private int frequency;
+    private String userId;
+    private int userPlayTime;
     private long timestamp;
 
-    public static KafkaEvent fromString(String eventStr){
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm");
+
+    public static KafkaEvent fromString(String eventStr) throws ParseException {
 
         String[] split = eventStr.split("=");
-        return new KafkaEvent(split[1],1,System.currentTimeMillis());
+
+        String userId = split[1];
+        Integer userPlayTime = Integer.parseInt(JSON.parseObject(split[3]).get("userPlayTime").toString());
+
+
+        return new KafkaEvent(userId, userPlayTime, sdf.parse(split[4]).getTime());
 //        return new KafkaEvent(split[0],Integer.parseInt(split[1]),Long.parseLong(split[2]));
     }
 }
