@@ -97,6 +97,10 @@
         <value>true</value>
     </property>
     <property>
+        <name>dfs.safemode.threshold.pct</name>
+        <value>0.1000</value>
+    </property>
+    <property>
         <name>dfs.support.append</name>
         <value>true</value>
     </property>
