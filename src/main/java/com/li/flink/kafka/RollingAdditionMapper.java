@@ -17,11 +17,11 @@ public class RollingAdditionMapper extends RichMapFunction<KafkaEvent, KafkaEven
         if (totalCount == null) {
             totalCount = 0;
         }
-        totalCount += event.getFrequency();
+        totalCount += event.getUserPlayTime();
 
         currentTotalCount.update(totalCount);
 
-        return new KafkaEvent(event.getWord(), totalCount, event.getTimestamp());
+        return new KafkaEvent(event.getUserId(), totalCount, event.getTimestamp());
     }
 
     @Override

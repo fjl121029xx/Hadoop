@@ -16,7 +16,7 @@ import java.util.List;
 public class ZKDemo {
 
     private static final int TIME_OUT = 3000;
-    private static final String HOST = "192.168.233.137:2181,192.168.233.138:2181,192.168.233.139:2181";
+    private static final String HOST = "huatu68:2181,huatu70:2181,huatu72:2181";
 
     public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
 
@@ -29,9 +29,9 @@ public class ZKDemo {
         System.out.println("==========================");
         System.out.println(zookeeper.getState());
 
-        List<String> zookeeperChildrens = zookeeper.getChildren("/hbase", false);
+        List<String> zookeeperChildrens = zookeeper.getChildren("/", false);
 
-        for (String child: zookeeperChildrens) {
+        for (String child : zookeeperChildrens) {
 
             System.out.println(child);
         }

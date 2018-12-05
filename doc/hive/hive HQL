@@ -134,9 +134,10 @@ insert into table tab_struct select name,named_struct('age',id,'tel',name,'addr'
 
 //UDF
 select if(id=1,first,no-first),name from tab_ext;
-
+createtime
 hive>add jar /home/hadoop/myudf.jar;
 hive>CREATE TEMPORARY FUNCTION fanyi AS 'cn.itcast.hive.Fanyi';
 select id,name,ip,fanyi(country) from tab_ip_ext;
 
 
+alter table ztk_answer_card2 add if not exists partition createtime

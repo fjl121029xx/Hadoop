@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <!--
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +18,23 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-  <property>
-    <name>dfs.replication</name>
-    <value>1</value>
-  </property>
+
+
+    <!-- 指定hdfs的nameservice为ns1 -->
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://ns1/</value>
+    </property>
+    <!-- 指定hadoop临时目录 -->
+    <property>
+        <name>hadoop.tmp.dir</name>
+        <value>/huatu/hadoop-2.7.7/data</value>
+    </property>
+
+    <!-- 指定zookeeper地址 -->
+    <property>
+        <name>ha.zookeeper.quorum</name>
+        <value>huatu68:2181,huatu70:2181,huatu72:2181</value>
+    </property>
+
 </configuration>

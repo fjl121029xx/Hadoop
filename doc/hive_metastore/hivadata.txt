@@ -89,3 +89,46 @@ from (
 
 
     insert overwrite table  v_huatu_order PARTITION (payday) select itemId,title,terminal,v_year,gradeType,subjectType,type,payType,classType,area,moneyReceipt,userId,userName,productId,state,from_unixtime(payTime,'yyyy') as  payYear,from_unixtime(payTime,'yyyy-MM') payMonth,from_unixtime(payTime,'yyyy-ww') payWeek,from_unixtime(payTime,'yyyy-MM-dd') as  payday from (select itemId,title,area,terminal,userId,userName,gradeType,year as v_year,subjectType,type,payType,classType,moneyReceipt,productId,state,cast(((payTime-(payTime%1000))/1000) as bigint) as payTime from v_huatu_order2 where payTime >= 1514736000000) a;
+
+
+insert into table  v_huatu_order PARTITION (payDay)
+select itemId,title,terminal,v_year,
+gradeType,subjectType,type,payType,
+classType,moneyReceipt,userId,userName,
+productId,state,area,
+from_unixtime(payTime,'yyyy') as  payYear,
+from_unixtime(payTime,'yyyy-MM') payMonth,
+from_unixtime(payTime,'yyyy-MM-dd') payDay,
+from_unixtime(payTime,'yyyy-ww') payWeek
+from (
+    select itemId,title,terminal,userId,
+    userName,gradeType,year as v_year,
+    subjectType,type,payType,classType,area,
+    moneyReceipt,productId,state,cast(((payTime-(payTime%1000))/1000) as bigint) as payTime from v_huatu_order) a;
+
+
+
+
+
+hive -S -e "create table mid_zac ( userid bigint,correct array<int> ,
+question array<int>,answertime array<int>,subject int )
+ partitioned by (createtime  string)
+ row format delimited
+ fields terminated by '_'
+ collection items terminated by ',';"
+
+
+
+
+hive -S -e "create table mid_zac2 ( userid bigint,correct array<int> ,
+question array<int>,answertime array<int>,createtime string,subject int )
+ row format delimited
+ fields terminated by '_'
+ collection items terminated by ',';"
+
+
+
+hive -S -e "insert into table mid_zac PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from mid_zac2;"
+
+
+hive -S -e "load data  inpath 'hdfs://ns1/huatu-data/ztk_answer_card/mr/part-2/part-r-00000' overwrite into table mid_zac2;"

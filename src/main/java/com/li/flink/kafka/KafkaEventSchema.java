@@ -5,6 +5,7 @@ import org.apache.flink.api.common.serialization.SerializationSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 public class KafkaEventSchema implements DeserializationSchema<KafkaEvent>, SerializationSchema<KafkaEvent> {
 
@@ -18,7 +19,12 @@ public class KafkaEventSchema implements DeserializationSchema<KafkaEvent>, Seri
     @Override
     public KafkaEvent deserialize(byte[] message) throws IOException {
 
-        return KafkaEvent.fromString(new String(message));
+        try {
+            return KafkaEvent.fromString(new String(message));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new KafkaEvent();
     }
 
     @Override
