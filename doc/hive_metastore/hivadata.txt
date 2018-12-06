@@ -132,3 +132,14 @@ hive -S -e "insert into table mid_zac PARTITION (createtime) select userid,corre
 
 
 hive -S -e "load data  inpath 'hdfs://ns1/huatu-data/ztk_answer_card/mr/part-2/part-r-00000' overwrite into table mid_zac2;"
+
+
+insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from mid_zac2;
+
+
+insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,point,question,answertime,subject,createtime from mid_zac where createtime='20150416';
+
+
+hive -S -e "insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from tmp_ztk_answer_card;"
+
+hive -S -e "insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from tmp_ztk_answer_card;"

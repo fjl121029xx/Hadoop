@@ -7,5 +7,9 @@
 *.iml
 out
 gen
-data/ml100K
+data/
 target/
+ml100K
+src/main/java/com/li/jdk8/clock/
+src/main/java/com/li/jdk8/optional/
+src/main/java/com/li/jdk8/stream/
