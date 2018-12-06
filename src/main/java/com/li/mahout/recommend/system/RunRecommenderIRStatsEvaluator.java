@@ -1,4 +1,4 @@
-package com.li.mahout;
+package com.li.mahout.recommend.system;
 
 import org.apache.mahout.cf.taste.common.TasteException;
 import org.apache.mahout.cf.taste.eval.IRStatistics;
@@ -16,7 +16,7 @@ import org.apache.mahout.common.RandomUtils;
 
 import java.io.File;
 
-public class runRecommenderIRStatsEvaluator {
+public class RunRecommenderIRStatsEvaluator {
 
     public static void main(String[] args) throws Exception {
 

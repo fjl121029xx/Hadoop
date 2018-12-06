@@ -1,4 +1,4 @@
-package com.li.mahout;
+package com.li.mahout.recommend.system;
 
 
 import org.apache.mahout.cf.taste.common.TasteException;
@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * 配置并评估一个推荐程序
  */
-public class runRecommenderEvaluator {
+public class RunRecommenderEvaluator {
 
     public static void main(String[] args) throws Exception {
 

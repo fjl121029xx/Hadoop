@@ -1,4 +1,4 @@
-package com.li.mahout;
+package com.li.mahout.recommend.system;
 
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;

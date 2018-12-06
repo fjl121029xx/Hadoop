@@ -263,7 +263,8 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 			./zkServer.sh start
 			#查看状态：一个leader，两个follower
 			./zkServer.sh status
-			
+			/huatu/zookeeper-3.4.10/bin/zkServer.sh start
+
 		2.6启动journalnode（分别在在ZK1、ZK2、ZK3上执行）
 			cd /weekend/hadoop-2.4.1
 			sbin/hadoop-daemon.sh start journalnode
