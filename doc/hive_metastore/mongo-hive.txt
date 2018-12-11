@@ -44,7 +44,7 @@ WITH SERDEPROPERTIES('mongo.columns.mapping'='{"id":"_id}')
 TBLPROPERTIES('mongo.uri'='mongodb://192.168.100.20:37017/huatu_ztk.ztk_answer_card');
 
 
-CREATE EXTERNAL TABLE ztk_answer_card
+CREATE EXTERNAL TABLE test_ztk_answer_card
 (
  id BIGINT,
  corrects ARRAY<INT>,

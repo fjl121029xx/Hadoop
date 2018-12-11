@@ -12,13 +12,14 @@ import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 
 public class ConsumerDemo {
-    private static final String topic = "minivideo";
+    private static final String topic = "video-record";
     private static final Integer threads = 1;
 
     public static void main(String[] args) {
 
         Properties props = new Properties();
-        props.put("zookeeper.connect", "192.168.100.27:2181,192.168.100.28:2181,192.168.100.29:2181");
+        props.put("zookeeper.connect", "192.168.100.68:2181,192.168.100.70:2181,192.168.100.72:2181");
+        props.put("metadata.broker.list", "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
         props.put("group.id", "group-1");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
 
@@ -28,7 +29,7 @@ public class ConsumerDemo {
         topicCountMap.put(topic, threads);
 
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
-        List<KafkaStream<byte[], byte[]>> streams = consumerMap.get("minivideo");
+        List<KafkaStream<byte[], byte[]>> streams = consumerMap.get("video-record");
 
         for (final KafkaStream<byte[], byte[]> kafkaStream : streams) {
             new Thread(new Runnable() {
