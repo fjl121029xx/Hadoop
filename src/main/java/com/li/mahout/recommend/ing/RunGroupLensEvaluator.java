@@ -21,7 +21,7 @@ public class RunGroupLensEvaluator {
 
     public static void main(String[] args) throws IOException, TasteException {
 
-        DataModel model = new GroupLensDataModel(new File("data/intro.csv"));
+        DataModel model = new GroupLensDataModel(new File("doc/mahout/example/intro.csv"));
 
         RecommenderEvaluator evaluator = new AverageAbsoluteDifferenceRecommenderEvaluator();
 
