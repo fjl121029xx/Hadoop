@@ -25,10 +25,13 @@ public class HelloPresto {
             statement = connection.createStatement();
 
             long time2 = System.currentTimeMillis();
-            System.out.println(time2 - startTime);
-
+//            System.out.println(time2 - startTime);
+// ;
             String sql;
-            sql = "  select distinct count(distinct userId) from v_huatu_order where title like '%六点%' and userId in ( select distinct userId from v_huatu_order where title like '%时政%' )";
+//            sql = " select playhour,count(distinct uname) from videoplay where recordtime = '20181212'  and terminal=1 group by playhour";
+            sql = " descselect sum(playlength) as sumlength,uname from videoplay where recordtime = '20181213'   group by uname order by sumlength  ";
+
+
 
             //select mysql table author table two columns
             ResultSet resultSet = statement.executeQuery(sql);
@@ -42,14 +45,12 @@ public class HelloPresto {
             }
             long endTime = System.currentTimeMillis();
 
-            System.out.println(endTime - time2);
+//            System.out.println(endTime - time2);
             resultSet.close();
             statement.close();
             connection.close();
 
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        } catch (Exception exception) {
+        }  catch (Exception exception) {
             exception.printStackTrace();
         }
     }
