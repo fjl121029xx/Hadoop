@@ -18,7 +18,7 @@ public class RecommenderIntro {
     public static void main(String[] args) throws Exception {
 
 
-        DataModel model = new FileDataModel(new File("data/ml100K/ratings.data"));
+        DataModel model = new FileDataModel(new File("H:/workspaces/libimseti/ratings.dat"));
 
         UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
 

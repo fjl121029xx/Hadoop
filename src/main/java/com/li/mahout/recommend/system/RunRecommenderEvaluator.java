@@ -25,23 +25,21 @@ public class RunRecommenderEvaluator {
 
     public static void main(String[] args) throws Exception {
 
-//        RandomUtils.useTestSeed();
-        DataModel model = new FileDataModel(new File("data/ml100K/ratings.data"));
+        RandomUtils.useTestSeed();
+
+        DataModel dataModel = new FileDataModel(new File("H:/workspaces/libimseti/ratings.dat"));
 
         RecommenderEvaluator evaluator = new RMSRecommenderEvaluator();
 
-        RecommenderBuilder builder = new RecommenderBuilder() {
+        RecommenderBuilder builder = model -> {
 
-            @Override
-            public Recommender buildRecommender(DataModel dataModel) throws TasteException {
-                UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
-                NearestNUserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, model);
+            UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
+            NearestNUserNeighborhood neighborhood = new NearestNUserNeighborhood(10, similarity, model);
 
-                return new GenericUserBasedRecommender(model, neighborhood, similarity);
-            }
+            return new GenericUserBasedRecommender(model, neighborhood, similarity);
         };
 
-        double score = evaluator.evaluate(builder, null, model, 0.7, 1);
+        double score = evaluator.evaluate(builder, null, dataModel, 0.7, 1);
         System.out.println(score);
 
     }

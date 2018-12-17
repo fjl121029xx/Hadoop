@@ -181,6 +181,6 @@ insert overwrite  table  zac partition(createtime) select userid,correct,point,q
 hive -S -e "create external table vp (cv string,terminal int,uname String,playtime int,playhour int,recordtime string) row format delimited fields terminated by ',' stored as orc;"
 
 
-hive -S -e "load data inpath 'hdfs://ns1/huatu-data/video-record/flume/mr/20181213/part-r-00000' overwrite into table vp;"
+hive -S -e "load data inpath 'hdfs://ns1/huatu-data/video-record/flume/mr/20181216/part-r-00000' overwrite into table vp;"
 
 hive -S -e "insert overwrite table videoplay partition(recordtime) select cv,terminal,uname,playlength,playhour,playday,recordtime from vp;"
