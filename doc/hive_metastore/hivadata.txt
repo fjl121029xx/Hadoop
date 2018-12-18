@@ -111,7 +111,7 @@ from (
 
 
 hive -S -e "create table mid_zac ( userid bigint,correct array<int> ,
-question array<int>,answertime array<int>,subject int )
+question array<int>,answertime array<int>,point array<int>,subject int )
  partitioned by (createtime  string)
  row format delimited
  fields terminated by '_'
@@ -127,8 +127,60 @@ question array<int>,answertime array<int>,createtime string,subject int )
  collection items terminated by ',';"
 
 
+set hive.exec.max.dynamic.partitions.pernode=3000;
+set hive.exec.dynamic.partition.mode=nonstrict;
+set hive.exec.max.dynamic.partitions=30000;
+set mapreduce.map.memory.mb=4096;
+set mapreduce.reduce.memory.mb=4096;
+set  hive.exec.mode.local.auto=false;
+set hive.exec.mode.local.auto.input.files.max=4;
+1、调大reduce内存，限制每个reduce处理的数据量
+set mapreduce.reduce.memory.mb=16384;
+set mapreduce.reduce.java.opts=-Xmx16384m;
+set hive.exec.reducers.bytes.per.reducer = 100000000;
+这时reduce数变多了，但是还是失败
+2、直接加大reduce数到2000，成功
+set mapred.reduce.tasks = 2000;
+set mapreduce.reduce.memory.mb=16384;
+set mapreduce.reduce.java.opts=-Xmx16384m;6
 
-hive -S -e "insert into table mid_zac PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from mid_zac2;"
+hive -S -e "set hive.exec.dynamic.partition.mode=nonstrict;
+set hive.exec.max.dynamic.partitions.pernode=3000;
+set hive.exec.max.dynamic.partitions=3000;
+set mapreduce.map.memory.mb=4096;
+set mapreduce.reduce.memory.mb=4096;
+
+set parquet.memory.min.chunk.siz=100000;
+
+insert overwrite table mid_zac PARTITION (createtime) select userid,correct,point,question,answertime,subject,createtime from waitupdate_zac;"
 
 
 hive -S -e "load data  inpath 'hdfs://ns1/huatu-data/ztk_answer_card/mr/part-2/part-r-00000' overwrite into table mid_zac2;"
+
+
+insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from mid_zac2;
+
+
+insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,point,question,answertime,subject,createtime from mid_zac where createtime='20150416';
+
+
+hive -S -e "insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from tmp_ztk_answer_card;"
+
+hive -S -e "insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from tmp_ztk_answer_card;"
+
+
+create table zac like zac2;
+
+hive -S -e "set hive.exec.dynamic.partition.mode=nonstrict;set parquet.memory.min.chunk.siz=32768;set hive.exec.max.dynamic.partitions=3000;set mapreduce.reduce.memory.mb=4096;set mapreduce.map.memory.mb=4096;set hive.exec.max.dynamic.partitions.pernode=3000;insert overwrite  table  zac partition(createtime) select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from zac2;"
+
+hive -S -e "insert overwrite  table  zac partition(createtime) select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from zac2 where createtime='20181212';"
+
+
+insert overwrite  table  zac partition(createtime) select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from zac2;
+
+hive -S -e "create external table vp (cv string,terminal int,uname String,playtime int,playhour int,recordtime string) row format delimited fields terminated by ',' stored as orc;"
+
+
+hive -S -e "load data inpath 'hdfs://ns1/huatu-data/video-record/flume/mr/20181216/part-r-00000' overwrite into table vp;"
+
+hive -S -e "insert overwrite table videoplay partition(recordtime) select cv,terminal,uname,playlength,playhour,playday,recordtime from vp;"

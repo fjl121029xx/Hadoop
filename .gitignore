@@ -7,5 +7,6 @@
 *.iml
 out
 gen
-data/ml100K
 target/
+ml100K
+
