@@ -307,6 +307,24 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.impalaframework/impala-maven-plugin -->
+        <dependency>
+            <groupId>org.impalaframework</groupId>
+            <artifactId>impala-maven-plugin</artifactId>
+            <version>1.0-M2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.cloudera.impala/jdbc -->
+        <dependency>
+            <groupId>com.cloudera.impala</groupId>
+            <artifactId>jdbc</artifactId>
+            <version>2.5.31</version>
+            <type>pom</type>
+        </dependency>
+
+
+
+
     </dependencies>
 
     <build>
