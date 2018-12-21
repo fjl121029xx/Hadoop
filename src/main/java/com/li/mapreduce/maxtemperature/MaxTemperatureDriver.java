@@ -45,7 +45,7 @@ public class MaxTemperatureDriver extends Configured implements Tool {
 
     public static void main(String[] args) throws Exception {
 
-        int i = ToolRunner.run(new MaxTemperatureDriver(), args);
+        int i = ToolRunner.run(new MaxTemperatureDriver(), new String[]{"hdfs://192.168.233.155:9000/max","maxtem"});
         System.exit(i);
     }
 

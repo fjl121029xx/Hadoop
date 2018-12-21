@@ -16,21 +16,29 @@
         <flink.version>1.6.2</flink.version>
         <hadoop.version>2.7.7</hadoop.version>
         <kafka.version>2.0.0</kafka.version>
+        <impala.jdbc.version>2.5.30</impala.jdbc.version>
     </properties>
     <repositories>
+        <!--<repository>-->
+            <!--<id>alimaven</id>-->
+            <!--<name>aliyun maven</name>-->
+            <!--<url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+                <!--<updatePolicy>always</updatePolicy>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>false</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
         <repository>
-            <id>alimaven</id>
-            <name>aliyun maven</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </releases>
+            <id>cdh.repo</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+            <name>Cloudera Repositories</name>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-
     </repositories>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-math3 -->
@@ -313,18 +321,6 @@
             <artifactId>impala-maven-plugin</artifactId>
             <version>1.0-M2</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/com.cloudera.impala/jdbc -->
-        <dependency>
-            <groupId>com.cloudera.impala</groupId>
-            <artifactId>jdbc</artifactId>
-            <version>2.5.31</version>
-            <type>pom</type>
-        </dependency>
-
-
-
-
     </dependencies>
 
     <build>

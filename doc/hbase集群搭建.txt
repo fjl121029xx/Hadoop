@@ -54,6 +54,7 @@
 	192.168.1.201:60010
 7.为保证集群的可靠性，要启动多个HMaster
 	hbase-daemon.sh start master
+	hbase-daemon.sh stop master
 	
 	
 
