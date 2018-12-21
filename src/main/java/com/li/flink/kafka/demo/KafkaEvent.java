@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat;
 public class KafkaEvent {
 
     private String userId;
-    private int userPlayTime;
+    private int sumplay;
     private long timestamp;
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm");
@@ -27,8 +27,8 @@ public class KafkaEvent {
 
         String[] split = eventStr.split("=");
 
-        String userId = split[1];
-        Integer userPlayTime = Integer.parseInt(JSON.parseObject(split[3]).get("userPlayTime").toString());
+        String userId = split[2];
+        int userPlayTime = Integer.parseInt(JSON.parseObject(split[3]).get("userPlayTime").toString());
 
 
         return new KafkaEvent(userId, userPlayTime, sdf.parse(split[4]).getTime());

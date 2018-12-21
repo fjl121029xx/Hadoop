@@ -18,30 +18,15 @@ public class HbaseDemo {
     public static Configuration conf = null;
     private static Connection connection;
 
-    public static final String ZK = "192.168.100.27,192.168.100.28,192.168.100.29";
-    public static final String CL = "2181";
-    public static final String DIR = "/master-hbase";
+    private static final String ZK = "192.168.100.68,192.168.100.70,192.168.100.72";
+    private static final String CL = "2181";
+    private static final String DIR = "/hbase";
 
-    static {
-
-        conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum", HbaseDemo.ZK);
-//        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
-        conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
-        conf.set("hbase.rootdir", HbaseDemo.DIR);
-
-        try {
-            connection = ConnectionFactory.createConnection(conf);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Before
     public void init() {
         conf = HBaseConfiguration.create();
         conf.set("hbase.zookeeper.quorum", HbaseDemo.ZK);
-//        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
         conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
         conf.set("hbase.rootdir", HbaseDemo.DIR);
 
@@ -108,63 +93,27 @@ public class HbaseDemo {
         table.close();
     }
 
-    public static void main(String[] args) throws Exception {
-
+    public static void main(String[] args) throws IOException {
         Configuration conf = HBaseConfiguration.create();
-//        conf.set("hbase.zookeeper.quorum", "192.168.100.2,192.168.100.3,192.168.100.4");
-//        conf.set("hbase.zookeeper.quorum", "192.168.100.191");
         conf.set("hbase.zookeeper.quorum", HbaseDemo.ZK);
         conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
         conf.set("hbase.rootdir", HbaseDemo.DIR);
 
         HBaseAdmin admin = new HBaseAdmin(conf);
-
-        HTableDescriptor table = new HTableDescriptor("v_question_user_cache_wrong");
-        //v_question_user_cache_wrong
-        //v_question_user_cache_finish
-        //v_question_user_cache_collect
-        HColumnDescriptor columnFamily = new HColumnDescriptor("questioninfo");
+//
+        HTableDescriptor table = new HTableDescriptor("videoplaylength");
+        HColumnDescriptor columnFamily = new HColumnDescriptor("playinfo");
         columnFamily.setMaxVersions(10);
         table.addFamily(columnFamily);
 
 
         admin.createTable(table);
-        admin.close();
 
+
+//        admin.deleteTable("videoplaylength");
+        admin.close();
     }
 
-    /* public static void main(String[] args) throws Exception {
-
-         Configuration conf = HBaseConfiguration.create();
- //        conf.set("hbase.zookeeper.quorum", "192.168.65.130");
-         conf.set("hbase.zookeeper.quorum","192.168.100.191");
-         conf.set("hbase.zookeeper.property.clientPort", HbaseDemo.CL);
-         conf.set("hbase.rootdir", HbaseDemo.DIR);
-
-         HBaseAdmin admin = new HBaseAdmin(conf);
-
-         HTableDescriptor table = new HTableDescriptor(AccuracyBean.TEST_HBASE_TABLE);
-
-         HColumnDescriptor columnFamily = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS);
-         columnFamily.setMaxVersions(10);
-         table.addFamily(columnFamily);
-
-         HColumnDescriptor columnFamily2 = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS2);
-         columnFamily2.setMaxVersions(10);
-         table.addFamily(columnFamily2);
-
-         HColumnDescriptor columnFamily3 = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS3);
-         columnFamily2.setMaxVersions(10);
-         table.addFamily(columnFamily3);
-
-         HColumnDescriptor columnFamily4 = new HColumnDescriptor(AccuracyBean.HBASE_TABLE_FAMILY_COLUMNS4);
-         columnFamily2.setMaxVersions(10);
-         table.addFamily(columnFamily4);
-
-         admin.createTable(table);
-         admin.close();
-
-     }*/
     @Test
     public void testPut() throws Exception {
 
@@ -183,7 +132,6 @@ public class HbaseDemo {
         table.put(put);
         table.close();
     }
-
 
 
     public static Object getObject(String tablename, String course, Class clazz) throws Exception {
@@ -220,7 +168,7 @@ public class HbaseDemo {
                 String s2 = set.substring(1, set.length());
                 if (pType.getName().equals("java.lang.Long")) {
 
-                    if (map.get(s1 + s2) != null){
+                    if (map.get(s1 + s2) != null) {
 
                         m.invoke(o, Long.parseLong(map.get(s1 + s2)));
                     }
