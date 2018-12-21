@@ -1,4 +1,4 @@
-package com.li.flink.kafka;
+package com.li.flink.kafka.demo;
 
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.common.state.ValueState;

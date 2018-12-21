@@ -1,4 +1,4 @@
-package com.li.flink.kafka;
+package com.li.flink.kafka.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonInclude;
