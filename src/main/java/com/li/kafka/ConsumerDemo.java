@@ -1,19 +1,26 @@
 package com.li.kafka;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import com.alibaba.fastjson.JSONObject;
 import kafka.consumer.Consumer;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
+import org.apache.commons.lang3.StringUtils;
 
 public class ConsumerDemo {
     private static final String topic = "video-record";
     private static final Integer threads = 1;
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("HH");
+    private static final SimpleDateFormat sdf2 = new SimpleDateFormat("yyyyMMdd");
+    private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy_MM_dd_HH_mm");
 
     public static void main(String[] args) {
 
@@ -32,17 +39,106 @@ public class ConsumerDemo {
         List<KafkaStream<byte[], byte[]>> streams = consumerMap.get("video-record");
 
         for (final KafkaStream<byte[], byte[]> kafkaStream : streams) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (MessageAndMetadata<byte[], byte[]> mm : kafkaStream) {
-                        String msg = new String(mm.message());
-                        System.out.println(msg);
-                    }
-                }
+            new Thread(() -> {
+                for (MessageAndMetadata<byte[], byte[]> mm : kafkaStream) {
+                    String msg = new String(mm.message());
+                    String[] split = msg.split("=");
 
+                    Connection connection = null;
+                    Statement statement = null;
+                    try {
+
+                        Class.forName("com.facebook.presto.jdbc.PrestoDriver");
+                        connection = DriverManager.getConnection(
+                                "jdbc:presto://huatu68:9999/hive/default", "hive", "");
+
+                        statement = connection.createStatement();
+
+                        Date date = sdf3.parse(split[4]);
+
+
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("terminal", split[1]);
+                        map.put("cv", split[0]);
+                        CourseProcessDTO courseProcessDTO = JSONObject.parseObject(split[3], CourseProcessDTO.class);
+                        String rowKey = getRowKey(courseProcessDTO, split[2]);
+                        map.put("uname", rowKey);
+
+
+                        map.put("playhour", sdf.format(date));
+                        map.put("playday", sdf2.format(date));
+
+                        map.put("recordtime", sdf2.format(new Date(System.currentTimeMillis())));
+
+                        map.put("userPlayTime", courseProcessDTO.getUserPlayTime() == null ? 0 : courseProcessDTO.getUserPlayTime());
+
+                        System.out.println(map);
+                        Map<String, Object> result = new HashMap<>();
+
+                        String sql2 = "insert into videoplay2(cv,terminal,uname,playlength,playhour,playday,recordtime) " +
+                                "values ('" + map.get("cv").toString() + "'," +
+                                "" + map.get("terminal").toString() + "," +
+                                "'" + map.get("uname").toString() + "'," +
+                                "" + map.get("userPlayTime").toString() + "," +
+                                "" + map.get("playhour").toString() + "," +
+                                "'" + map.get("playday").toString() + "'," +
+                                "'" + map.get("recordtime").toString() + "')";
+
+                        statement.execute(sql2);
+
+                        System.out.println(result);
+
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+
+
+                    System.out.println(msg);
+                }
             }).start();
 
         }
+    }
+
+    private static String getRowKey(CourseProcessDTO courseProcessDTO, String uname) {
+        String videoIdWithoutTeacher = courseProcessDTO.getVideoIdWithoutTeacher();
+        String videoIdWithTeacher = courseProcessDTO.getVideoIdWithTeacher();
+        String roomId = courseProcessDTO.getRoomId();
+        String sessionId = courseProcessDTO.getSessionId();
+        String joinCode = courseProcessDTO.getJoinCode();
+
+        Long classId = courseProcessDTO.getClassId();
+        Long coursewareId = courseProcessDTO.getCoursewareId();
+
+
+        StringBuilder rowKey = new StringBuilder();
+        rowKey.append(uname);
+
+        // 录播视频
+        if (StringUtils.isNotEmpty(videoIdWithoutTeacher) || StringUtils.isNotEmpty(videoIdWithTeacher)) {
+            if (StringUtils.isNotEmpty(videoIdWithoutTeacher)) {
+                rowKey.append("-videoIdWithoutTeacher-").append(videoIdWithoutTeacher);
+            } else {
+                rowKey.append("-videoIdWithTeacher-").append(videoIdWithTeacher);
+            }
+            //直播回放
+        } else if (StringUtils.isNotEmpty(roomId)) {
+            rowKey.append("-roomId-").append(roomId);
+            if (StringUtils.isNotEmpty(sessionId)) {
+                rowKey.append("-sessionId-").append(sessionId);
+
+                //展示视频
+            } else if (StringUtils.isNotEmpty(joinCode)) {
+                rowKey.append("-gensee-").append(joinCode);
+            } else if (classId != null && coursewareId != null) {
+
+                rowKey.append("-classId-").append(classId).append("-coursewareId-").append(coursewareId);
+            } else {
+//            log.warn("参数错误");
+//            return "1";
+            }
+
+        }
+        return rowKey.toString();
     }
 }

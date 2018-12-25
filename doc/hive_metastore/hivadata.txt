@@ -178,9 +178,10 @@ hive -S -e "insert overwrite  table  zac partition(createtime) select userid,cor
 
 insert overwrite  table  zac partition(createtime) select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from zac2;
 
-hive -S -e "create external table vp (cv string,terminal int,uname String,playtime int,playhour int,recordtime string) row format delimited fields terminated by ',' stored as orc;"
+hive -S -e "create external table vp (cv string,terminal int,uname String,playtime int,playhour int,recordtime string) row format delimited fields terminated by ',';"
 
+hive -S -e "create table videoplay2 (cv string,terminal int,uname String,playlength int,playhour int,playday string)  partitioned by (recordtime  string) row format delimited fields terminated by ',';"
 
 hive -S -e "load data inpath 'hdfs://ns1/huatu-data/video-record/flume/mr/20181216/part-r-00000' overwrite into table vp;"
 
-hive -S -e "insert overwrite table videoplay partition(recordtime) select cv,terminal,uname,playlength,playhour,playday,recordtime from vp;"
+hive -S -e "insert overwrite table videoplay2 partition(recordtime) select cv,terminal,uname,playlength,playhour,cast(playday as string) as playdayas,cast(recordtime as string) as recordtime from videoplay;"
