@@ -18,7 +18,7 @@ public class RecommenderIntro {
     public static void main(String[] args) throws Exception {
 
 
-        DataModel model = new FileDataModel(new File("H:/workspaces/libimseti/ratings.dat"));
+        DataModel model = new FileDataModel(new File("doc/mahout/example/intro.csv"));
 
         UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
 

@@ -164,9 +164,14 @@ insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid
 insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,point,question,answertime,subject,createtime from mid_zac where createtime='20150416';
 
 
-hive -S -e "insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from tmp_ztk_answer_card;"
 
-hive -S -e "insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from tmp_ztk_answer_card;"
+hive -S -e "insert overwrite table ztk_answer_card_par  PARTITION (createtime) select userid,correct,question,answertime,subject,createtime from tmp_zac;
+
+
+
+
+hive -S -e "insert overwrite table ztk_answer_card2  PARTITION (createtime)
+ select userid,correct,point,question,answertime,subject,cast(createtime as string) as createtime from tmp_zac;"
 
 
 create table zac like zac2;

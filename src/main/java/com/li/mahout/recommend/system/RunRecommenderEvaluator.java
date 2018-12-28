@@ -27,14 +27,14 @@ public class RunRecommenderEvaluator {
 
         RandomUtils.useTestSeed();
 
-        DataModel dataModel = new FileDataModel(new File("H:/workspaces/libimseti/ratings.dat"));
+        DataModel dataModel = new FileDataModel(new File("doc/mahout/example/intro.csv"));
 
         RecommenderEvaluator evaluator = new RMSRecommenderEvaluator();
 
         RecommenderBuilder builder = model -> {
 
             UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
-            NearestNUserNeighborhood neighborhood = new NearestNUserNeighborhood(10, similarity, model);
+            NearestNUserNeighborhood neighborhood = new NearestNUserNeighborhood(3, similarity, model);
 
             return new GenericUserBasedRecommender(model, neighborhood, similarity);
         };
