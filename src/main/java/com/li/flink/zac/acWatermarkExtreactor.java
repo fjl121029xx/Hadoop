@@ -5,13 +5,13 @@ import org.apache.flink.streaming.api.watermark.Watermark;
 
 import javax.annotation.Nullable;
 
-public class acWatermarkExtreactor implements AssignerWithPeriodicWatermarks<AnswerCard> {
+public class acWatermarkExtreactor implements AssignerWithPeriodicWatermarks<KafkaAnswerCard> {
 
 
     private long currentTimestamp = Long.MIN_VALUE;
 
     @Override
-    public long extractTimestamp(AnswerCard element, long previousElementTimestamp) {
+    public long extractTimestamp(KafkaAnswerCard element, long previousElementTimestamp) {
         return element.getCreateTime();
     }
 

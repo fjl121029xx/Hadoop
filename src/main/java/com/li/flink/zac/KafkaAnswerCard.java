@@ -16,7 +16,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
-public class AnswerCard {
+public class KafkaAnswerCard {
 
     private Long userId;
     private Integer subject;
@@ -25,11 +25,11 @@ public class AnswerCard {
     private String Times;
     private Long createTime;
 
-    public static AnswerCard fromString(String eventStr) throws ParseException {
+    public static KafkaAnswerCard fromString(String eventStr) throws ParseException {
 
         JSONObject jsonObject = JSONObject.parseObject(eventStr);
 
-        return new AnswerCard(Long.parseLong(getJsonValue(jsonObject, "userId")),
+        return new KafkaAnswerCard(Long.parseLong(getJsonValue(jsonObject, "userId")),
                 Integer.parseInt(getJsonValue(jsonObject, "subject")),
                 getJsonValue(jsonObject, "questions"),
                 getJsonValue(jsonObject, "corrects"),
@@ -41,44 +41,7 @@ public class AnswerCard {
         return jsonObject.getString(key).replaceAll("\\[", "").replaceAll("\\]", "");
     }
 
-    public ArrayList<Integer> getQuestions() {
 
-        List<String> list = Arrays.asList(questions.split(","));
-
-        ArrayList<Integer> re = new ArrayList<>(list.size());
-
-        for (String s : list) {
-            re.add(Integer.parseInt(s));
-        }
-
-        return re;
-    }
-
-    public ArrayList<Integer> getCorrects() {
-
-        List<String> list = Arrays.asList(corrects.split(","));
-
-        ArrayList<Integer> re = new ArrayList<>(list.size());
-
-        for (String s : list) {
-            re.add(Integer.parseInt(s));
-        }
-
-        return re;
-    }
-
-    public ArrayList<Integer> getTimes() {
-
-        List<String> list = Arrays.asList(Times.split(","));
-
-        ArrayList<Integer> re = new ArrayList<>(list.size());
-
-        for (String s : list) {
-            re.add(Integer.parseInt(s));
-        }
-
-        return re;
-    }
 
     @Override
     public String toString() {

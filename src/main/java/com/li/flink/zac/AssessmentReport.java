@@ -1,63 +1,205 @@
 package com.li.flink.zac;
 
-import com.li.flink.kafka.demo.CustomWatermarkExtractor;
-import com.li.flink.kafka.demo.KafkaEvent;
-import com.li.flink.kafka.demo.KafkaEventSchema;
-import com.li.flink.kafka.demo.RollingAdditionMapper;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.li.flink.mongo.MongoSourceJob;
+import com.mongodb.hadoop.io.BSONWritable;
+import com.mongodb.hadoop.mapred.MongoInputFormat;
+import lombok.*;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.java.tuple.Tuple;
+import org.apache.flink.api.common.state.MapState;
+import org.apache.flink.api.common.state.MapStateDescriptor;
+import org.apache.flink.api.common.state.ReadOnlyBroadcastState;
+import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
+import org.apache.flink.api.common.typeinfo.TypeHint;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.api.common.typeinfo.Types;
+import org.apache.flink.api.java.functions.KeySelector;
+import org.apache.flink.api.java.hadoop.mapred.HadoopInputFormat;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.api.java.tuple.Tuple4;
-import org.apache.flink.api.java.tuple.Tuple5;
+import org.apache.flink.api.java.typeutils.ListTypeInfo;
 import org.apache.flink.api.java.utils.ParameterTool;
-import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.BroadcastStream;
+import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.co.KeyedBroadcastProcessFunction;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+import org.apache.flink.util.Collector;
+import org.apache.hadoop.mapred.JobConf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.List;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Setter
+class QuesPointMap {
+
+    public Integer questionId;
+    public Integer pointId;
+}
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Setter
+class UserAnswerCard {
+
+    public Long userid;
+    public Integer subjet;
+    public String points;
+    public String questions;
+    public String corrects;
+    public String time;
+    public String createtime;
+}
 
 public class AssessmentReport {
+
+
+    private static final Logger LOG = LoggerFactory.getLogger(MongoSourceJob.class);
+    private static final String MONGO_URI = "mongodb://huatu_ztk:wEXqgk2Q6LW8UzSjvZrs@192.168.100.153:27017,192.168.100.153:27017,192.168.100.155:27017/huatu_ztk.ztk_question_new";
 
     public static void main(String[] args) throws Exception {
 
 
         final ParameterTool parameterTool = ParameterTool.fromArgs(args);
 
-        final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        final StreamExecutionEnvironment streamEnv = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        SingleOutputStreamOperator<Tuple2<Long, Tuple5<Integer, ArrayList<Integer>, ArrayList<Integer>, ArrayList<Integer>, Long>>> input = env
+        int subject = parameterTool.getInt("subject", 1);
+        String condition = String.format("{}", subject);
+        HadoopInputFormat<BSONWritable, BSONWritable> hdIf =
+                new HadoopInputFormat<>(new MongoInputFormat(), BSONWritable.class, BSONWritable.class, new JobConf());
+        hdIf.getJobConf().set("mongo.input.split.create_input_splits", "false");
+        hdIf.getJobConf().set("mongo.input.uri", MONGO_URI);
+        hdIf.getJobConf().set("mongo.input.query", condition);
+
+        DataStream<QuesPointMap> ruleStream = streamEnv.createInput(hdIf)
+                .filter(new FilterFunction<Tuple2<BSONWritable, BSONWritable>>() {
+                    private static final long serialVersionUID = -2434517374971686279L;
+
+                    @Override
+                    public boolean filter(Tuple2<BSONWritable, BSONWritable> value) throws Exception {
+
+                        BSONWritable v = value.getField(1);
+                        JSONObject s = JSON.parseObject(v.getDoc().toString());
+
+                        return s.getJSONArray("points") != null && s.getJSONArray("points").size() > 0;
+                    }
+                })
+                .map(new MapFunction<Tuple2<BSONWritable, BSONWritable>, QuesPointMap>() {
+                    private static final long serialVersionUID = 3007225486599619846L;
+
+                    @Override
+                    public QuesPointMap map(Tuple2<BSONWritable, BSONWritable> value) throws Exception {
+
+                        BSONWritable v = value.getField(1);
+                        JSONObject s = JSON.parseObject(v.getDoc().toString());
+
+                        return new QuesPointMap(s.getIntValue("_id"), Integer.parseInt(s.getJSONArray("points").get(0).toString()));
+                    }
+                }).keyBy(new KeySelector<QuesPointMap, Integer>() {
+                    private static final long serialVersionUID = -4240425293419023684L;
+
+                    @Override
+                    public Integer getKey(QuesPointMap value) throws Exception {
+                        return value.questionId;
+                    }
+                });
+
+
+        MapStateDescriptor<Integer, QuesPointMap> ruleStateDescriptor = new MapStateDescriptor<>("RulesBroadcastState", BasicTypeInfo.INT_TYPE_INFO,
+                TypeInformation.of(new TypeHint<QuesPointMap>() {
+                }));
+
+        BroadcastStream<QuesPointMap> ruleBroadcastStream = ruleStream
+                .broadcast(ruleStateDescriptor);
+
+        streamEnv
                 .addSource(
                         new FlinkKafkaConsumer010<>(
                                 parameterTool.getRequired("input-topic"),
                                 new AnswerCardSchema(),
                                 parameterTool.getProperties())
                                 .assignTimestampsAndWatermarks(new acWatermarkExtreactor()))
-                .map(new MapFunction<AnswerCard, Tuple2<Long, Tuple5<Integer, ArrayList<Integer>, ArrayList<Integer>, ArrayList<Integer>, Long>>>() {
+                .connect(ruleBroadcastStream)
+                .process(new KeyedBroadcastProcessFunction<QuesPointMap, KafkaAnswerCard, QuesPointMap, UserAnswerCard>() {
 
-                    private static final long serialVersionUID = -8582093371946012225L;
+                    private static final long serialVersionUID = 8694654656959988809L;
 
+                    // store partial matches, i.e. first elements of the pair waiting for their second element
+                    // we keep a list as we may have many first elements waiting
+                    private final MapStateDescriptor<Integer, List<KafkaAnswerCard>> mapStateDesc =
+                            new MapStateDescriptor<>(
+                                    "KafkaAnswerCard",
+                                    BasicTypeInfo.INT_TYPE_INFO,
+                                    new ListTypeInfo<>(KafkaAnswerCard.class));
+
+                    // identical to our ruleStateDescriptor above
+                    private final MapStateDescriptor<Integer, QuesPointMap> ruleStateDescriptor =
+                            new MapStateDescriptor<>(
+                                    "RulesBroadcastState",
+                                    BasicTypeInfo.INT_TYPE_INFO,
+                                    TypeInformation.of(new TypeHint<QuesPointMap>() {
+                                    }));
+
+                    /**
+                     * 责处理广播流中的传入元素
+                     */
                     @Override
-                    public Tuple2<Long, Tuple5<Integer, ArrayList<Integer>, ArrayList<Integer>, ArrayList<Integer>, Long>> map(AnswerCard value) throws Exception {
+                    public void processBroadcastElement(QuesPointMap value, Context ctx, Collector<UserAnswerCard> out) throws Exception {
 
-                        return Tuple2.of(
-                                value.getUserId(),
-                                Tuple5.of(
-                                        value.getSubject(),
-                                        value.getQuestions(),
-                                        value.getCorrects(),
-                                        value.getTimes(),
-                                        value.getCreateTime()));
+                        ctx.getBroadcastState(ruleStateDescriptor).put(value.questionId, value);
                     }
-                });
+
+                    /**
+                     * 负责处理非广播流中的传入元素
+                     */
+                    @Override
+                    public void processElement(KafkaAnswerCard value, ReadOnlyContext ctx, Collector<UserAnswerCard> out) throws Exception {
+
+                        MapState<Integer, List<KafkaAnswerCard>> state = getRuntimeContext().getMapState(mapStateDesc);
+
+                        String questions = value.getQuestions();
+                        String[] qArr = questions.split(",");
+                        StringBuilder sb = new StringBuilder();
+
+                        ReadOnlyBroadcastState<Integer, QuesPointMap> broadcastState = ctx.getBroadcastState(ruleStateDescriptor);
+
+                        for (String s : qArr) {
+
+                            int qid = Integer.parseInt(s);
+                            Integer pointId = broadcastState.get(qid).pointId;
+                            sb.append(pointId).append(",");
+                        }
+
+                        String points = sb.deleteCharAt(sb.length() - 1).toString();
 
 
+                        out.collect(new UserAnswerCard(value.getUserId(), value.getSubject(), points, value.getQuestions(), value.getCorrects(), value.getTimes(), value.getCorrects()));
+                    }
 
 
-        input.print();
-        env.execute("answer card");
+                }).print();
+
+
+        streamEnv.execute("answer card");
 
     }
+
+
 }

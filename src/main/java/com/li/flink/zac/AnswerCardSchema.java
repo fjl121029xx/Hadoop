@@ -7,32 +7,32 @@ import org.apache.flink.api.common.typeinfo.TypeInformation;
 import java.io.IOException;
 import java.text.ParseException;
 
-public class AnswerCardSchema implements DeserializationSchema<AnswerCard>, SerializationSchema<AnswerCard> {
+public class AnswerCardSchema implements DeserializationSchema<KafkaAnswerCard>, SerializationSchema<KafkaAnswerCard> {
 
     @Override
-    public byte[] serialize(AnswerCard element) {
+    public byte[] serialize(KafkaAnswerCard element) {
         return element.toString().getBytes();
     }
 
     @Override
-    public AnswerCard deserialize(byte[] message) throws IOException {
+    public KafkaAnswerCard deserialize(byte[] message) throws IOException {
 
         try {
-            return AnswerCard.fromString(new String(message));
+            return KafkaAnswerCard.fromString(new String(message));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return new AnswerCard();
+        return new KafkaAnswerCard();
     }
 
     @Override
-    public boolean isEndOfStream(AnswerCard nextElement) {
+    public boolean isEndOfStream(KafkaAnswerCard nextElement) {
         return false;
     }
 
 
     @Override
-    public TypeInformation<AnswerCard> getProducedType() {
-        return TypeInformation.of(AnswerCard.class);
+    public TypeInformation<KafkaAnswerCard> getProducedType() {
+        return TypeInformation.of(KafkaAnswerCard.class);
     }
 }
