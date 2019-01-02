@@ -58,19 +58,19 @@ class QuesPointMap {
 @Setter
 class UserAnswerCard {
 
-    public Long userid;
-    public Integer subjet;
+    public Long userId;
+    public Integer subject;
     public String points;
     public String questions;
     public String corrects;
     public String time;
-    public String createtime;
+    public String createTime;
 }
 
 public class AssessmentReport {
 
 
-    private static final Logger LOG = LoggerFactory.getLogger(MongoSourceJob.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AssessmentReport.class);
     private static final String MONGO_URI = "mongodb://huatu_ztk:wEXqgk2Q6LW8UzSjvZrs@192.168.100.153:27017,192.168.100.153:27017,192.168.100.155:27017/huatu_ztk.ztk_question_new";
 
     public static void main(String[] args) throws Exception {
@@ -88,6 +88,9 @@ public class AssessmentReport {
         hdIf.getJobConf().set("mongo.input.uri", MONGO_URI);
         hdIf.getJobConf().set("mongo.input.query", condition);
 
+        /**
+         * patterns
+         */
         DataStream<QuesPointMap> ruleStream = streamEnv.createInput(hdIf)
                 .filter(new FilterFunction<Tuple2<BSONWritable, BSONWritable>>() {
                     private static final long serialVersionUID = -2434517374971686279L;
@@ -112,23 +115,21 @@ public class AssessmentReport {
 
                         return new QuesPointMap(s.getIntValue("_id"), Integer.parseInt(s.getJSONArray("points").get(0).toString()));
                     }
-                }).keyBy(new KeySelector<QuesPointMap, Integer>() {
-                    private static final long serialVersionUID = -4240425293419023684L;
-
-                    @Override
-                    public Integer getKey(QuesPointMap value) throws Exception {
-                        return value.questionId;
-                    }
                 });
 
 
-        MapStateDescriptor<Integer, QuesPointMap> ruleStateDescriptor = new MapStateDescriptor<>("RulesBroadcastState", BasicTypeInfo.INT_TYPE_INFO,
+        MapStateDescriptor<Void, QuesPointMap> ruleStateDescriptor = new MapStateDescriptor<>("RulesBroadcastState",
+                BasicTypeInfo.VOID_TYPE_INFO,
                 TypeInformation.of(new TypeHint<QuesPointMap>() {
                 }));
+
 
         BroadcastStream<QuesPointMap> ruleBroadcastStream = ruleStream
                 .broadcast(ruleStateDescriptor);
 
+        /**
+         * actions
+         */
         streamEnv
                 .addSource(
                         new FlinkKafkaConsumer010<>(
@@ -136,6 +137,32 @@ public class AssessmentReport {
                                 new AnswerCardSchema(),
                                 parameterTool.getProperties())
                                 .assignTimestampsAndWatermarks(new acWatermarkExtreactor()))
+                .filter(new FilterFunction<KafkaAnswerCard>() {
+                    @Override
+                    public boolean filter(KafkaAnswerCard value) throws Exception {
+
+                        try {
+                            String questions = value.getQuestions();
+                            String[] qArr = questions.split(",");
+                            for (String s : qArr) {
+
+                                int qid = Integer.parseInt(s);
+                            }
+                        } catch (Exception e) {
+                            return false;
+                        }
+                        return true;
+
+                    }
+                })
+                .keyBy(new KeySelector<KafkaAnswerCard, Long>() {
+                    private static final long serialVersionUID = 909879664216185791L;
+
+                    @Override
+                    public Long getKey(KafkaAnswerCard value) throws Exception {
+                        return value.getUserId();
+                    }
+                })
                 .connect(ruleBroadcastStream)
                 .process(new KeyedBroadcastProcessFunction<QuesPointMap, KafkaAnswerCard, QuesPointMap, UserAnswerCard>() {
 
@@ -183,7 +210,8 @@ public class AssessmentReport {
                         for (String s : qArr) {
 
                             int qid = Integer.parseInt(s);
-                            Integer pointId = broadcastState.get(qid).pointId;
+                            QuesPointMap quesPointMap = broadcastState.get(qid);
+                            Integer pointId = quesPointMap == null ?  -1: quesPointMap.pointId;
                             sb.append(pointId).append(",");
                         }
 
