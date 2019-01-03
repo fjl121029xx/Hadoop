@@ -5,6 +5,7 @@ import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer010;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -38,13 +39,13 @@ public class ReadFromKafka {
 
 
 
-//        input.addSink(
-//                new FlinkKafkaProducer010<KafkaEvent>(
-//                        parameterTool.getRequired("output-topic"),
-//                        new KafkaEventSchema(),
-//                        parameterTool.getProperties()
-//                )
-//        );
+        input.addSink(
+                new FlinkKafkaProducer010<KafkaEvent>(
+                        parameterTool.getRequired("output-topic"),
+                        new KafkaEventSchema(),
+                        parameterTool.getProperties()
+                )
+        );
 
         env.execute("kafka 0.10 Hello World");
     }

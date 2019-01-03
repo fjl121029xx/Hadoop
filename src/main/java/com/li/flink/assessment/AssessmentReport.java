@@ -1,9 +1,8 @@
-package com.li.flink.zac;
+package com.li.flink.assessment;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.li.flink.mongo.MongoSourceJob;
 import com.mongodb.hadoop.io.BSONWritable;
 import com.mongodb.hadoop.mapred.MongoInputFormat;
 import lombok.*;
@@ -15,7 +14,6 @@ import org.apache.flink.api.common.state.ReadOnlyBroadcastState;
 import org.apache.flink.api.common.typeinfo.BasicTypeInfo;
 import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
-import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.hadoop.mapred.HadoopInputFormat;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -23,49 +21,18 @@ import org.apache.flink.api.java.typeutils.ListTypeInfo;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.BroadcastStream;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.co.KeyedBroadcastProcessFunction;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer010;
 import org.apache.flink.util.Collector;
 import org.apache.hadoop.mapred.JobConf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Getter
-@Setter
-class QuesPointMap {
-
-    public Integer questionId;
-    public Integer pointId;
-}
-
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Getter
-@Setter
-class UserAnswerCard {
-
-    public Long userId;
-    public Integer subject;
-    public String points;
-    public String questions;
-    public String corrects;
-    public String time;
-    public String createTime;
-}
 
 public class AssessmentReport {
 
@@ -130,14 +97,16 @@ public class AssessmentReport {
         /**
          * actions
          */
-        streamEnv
+        SingleOutputStreamOperator<UserAnswerCard> input = streamEnv
                 .addSource(
                         new FlinkKafkaConsumer010<>(
                                 parameterTool.getRequired("input-topic"),
-                                new AnswerCardSchema(),
+                                new KafkaAnswerCardSchema(),
                                 parameterTool.getProperties())
                                 .assignTimestampsAndWatermarks(new acWatermarkExtreactor()))
                 .filter(new FilterFunction<KafkaAnswerCard>() {
+                    private static final long serialVersionUID = -3935377725994973948L;
+
                     @Override
                     public boolean filter(KafkaAnswerCard value) throws Exception {
 
@@ -211,18 +180,22 @@ public class AssessmentReport {
 
                             int qid = Integer.parseInt(s);
                             QuesPointMap quesPointMap = broadcastState.get(qid);
-                            Integer pointId = quesPointMap == null ?  -1: quesPointMap.pointId;
+                            Integer pointId = quesPointMap == null ? -1 : quesPointMap.pointId;
                             sb.append(pointId).append(",");
                         }
 
                         String points = sb.deleteCharAt(sb.length() - 1).toString();
 
 
-                        out.collect(new UserAnswerCard(value.getUserId(), value.getSubject(), points, value.getQuestions(), value.getCorrects(), value.getTimes(), value.getCorrects()));
+                        out.collect(new UserAnswerCard(value.getUserId(), value.getSubject(), points, value.getQuestions(), value.getCorrects(), value.getTimes(), value.getCreateTime()));
                     }
 
 
-                }).print();
+                });
+
+        input.addSink(
+                new FlinkKafkaProducer010<UserAnswerCard>(parameterTool.getRequired("output-topic"), new UserAnswerCardSchema(), parameterTool.getProperties())
+        );
 
 
         streamEnv.execute("answer card");

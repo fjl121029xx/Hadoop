@@ -1,4 +1,4 @@
-package com.li.flink.zac;
+package com.li.flink.assessment;
 
 import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;

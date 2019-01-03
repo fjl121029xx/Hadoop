@@ -1,13 +1,10 @@
-package com.li.flink.zac;
+package com.li.flink.assessment;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Builder
 @NoArgsConstructor

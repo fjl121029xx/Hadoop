@@ -32,7 +32,7 @@ public class ZtkAnswerCard {
         final ParameterTool parameterTool = ParameterTool.fromArgs(args);
         long createTime = parameterTool.getLong("createTime", 1545926400000L);
 
-        String condition = String.format("{'createTime': { $gte : %s}}", createTime);
+        String condition = String.format("{'status': %s }", 3);
         //创建运行环境
         final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         //将mongo数据转化为Hadoop数据格式
