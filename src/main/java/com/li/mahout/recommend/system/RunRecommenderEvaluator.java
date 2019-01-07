@@ -11,6 +11,7 @@ import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.common.RandomUtils;
@@ -27,19 +28,22 @@ public class RunRecommenderEvaluator {
 
         RandomUtils.useTestSeed();
 
-        DataModel dataModel = new FileDataModel(new File("doc/mahout/example/intro.csv"));
+        DataModel model = new FileDataModel(new File("ml100K/ua.base"));
 
-        RecommenderEvaluator evaluator = new RMSRecommenderEvaluator();
+        RecommenderEvaluator evaluator = new AverageAbsoluteDifferenceRecommenderEvaluator();
 
-        RecommenderBuilder builder = model -> {
+        RecommenderBuilder builder = new RecommenderBuilder() {
+            @Override
+            public Recommender buildRecommender(DataModel model) throws TasteException {
 
-            UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
-            NearestNUserNeighborhood neighborhood = new NearestNUserNeighborhood(3, similarity, model);
+                UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
+                UserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, model);
 
-            return new GenericUserBasedRecommender(model, neighborhood, similarity);
+                return new GenericUserBasedRecommender(model, neighborhood, similarity);
+            }
         };
 
-        double score = evaluator.evaluate(builder, null, dataModel, 0.7, 1);
+        double score = evaluator.evaluate(builder, null, model, 0.7, 1);
         System.out.println(score);
 
     }

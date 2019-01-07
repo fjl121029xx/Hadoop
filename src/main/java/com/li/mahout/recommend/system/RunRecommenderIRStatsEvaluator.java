@@ -10,6 +10,7 @@ import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.model.DataModel;
+import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.apache.mahout.common.RandomUtils;
@@ -22,7 +23,7 @@ public class RunRecommenderIRStatsEvaluator {
 
         RandomUtils.useTestSeed();
 
-        DataModel model = new FileDataModel(new File("data/ml100K/ratings.data"));
+        DataModel model = new FileDataModel(new File("ml100K/ua.base"));
 
         RecommenderIRStatsEvaluator evaluator = new GenericRecommenderIRStatsEvaluator();
 
@@ -30,13 +31,13 @@ public class RunRecommenderIRStatsEvaluator {
             @Override
             public Recommender buildRecommender(DataModel dataModel) throws TasteException {
 
-                UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
-                NearestNUserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, model);
-                return new GenericUserBasedRecommender(model, neighborhood, similarity);
+                UserSimilarity similarity = new PearsonCorrelationSimilarity(dataModel);
+                UserNeighborhood neighborhood = new NearestNUserNeighborhood(10, similarity, dataModel);
+                return new GenericUserBasedRecommender(dataModel, neighborhood, similarity);
             }
         };
 
-        IRStatistics stats = evaluator.evaluate(builder, null, model,null, 2, GenericRecommenderIRStatsEvaluator.CHOOSE_THRESHOLD, 1.0);
+        IRStatistics stats = evaluator.evaluate(builder, null, model,null, 10, GenericRecommenderIRStatsEvaluator.CHOOSE_THRESHOLD, 1.0);
 
         System.out.println(stats.getPrecision());
         System.out.println(stats.getRecall());

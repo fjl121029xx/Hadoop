@@ -302,6 +302,12 @@
             <artifactId>mahout-math</artifactId>
             <version>0.9</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.mahout/mahout-hdfs -->
+        <dependency>
+            <groupId>org.apache.mahout</groupId>
+            <artifactId>mahout-hdfs</artifactId>
+            <version>0.13.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.mahout</groupId>
