@@ -194,7 +194,7 @@ public class AssessmentReport {
                 });
 
         input.addSink(
-                new FlinkKafkaProducer010<UserAnswerCard>(parameterTool.getRequired("output-topic"), new UserAnswerCardSchema(), parameterTool.getProperties())
+                new FlinkKafkaProducer010<>(parameterTool.getRequired("output-topic"), new UserAnswerCardSchema(), parameterTool.getProperties())
         );
 
 
