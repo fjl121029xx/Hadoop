@@ -195,7 +195,7 @@ hive -S -e "insert overwrite table videoplay2 partition(recordtime) select cv,te
 
 
 hive -S -e "create table vp (cv string,terminal int,uname String,netClassId int,syllabusId int
-,playtime int,playhour int,playday string,playweek string)
+,playtime int,playhour int,playday string,playweek bigint)
 row format delimited
 fields terminated by ',';"
 
@@ -203,17 +203,17 @@ hive -S -e "create table videoplay2 (
 cv string,terminal int,
 uname String,netClassId int,syllabusId int,
 playtime int,playhour int,
-playday string)  partitioned by (playweek  string)
+playday string)  partitioned by (playweek  bigint)
  row format delimited
   fields terminated by ',';"
 
 
-hive -S -e "load data inpath 'hdfs://ns1/huatu-data/video-record/flume/mr/201850/part-r-00000' overwrite into table vp;"
+hive -S -e "load data inpath 'hdfs://ns1/huatu-data/video-record/flume/mr/1546790400000/part-r-00000' overwrite into table vp;"
 
 hive -S -e "insert overwrite table videoplay2 partition(playweek)
  select cv,terminal,uname,netClassId,syllabusid,playtime,playhour,
  cast(playday as string) as playday,
- cast(playweek as string) as playweek from vp;"
+ playweek  as playweek from vp;"
 
 
 
