@@ -17,6 +17,7 @@ import org.apache.flink.api.java.hadoop.mapred.HadoopInputFormat;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.typeutils.ListTypeInfo;
 import org.apache.flink.api.java.utils.ParameterTool;
+import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.BroadcastStream;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.IterativeStream;
@@ -49,6 +50,8 @@ public class AssessmentReport {
         final ParameterTool parameterTool = ParameterTool.fromArgs(args);
 
         final StreamExecutionEnvironment streamEnv = StreamExecutionEnvironment.getExecutionEnvironment();
+        streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime);
+//        streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         int subject = parameterTool.getInt("subject", 1);
         String condition = String.format("{}", subject);
@@ -195,27 +198,13 @@ public class AssessmentReport {
                 });
 
 
-        IterativeStream<UserAnswerCard> iterate = input.iterate();
-
-        DataStream<Tuple2<String, Integer>> iterationBody = iterate.filter(new FilterFunction<UserAnswerCard>() {
-            @Override
-            public boolean filter(UserAnswerCard ua) throws Exception {
-                return ua.getQuestions().split(",").length > 15;
-            }
-        }).map(new MapFunction<UserAnswerCard, Tuple2<String, Integer>>() {
-            @Override
-            public Tuple2<String, Integer> map(UserAnswerCard ua) throws Exception {
-                return new Tuple2<>(Long.toString(ua.getUserId()), 1);
-            }
-        });
-
-
-   /*   60s用户做题次数
+//        input.print();
+//        60 s用户做题次数
         DataStream<Tuple2<String, Integer>> dataStream = input.map(new Map1())
                 .keyBy(0)
                 .timeWindow(Time.seconds(60))
                 .sum(1);
-        dataStream.print();*/
+        dataStream.print();
 
         streamEnv.execute("answer card");
 
