@@ -218,6 +218,3 @@ hive -S -e "insert overwrite table videoplay2 partition(playweek)
  playweek  as playweek from vp;"
 
 
-
-
-

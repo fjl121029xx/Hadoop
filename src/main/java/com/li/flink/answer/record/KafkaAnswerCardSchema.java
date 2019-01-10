@@ -1,4 +1,4 @@
-package com.li.flink.assessment;
+package com.li.flink.answer.record;
 
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.serialization.SerializationSchema;

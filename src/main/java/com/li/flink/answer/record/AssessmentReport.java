@@ -1,11 +1,9 @@
-package com.li.flink.assessment;
+package com.li.flink.answer.record;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mongodb.hadoop.io.BSONWritable;
 import com.mongodb.hadoop.mapred.MongoInputFormat;
-import lombok.*;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.state.MapState;
@@ -21,9 +19,11 @@ import org.apache.flink.api.java.typeutils.ListTypeInfo;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.BroadcastStream;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.IterativeStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.co.KeyedBroadcastProcessFunction;
+import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer010;
 import org.apache.flink.util.Collector;
@@ -31,6 +31,7 @@ import org.apache.hadoop.mapred.JobConf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -39,6 +40,8 @@ public class AssessmentReport {
 
     private static final Logger LOG = LoggerFactory.getLogger(AssessmentReport.class);
     private static final String MONGO_URI = "mongodb://huatu_ztk:wEXqgk2Q6LW8UzSjvZrs@192.168.100.153:27017,192.168.100.153:27017,192.168.100.155:27017/huatu_ztk.ztk_question_new";
+
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
     public static void main(String[] args) throws Exception {
 
@@ -189,18 +192,40 @@ public class AssessmentReport {
 
                         out.collect(new UserAnswerCard(value.getUserId(), value.getSubject(), points, value.getQuestions(), value.getCorrects(), value.getTimes(), value.getCreateTime()));
                     }
-
-
                 });
 
-        input.addSink(
-                new FlinkKafkaProducer010<>(parameterTool.getRequired("output-topic"), new UserAnswerCardSchema(), parameterTool.getProperties())
-        );
 
+        IterativeStream<UserAnswerCard> iterate = input.iterate();
+
+        DataStream<Tuple2<String, Integer>> iterationBody = iterate.filter(new FilterFunction<UserAnswerCard>() {
+            @Override
+            public boolean filter(UserAnswerCard ua) throws Exception {
+                return ua.getQuestions().split(",").length > 15;
+            }
+        }).map(new MapFunction<UserAnswerCard, Tuple2<String, Integer>>() {
+            @Override
+            public Tuple2<String, Integer> map(UserAnswerCard ua) throws Exception {
+                return new Tuple2<>(Long.toString(ua.getUserId()), 1);
+            }
+        });
+
+
+   /*   60s用户做题次数
+        DataStream<Tuple2<String, Integer>> dataStream = input.map(new Map1())
+                .keyBy(0)
+                .timeWindow(Time.seconds(60))
+                .sum(1);
+        dataStream.print();*/
 
         streamEnv.execute("answer card");
 
     }
 
+    public static class Map1 implements MapFunction<UserAnswerCard, Tuple2<String, Integer>> {
 
+        @Override
+        public Tuple2<String, Integer> map(UserAnswerCard ua) throws Exception {
+            return new Tuple2<>(Long.toString(ua.getUserId()), 1);
+        }
+    }
 }

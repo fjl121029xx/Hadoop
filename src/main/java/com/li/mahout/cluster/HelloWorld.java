@@ -24,11 +24,11 @@ import java.util.List;
 
 public class HelloWorld {
 
-    public static final double[][] points = {{1, 1}, {2, 1}, {1, 2},
+    private static final double[][] points = {{1, 1}, {2, 1}, {1, 2},
             {2, 2}, {3, 3}, {8, 8},
             {9, 8}, {8, 9}, {9, 9}};
 
-    public static void writePointsToFile(List<Vector> points, String fileName, FileSystem fs, Configuration conf) throws Exception {
+    private static void writePointsToFile(List<Vector> points, String fileName, FileSystem fs, Configuration conf) throws Exception {
 
         Path path = new Path(fileName);
         SequenceFile.Writer writer = new SequenceFile.Writer(fs, conf, path, LongWritable.class, VectorWritable.class);
@@ -42,7 +42,7 @@ public class HelloWorld {
         writer.close();
     }
 
-    public static List<Vector> getPoints(double[][] raw) {
+    private static List<Vector> getPoints(double[][] raw) {
 
         List<Vector> points = new ArrayList<>();
         for (int i = 0; i < raw.length; i++) {

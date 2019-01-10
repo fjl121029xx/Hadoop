@@ -9,7 +9,7 @@ import org.apache.flink.util.Collector;
 public class Example {
 
     public static void main(String[] args) throws Exception {
-        
+
         final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
         DataSet<String> text = env.fromElements(
@@ -25,10 +25,13 @@ public class Example {
     }
 
     public static class LineSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
+        private static final long serialVersionUID = 8533057408103330663L;
+
         @Override
         public void flatMap(String line, Collector<Tuple2<String, Integer>> out) {
+
             for (String word : line.split(" ")) {
-                out.collect(new Tuple2<String, Integer>(word, 1));
+                out.collect(new Tuple2<>(word, 1));
             }
         }
     }

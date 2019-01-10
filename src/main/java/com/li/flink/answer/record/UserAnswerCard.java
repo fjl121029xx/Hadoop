@@ -1,4 +1,4 @@
-package com.li.flink.assessment;
+package com.li.flink.answer.record;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
