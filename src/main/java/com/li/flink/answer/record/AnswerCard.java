@@ -20,13 +20,10 @@ import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.BroadcastStream;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.IterativeStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.co.KeyedBroadcastProcessFunction;
-import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer010;
 import org.apache.flink.util.Collector;
 import org.apache.hadoop.mapred.JobConf;
 import org.slf4j.Logger;
@@ -35,11 +32,14 @@ import org.slf4j.LoggerFactory;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+/**
+ *
+ *
+ */
+public class AnswerCard {
 
-public class AssessmentReport {
 
-
-    private static final Logger LOG = LoggerFactory.getLogger(AssessmentReport.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AnswerCard.class);
     private static final String MONGO_URI = "mongodb://huatu_ztk:wEXqgk2Q6LW8UzSjvZrs@192.168.100.153:27017,192.168.100.153:27017,192.168.100.155:27017/huatu_ztk.ztk_question_new";
 
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -50,8 +50,8 @@ public class AssessmentReport {
         final ParameterTool parameterTool = ParameterTool.fromArgs(args);
 
         final StreamExecutionEnvironment streamEnv = StreamExecutionEnvironment.getExecutionEnvironment();
-        streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime);
-//        streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+//        streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.IngestionTime);
+        streamEnv.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
         int subject = parameterTool.getInt("subject", 1);
         String condition = String.format("{}", subject);
@@ -164,7 +164,7 @@ public class AssessmentReport {
                      */
                     @Override
                     public void processBroadcastElement(QuesPointMap value, Context ctx, Collector<UserAnswerCard> out) throws Exception {
-
+                        
                         ctx.getBroadcastState(ruleStateDescriptor).put(value.questionId, value);
                     }
 
@@ -198,14 +198,14 @@ public class AssessmentReport {
                 });
 
 
-//        input.print();
+        input.print();
 //        60 s用户做题次数
-        DataStream<Tuple2<String, Integer>> dataStream = input.map(new Map1())
-                .keyBy(0)
-                .timeWindow(Time.seconds(60))
-                .sum(1);
-        dataStream.print();
-
+//        DataStream<Tuple2<String, Integer>> dataStream = input.map(new Map1())
+//                .keyBy(0)
+//                .timeWindow(Time.seconds(60))
+//                .sum(1);
+//        dataStream.print();
+//
         streamEnv.execute("answer card");
 
     }

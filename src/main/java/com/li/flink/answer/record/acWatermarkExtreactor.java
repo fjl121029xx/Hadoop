@@ -12,6 +12,7 @@ public class acWatermarkExtreactor implements AssignerWithPeriodicWatermarks<Kaf
 
     @Override
     public long extractTimestamp(KafkaAnswerCard element, long previousElementTimestamp) {
+
         return element.getCreateTime();
     }
 
