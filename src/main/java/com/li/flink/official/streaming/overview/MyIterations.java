@@ -13,7 +13,7 @@ public class MyIterations {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
 
-        DataStream<Long> someIntegers = env.generateSequence(0, 10);
+        DataStream<Long> someIntegers = env.generateSequence(0, 1000);
 
         IterativeStream<Long> iteration = someIntegers.iterate();
 
