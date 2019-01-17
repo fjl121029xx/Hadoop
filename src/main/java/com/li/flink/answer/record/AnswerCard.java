@@ -164,7 +164,7 @@ public class AnswerCard {
                      */
                     @Override
                     public void processBroadcastElement(QuesPointMap value, Context ctx, Collector<UserAnswerCard> out) throws Exception {
-                        
+
                         ctx.getBroadcastState(ruleStateDescriptor).put(value.questionId, value);
                     }
 

@@ -1,7 +1,0 @@
-:1
-final1
-for1
-org.apache.flink.api.java.utils.parametertool;1
-out.collect(new1
-tuple2<>(token,1
-value.tolowercase().split("1
