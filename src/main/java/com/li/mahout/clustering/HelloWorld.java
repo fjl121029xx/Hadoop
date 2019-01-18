@@ -1,4 +1,4 @@
-package com.li.mahout.cluster;
+package com.li.mahout.clustering;
 
 
 import org.apache.hadoop.conf.Configuration;
@@ -18,7 +18,6 @@ import org.apache.mahout.math.Vector;
 import org.apache.mahout.math.VectorWritable;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

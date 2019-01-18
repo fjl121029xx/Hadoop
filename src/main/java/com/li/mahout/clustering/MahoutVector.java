@@ -1,4 +1,4 @@
-package com.li.mahout.cluster;
+package com.li.mahout.clustering;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
