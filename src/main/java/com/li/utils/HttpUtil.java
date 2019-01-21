@@ -11,7 +11,7 @@ import java.net.URL;
 public class HttpUtil {
 
     private static String encoding = "QURNSU46S1lMSU4=";
-    private static final String baseURL = "http://100-49:7070/kylin/api";
+    private static final String baseURL = "http://192.168.100.26:7070/kylin/api";
 
     public static String login(String user, String passwd) {
         String method = "POST";
@@ -315,7 +315,6 @@ public class HttpUtil {
     }
 
     /**
-     *
      * @param para
      * @param body
      * @return
@@ -341,7 +340,7 @@ public class HttpUtil {
 
             int state = httpClient.executeMethod(postMethod);
 
-            BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(postMethod.getResponseBodyAsStream()));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(postMethod.getResponseBodyAsStream()));
 
             String responseLine = "";
             while ((responseLine = bufferedReader.readLine()) != null) {
@@ -357,8 +356,8 @@ public class HttpUtil {
 
     }
 
+
     /**
-     *
      * @param para
      * @param body
      * @return
@@ -384,7 +383,7 @@ public class HttpUtil {
 
             int state = httpClient.executeMethod(putMethod);
 
-            BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(putMethod.getResponseBodyAsStream()));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(putMethod.getResponseBodyAsStream()));
 
             String responseLine = "";
             while ((responseLine = bufferedReader.readLine()) != null) {
@@ -401,7 +400,6 @@ public class HttpUtil {
     }
 
     /**
-     *
      * @param para
      * @param body
      * @return
@@ -422,7 +420,7 @@ public class HttpUtil {
 
             int state = httpClient.executeMethod(getMethod);
 
-            BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(getMethod.getResponseBodyAsStream()));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
 
             String responseLine = "";
             while ((responseLine = bufferedReader.readLine()) != null) {
@@ -439,8 +437,26 @@ public class HttpUtil {
     }
 
 
+    public static void main(String[] args) throws IOException {
 
+        StringBuilder out = new StringBuilder();
+        while (true) {
+            String url = "https://ns.huatu.com/q/v1/questions/?ids=40026453,40026454,40026455,40026456,40026457,40026464,40026466,40026467,40026468,40026469,40026471,40026472,40026473,40026474,40026475,40026480,40026481,40026485,40026488,40026490,40026495,40026496,40026497,40026498,40026499,40026501,40026502,40026503,40026504,40026505,40026510,40026513,40026515,40026516,40026517,40026519,40026520,40026521,40026522,40026523,40026525,40026526,40026527,40026528,40026529,40026531,40026532,40026533,40026534,40026535,40026543,40026544,40026545,40026546,40026547,40026537,40026538,40026539,40026540,40026541,40026590,40026591,40026592,40026593,40026594,40026595,40026596,40026597,40026598,40026599,40026600,40026601,40026602,40026603,40026604,40026605,40026606,40026607,40026608,40026609,40026610,40026611,40026612,40026613,40026614,40026615,40026616,40026617,40026618,40026619,40026620,40026621,40026622,40026623,40026624,40026625,40026626,40026627,40026628,40026629,40026630,40026631,40026632,40026633,40026634,40026635,40026636,40026637,40026638,40026639,40026640,40026641,40026642,40026643,40026644,40026645,40026646,40026647,40026648,40026649,40026650,40026651,40026652,40026653,40026654,40026655,40026656,40026657,40026658,40026659,40026660,40026661,40026662,40026663,40026664,40026665,40026666,40026667,40026668,40026669,40026670,40026671,40026672,40026673,40026674,40026675,40026676,40026677,40026678,40026679,40026680,40026681,40026682,40026683,40026684,40026709,40026710,40026711,40026712,40026713,40026686,40026687,40026688,40026689,40026690,40026692,40026693,40026694,40026695,40026696,40026698,40026699,40026700,40026701,40026702,40026704,40026705,40026706,40026707,40026708";
+            HttpClient httpClient = new HttpClient();
 
+            GetMethod getMethod = new GetMethod(url);
 
+//            getMethod.setRequestHeader("Authorization", "Basic " + encoding);//Soap Action Header!
+
+            int state = httpClient.executeMethod(getMethod);
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getMethod.getResponseBodyAsStream()));
+
+            String responseLine = "";
+            while ((responseLine = bufferedReader.readLine()) != null) {
+                out.append(responseLine);
+            }
+        }
+    }
 
 }
