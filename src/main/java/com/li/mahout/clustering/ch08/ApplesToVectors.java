@@ -1,4 +1,4 @@
-package com.li.mahout.clustering;
+package com.li.mahout.clustering.ch08;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -12,7 +12,7 @@ import org.apache.mahout.math.VectorWritable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MahoutVector {
+public class ApplesToVectors {
 
     public static void main(String[] args) throws Exception {
 
