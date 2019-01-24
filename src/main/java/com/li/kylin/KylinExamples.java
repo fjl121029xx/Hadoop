@@ -16,7 +16,7 @@ public class KylinExamples {
         StringBuilder condition = new StringBuilder();
 
 
-        String sqlTemplate = " select count(distinct uname) from videoplay2 where playweek >= 1546790400000 and playweek<=1547395199000 and playday >= '20190111' and playday<='20190111' and terminal = 1  ";
+        String sqlTemplate = " select sum(playtime) as playtime,count(distinct uname) as activeuser,netclassid,title from videoplay2 where  playday >='19700101' and playday<='20190122' and netclassid = 67424 group by netclassid,title ";
 
 
         String body = "{" +
