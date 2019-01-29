@@ -37,7 +37,7 @@ public class ProducerDemo {
 
         String taskId = UUID.randomUUID().toString();
 
-        producer.send(new KeyedMessage<String, String>("question-record",taskId));
+        producer.send(new KeyedMessage<String, String>("minivideo",taskId));
 //        String aus = "{\"usa\":" +
 //                "[" +
 //                "{\"conditionKey\":\"subject\",\"isEqual\":1,\"conditionValue\":\"1,100100594\"}," +
