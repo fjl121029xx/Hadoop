@@ -37,7 +37,16 @@ public class ProducerDemo {
 
         String taskId = UUID.randomUUID().toString();
 
-        producer.send(new KeyedMessage<String, String>("minivideo",taskId));
+        Random r = new Random();
+        while (true) {
+
+            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + r.nextInt(3) + ",\"value\":" + r.nextInt(2) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
+//            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + 0 + ",\"value\":" + r.nextInt(2) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
+            Thread.sleep(r.nextInt(3000));
+        }
+
+
+
 //        String aus = "{\"usa\":" +
 //                "[" +
 //                "{\"conditionKey\":\"subject\",\"isEqual\":1,\"conditionValue\":\"1,100100594\"}," +
