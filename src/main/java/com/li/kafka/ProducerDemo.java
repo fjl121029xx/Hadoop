@@ -40,7 +40,7 @@ public class ProducerDemo {
         Random r = new Random();
         while (true) {
 
-            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + r.nextInt(3) + ",\"value\":" + r.nextInt(2) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
+            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + r.nextInt(4) + ",\"value\":" + r.nextInt(500) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
 //            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + 0 + ",\"value\":" + r.nextInt(2) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
             Thread.sleep(r.nextInt(3000));
         }
