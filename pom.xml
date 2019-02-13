@@ -13,7 +13,7 @@
         <scala.version>2.11.8</scala.version>
         <scala.compat.version>2.11</scala.compat.version>
         <spark.version>2.1.0</spark.version>
-        <flink.version>1.6.2</flink.version>
+        <flink.version>1.7.0</flink.version>
         <hadoop.version>2.7.7</hadoop.version>
         <kafka.version>2.0.0</kafka.version>
         <impala.jdbc.version>2.5.30</impala.jdbc.version>
@@ -214,6 +214,23 @@
             <artifactId>flink-java</artifactId>
             <version>${flink.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-scala -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.flink</groupId>-->
+            <!--<artifactId>flink-scala_2.11</artifactId>-->
+            <!--<version>${flink.version}</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-jdbc_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-table -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_2.11</artifactId>
@@ -233,19 +250,19 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-hbase_2.11</artifactId>
-            <version>1.6.2</version>
+            <version>${flink.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka-0.10 -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.10_2.11</artifactId>
-            <version>1.6.2</version>
+            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-hadoop-compatibility_2.11</artifactId>
-            <version>1.6.2</version>
+            <version>${flink.version}</version>
         </dependency>
 
         <!-- kryo used in different versions by Flink an chill -->
@@ -331,9 +348,9 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-analyzers -->
         <!--<dependency>-->
-            <!--<groupId>org.apache.lucene</groupId>-->
-            <!--<artifactId>lucene-analyzers</artifactId>-->
-            <!--<version>3.6.2</version>-->
+        <!--<groupId>org.apache.lucene</groupId>-->
+        <!--<artifactId>lucene-analyzers</artifactId>-->
+        <!--<version>3.6.2</version>-->
         <!--</dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.impalaframework/impala-maven-plugin -->
