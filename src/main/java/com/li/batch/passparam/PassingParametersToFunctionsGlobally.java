@@ -18,7 +18,7 @@ public class PassingParametersToFunctionsGlobally {
 
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         env.getConfig().setGlobalJobParameters(config);
-
+        env.setNumberOfExecutionRetries(3);
 
         DataSource<String> toFilter = env.fromElements("");
 
