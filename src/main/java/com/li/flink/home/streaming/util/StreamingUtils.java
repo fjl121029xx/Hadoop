@@ -4,6 +4,7 @@ import com.li.flink.home.streaming.StreamingBean;
 import com.li.flink.home.streaming.StreamingBeanSchema;
 import com.li.flink.home.streaming.WaterMark;
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
@@ -16,6 +17,8 @@ import org.apache.flink.streaming.api.windowing.triggers.Trigger;
 import org.apache.flink.streaming.api.windowing.triggers.TriggerResult;
 import org.apache.flink.streaming.api.windowing.windows.GlobalWindow;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+
+import java.util.Properties;
 
 public class StreamingUtils {
 
@@ -72,5 +75,19 @@ public class StreamingUtils {
         });
 
         return global;
+    }
+
+    public static DataStreamSource getKafkaSource( StreamExecutionEnvironment env){
+
+        Properties prop = new Properties();
+        prop.setProperty("bootstrap.servers", "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
+        prop.setProperty("zookeeper.connect", "192.168.100.68:2181,192.168.100.70:2181,192.168.100.72:2181");
+        prop.setProperty("group.id", "k1");
+
+        FlinkKafkaConsumer010<String> kc = new FlinkKafkaConsumer010<>("kafka-record", new SimpleStringSchema(), prop);
+
+        DataStreamSource<String> s1 = env.addSource(kc);
+
+        return s1;
     }
 }
