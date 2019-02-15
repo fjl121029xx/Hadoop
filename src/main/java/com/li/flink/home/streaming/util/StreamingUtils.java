@@ -77,7 +77,7 @@ public class StreamingUtils {
         return global;
     }
 
-    public static DataStreamSource getKafkaSource( StreamExecutionEnvironment env){
+    public static DataStreamSource<String> getKafkaSource( StreamExecutionEnvironment env){
 
         Properties prop = new Properties();
         prop.setProperty("bootstrap.servers", "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");

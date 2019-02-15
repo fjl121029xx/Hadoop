@@ -4,21 +4,16 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.li.flink.home.streaming.util.StreamingUtils;
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.java.StreamTableEnvironment;
 import org.apache.flink.table.sinks.CsvTableSink;
-
-import java.util.Properties;
 
 public class CsvSink {
 
@@ -50,12 +45,12 @@ public class CsvSink {
         env.execute();
     }
 
-    private static class toPojo implements MapFunction<String, KafkaSourceTable.Pojo> {
+    private static class toPojo implements MapFunction<String, MyKafkaSourceTable.Pojo> {
 
         @Override
-        public KafkaSourceTable.Pojo map(String s) throws Exception {
+        public MyKafkaSourceTable.Pojo map(String s) throws Exception {
             JSONObject j = JSON.parseObject(s);
-            return new KafkaSourceTable.Pojo(j.getLong("key"), j.getInteger("value"), j.getLong("recordTime"));
+            return new MyKafkaSourceTable.Pojo(j.getLong("key"), j.getInteger("value"), j.getLong("recordTime"));
         }
     }
 

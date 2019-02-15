@@ -3,6 +3,7 @@ package com.li.flink.home.table;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.li.flink.home.streaming.connector.KafkaConsumer;
+import com.li.flink.home.table.bean.Pojo;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -18,7 +19,7 @@ import scala.Tuple3;
 
 import java.util.Properties;
 
-public class KafkaSourceTable {
+public class MyKafkaSourceTable {
 
 
     public static void main(String[] args) throws Exception {
@@ -55,27 +56,4 @@ public class KafkaSourceTable {
         }
     }
 
-    public static class Pojo {
-        public Long key;
-        public Integer value;
-        public Long recordTime;
-
-        public Pojo() {
-        }
-
-        public Pojo(Long key, Integer value, Long recordTime) {
-            this.key = key;
-            this.value = value;
-            this.recordTime = recordTime;
-        }
-
-        @Override
-        public String toString() {
-            return "Pojo{" +
-                    "key=" + key +
-                    ", value=" + value +
-                    ", recordTime=" + recordTime +
-                    '}';
-        }
-    }
 }
