@@ -38,13 +38,14 @@ public class ProducerDemo {
         String taskId = UUID.randomUUID().toString();
 
         Random r = new Random();
-        while (true) {
-
-            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + r.nextInt(4) + ",\"value\":" + r.nextInt(500) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
-//            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + 0 + ",\"value\":" + r.nextInt(2) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
-            Thread.sleep(r.nextInt(3000));
-        }
-
+//        while (true) {
+//
+//            producer.send(new KeyedMessage<String, String>("test-topic", "{\"key\":" + r.nextInt(4) + ",\"value\":" + r.nextInt(500) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
+////            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + 0 + ",\"value\":" + r.nextInt(2) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
+//            Thread.sleep(r.nextInt(3000));
+//        }
+        producer.send(new KeyedMessage<String, String>("kafka-record", "{\"k\":" + 2 + ",\"v\":" + r.nextInt(500) + ",\"t\":" + System.currentTimeMillis() + "}"));
+//
 
 
 //        String aus = "{\"usa\":" +

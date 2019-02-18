@@ -45,12 +45,12 @@ public class CsvSink {
         env.execute();
     }
 
-    private static class toPojo implements MapFunction<String, MyKafkaSourceTable.Pojo> {
+    private static class toPojo implements MapFunction<String, Pojo> {
 
         @Override
-        public MyKafkaSourceTable.Pojo map(String s) throws Exception {
+        public Pojo map(String s) throws Exception {
             JSONObject j = JSON.parseObject(s);
-            return new MyKafkaSourceTable.Pojo(j.getLong("key"), j.getInteger("value"), j.getLong("recordTime"));
+            return new Pojo(j.getLong("key"), j.getInteger("value"), j.getLong("recordTime"));
         }
     }
 
