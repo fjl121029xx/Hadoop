@@ -1,19 +1,23 @@
-package com.li.flink.home.table;
+package com.li.flink.home.table.user.defined.function;
 
+import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.java.BatchTableEnvironment;
+import org.apache.flink.table.functions.ScalarFunction;
+import org.apache.flink.table.sinks.CsvTableSink;
 
-public class WordCountSQL {
-
+public class StrHashCode extends ScalarFunction {
 
     public static void main(String[] args) throws Exception {
 
-        // set up execution environment
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         BatchTableEnvironment tEnv = TableEnvironment.getTableEnvironment(env);
+
 
         DataSet<WC> input = env.fromElements(
                 new WC("Hello", 1),
@@ -23,19 +27,25 @@ public class WordCountSQL {
         // register the DataSet as table "WordCount"
         tEnv.registerDataSet("WordCount", input, "word, frequency");
 
+        tEnv.registerFunction("hc", new MyScalarFunctions(10));
         // run a SQL query on the Table and retrieve the result as a new Table
         Table table = tEnv.sqlQuery(
-                "SELECT word, SUM(frequency) as frequency FROM WordCount GROUP BY word");
+                "SELECT word,hc(word)  from WordCount ");
 
-        DataSet<WC> result = tEnv.toDataSet(table, WC.class);
+        CsvTableSink csvSink = new CsvTableSink("path/to/file", "|", 1, FileSystem.WriteMode.OVERWRITE);
 
-        result.print();
+        String[] fieldNames = {"a", "b", "c"};
+        TypeInformation[] fieldTypes = {Types.STRING, Types.STRING, Types.STRING};
+
+        tEnv.registerTableSink("CsvSinkTable", fieldNames, fieldTypes, csvSink);
+
+        table.writeToSink(csvSink);
+
+        env.execute();
     }
 
-    /**
-     * Simple POJO containing a word and its respective count.
-     */
-    private static class WC {
+
+    public static class WC {
         public String word;
         public long frequency;
 
@@ -54,3 +64,4 @@ public class WordCountSQL {
         }
     }
 }
+
