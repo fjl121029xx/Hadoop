@@ -1,11 +1,15 @@
 package com.li.flink.home.table.user.defined.function;
 
+import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.core.fs.FileSystem;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.java.BatchTableEnvironment;
 import org.apache.flink.table.functions.AggregateFunction;
+import org.apache.flink.table.sinks.CsvTableSink;
 
 import java.util.Iterator;
 
@@ -22,14 +26,21 @@ public class UDAF {
         DataSet<AB> input = env.fromElements(
                 new AB("a", 1, 2),
                 new AB("a", 1, 3),
-                new AB("b", 2, 1));
+                new AB("b", 2, 8));
 
         tEnv.registerDataSet("ab", input, "word, a, b");
         Table table = tEnv.sqlQuery("select word ,wAvg(a, b) as avgPoints from ab group by word");
 
-        DataSet<C> cDataSet = tEnv.toDataSet(table, C.class);
+        CsvTableSink csvSink = new CsvTableSink("path/to/file", "|", 1, FileSystem.WriteMode.OVERWRITE);
 
-        cDataSet.print();
+        String[] fieldNames = {"word", "avgPoints"};
+        TypeInformation[] fieldTypes = {Types.LONG, Types.LONG};
+
+        tEnv.registerTableSink("CsvSinkTable", fieldNames, fieldTypes, csvSink);
+
+        table.writeToSink(csvSink);
+        env.execute();
+
 //        env.execute();
     }
 
@@ -87,8 +98,8 @@ public class UDAF {
          * Subsequently, the accumulate() method of the function is called for each input row to update the accumulator.
          */
         public void accumulate(WeightedAvgAccum acc, long iValue, int iWeight) {
-            acc.sum -= iValue * iWeight;
-            acc.count -= iWeight;
+            acc.sum += iWeight;
+            acc.count += iValue;
         }
 
         /**
@@ -104,11 +115,16 @@ public class UDAF {
             }
         }
 
+        /**
+         * retract() is required for aggregations on bounded OVER windows.
+         */
         public void retract(WeightedAvgAccum acc, long iValue, int iWeight) {
-            acc.sum -= iValue * iWeight;
-            acc.count -= iWeight;
+            acc.sum += iWeight;
+            acc.count += iValue;
         }
-
+        /**
+         * merge() is required for many batch aggregations and session window aggregations.
+         */
         public void merge(WeightedAvgAccum acc, Iterable<WeightedAvgAccum> it) {
             Iterator<WeightedAvgAccum> iter = it.iterator();
             while (iter.hasNext()) {
@@ -117,7 +133,9 @@ public class UDAF {
                 acc.sum += a.sum;
             }
         }
-
+        /**
+         * resetAccumulator() is required for many batch aggregations.
+         */
         public void resetAccumulator(WeightedAvgAccum acc) {
             acc.count = 0;
             acc.sum = 0L;
