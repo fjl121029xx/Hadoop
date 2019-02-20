@@ -35,7 +35,7 @@ public class KafkaConsumer {
         env.execute("KafkaConsumer");
     }
 
-    private static class CustomWatermarkEmitter implements AssignerWithPeriodicWatermarks<String> {
+    public static class CustomWatermarkEmitter implements AssignerWithPeriodicWatermarks<String> {
 
         /**
          *
