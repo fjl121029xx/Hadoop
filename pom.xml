@@ -296,7 +296,12 @@
             <artifactId>kafka-clients</artifactId>
             <version>0.10.2.1</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/connect-api -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-api</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 
         <!-- kryo used in different versions by Flink an chill -->
         <dependency>
