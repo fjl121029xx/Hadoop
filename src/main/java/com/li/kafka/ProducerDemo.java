@@ -2,18 +2,12 @@ package com.li.kafka;
 
 import java.util.*;
 
-import kafka.consumer.Consumer;
-import kafka.consumer.ConsumerConfig;
-import kafka.consumer.KafkaStream;
-import kafka.javaapi.consumer.ConsumerConnector;
-import kafka.javaapi.producer.Producer;
-import kafka.message.MessageAndMetadata;
-import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
-import redis.clients.jedis.Jedis;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 /**
  * https://www.cnblogs.com/jun1019/p/6656223.html
+ * https://blog.csdn.net/u010886217/article/details/83154773
  */
 public class ProducerDemo {
 
@@ -32,59 +26,19 @@ public class ProducerDemo {
 
     public static void main(String[] args) throws Exception {
 
-        ProducerConfig config = new ProducerConfig(props);
-        Producer<String, String> producer = new Producer<String, String>(config);
 
         String taskId = UUID.randomUUID().toString();
 
-        Random r = new Random();
-//        while (true) {
-//
-//            producer.send(new KeyedMessage<String, String>("test-topic", "{\"key\":" + r.nextInt(4) + ",\"value\":" + r.nextInt(500) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
-////            producer.send(new KeyedMessage<String, String>("kafka-record", "{\"key\":" + 0 + ",\"value\":" + r.nextInt(2) + ",\"recordTime\":" + System.currentTimeMillis() + "}"));
-//            Thread.sleep(r.nextInt(3000));
-//        }
-        producer.send(new KeyedMessage<String, String>("kafka-record", "{\"k\":" + 2 + ",\"v\":" + r.nextInt(500) + ",\"t\":" + System.currentTimeMillis() + "}"));
-//
 
+        Properties kafkaProps = new Properties();
+        kafkaProps.put("Bootstarp.servers", "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
+        kafkaProps.put("Key.serializer", "kafka.serializer.StringEncoder");
+        kafkaProps.put("Value.serializer", "kafka.serializer.StringEncoder");
 
-//        String aus = "{\"usa\":" +
-//                "[" +
-//                "{\"conditionKey\":\"subject\",\"isEqual\":1,\"conditionValue\":\"1,100100594\"}," +
-//                "{\"conditionKey\":\"area\",\"isEqual\":0,\"conditionValue\":\"-9\"}," +
-//                "{\"conditionKey\":\"terminal\",\"isEqual\":1,\"conditionValue\":\"2\"}]}";
-//        int logic = 1;
-//        long begDate = 1530604662956L;
-//        long endDate = 1531795857526L;
-//        String dateType = "shi";
-//
-//        String key = aus + "+" + logic + "+" + begDate + "+" + endDate + "+" + dateType;
-//        Jedis jedis = new Jedis("192.168.100.26", 6379);
-//        String result = jedis.get(key);
-//        if (result != null && !result.equals("")) {
-//
-//            System.out.println(result);
-//        } else {
-//            producer.send(new KeyedMessage<String, String>("animate",
-//                    "" + taskId + "=/bin/sh /sparkwork/animate.sh " +
-//                            aus + " " +
-//                            logic + " " +
-//                            begDate + " " +
-//                            endDate + " " +
-//                            dateType + " "));
-//
-//            String re;
-//            while (true) {
-//
-//                String s = jedis.get(key);
-//                if (s != null && !s.equals("")) {
-//                    re = s;
-//                    break;
-//                }
-//            }
-//
-//            System.out.println(re);
-//        }
+        KafkaProducer<String, String> producer = new KafkaProducer<>(kafkaProps);
+
+        ProducerRecord<String, String> record = new ProducerRecord<>("kafka-10", "2", taskId);
+        producer.send(record);
 
 
     }
