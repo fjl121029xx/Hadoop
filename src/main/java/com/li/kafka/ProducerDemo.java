@@ -1,9 +1,10 @@
 package com.li.kafka;
 
 import java.util.*;
+import java.util.concurrent.Future;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import com.kenai.jaffl.annotations.In;
+import org.apache.kafka.clients.producer.*;
 
 /**
  * https://www.cnblogs.com/jun1019/p/6656223.html
@@ -17,6 +18,33 @@ public class ProducerDemo {
     private static final Integer threads = 1;
     private static final Properties props = new Properties();
 
+    private static final String[] arr = {"a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z"};
+
     static {
         props.put("zookeeper.connect", "192.168.100.68:2181,192.168.100.70:2181,192.168.100.72:2181");
         props.put("metadata.broker.list", "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
@@ -27,19 +55,55 @@ public class ProducerDemo {
     public static void main(String[] args) throws Exception {
 
 
-        String taskId = UUID.randomUUID().toString();
+        Random r = new Random(arr.length);
+
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
+//        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                "org.apache.kafka.common.serialization.StringSerializer");// key
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                "org.apache.kafka.common.serialization.StringSerializer");// value
+        // 序列号方式
+        // properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,CustomPartitioner.class.getCanonicalName());//自定义分区函数
+
+        // properties.load("properties配置文件");
+        KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
 
-        Properties kafkaProps = new Properties();
-        kafkaProps.put("Bootstarp.servers", "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
-        kafkaProps.put("Key.serializer", "kafka.serializer.StringEncoder");
-        kafkaProps.put("Value.serializer", "kafka.serializer.StringEncoder");
+        int count = 0;
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            String value = arr[0];
+//            String value = arr[r.nextInt(arr.length)];
+            ProducerRecord<String, String> record = new ProducerRecord<>("kafka_direct_test", Integer.toString((i / 3)), value);
+            Future<RecordMetadata> h = producer.send(record, new MsgProducerCallback(System.currentTimeMillis(), "h", value));
+            RecordMetadata recordMetadata = h.get();
+            count++;
+            System.out.println(count);
+//            System.out.println(recordMetadata.offset());
+        }
+    }
+}
 
-        KafkaProducer<String, String> producer = new KafkaProducer<>(kafkaProps);
+/**
+ * 消息发送后的回调函数
+ */
+class MsgProducerCallback implements Callback {
 
-        ProducerRecord<String, String> record = new ProducerRecord<>("kafka-10", "2", taskId);
-        producer.send(record);
+    private final long startTime;
+    private final String key;
+    private final String msg;
 
+    public MsgProducerCallback(long startTime, String key, String msg) {
+        this.startTime = startTime;
+        this.key = key;
+        this.msg = msg;
+    }
 
+    public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        if (recordMetadata != null) {
+            System.out.println(msg + " be sended to partition no : " + recordMetadata.partition());
+        }
     }
 }
