@@ -101,7 +101,7 @@ public class HbaseDemo {
 
         HBaseAdmin admin = new HBaseAdmin(conf);
 //
-        HTableDescriptor table = new HTableDescriptor("sc_a_a");
+        HTableDescriptor table = new HTableDescriptor("scaa");
         HColumnDescriptor columnFamily = new HColumnDescriptor("i");
         columnFamily.setMaxVersions(1);
         table.addFamily(columnFamily);
