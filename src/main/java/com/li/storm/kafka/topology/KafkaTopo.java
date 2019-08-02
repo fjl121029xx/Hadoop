@@ -1,17 +1,17 @@
-package com.li.kafka.stormkafka.topology;
+package com.li.storm.kafka.topology;
 
-import com.li.kafka.stormkafka.bolt.WordSpliter;
-import com.li.kafka.stormkafka.bolt.WriterBolt;
-import com.li.kafka.stormkafka.spout.MessageScheme;
-import storm.kafka.BrokerHosts;
-import storm.kafka.KafkaSpout;
-import storm.kafka.SpoutConfig;
-import storm.kafka.ZkHosts;
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
 import backtype.storm.spout.SchemeAsMultiScheme;
 import backtype.storm.topology.TopologyBuilder;
 import backtype.storm.tuple.Fields;
+import com.li.storm.kafka.bolt.WordSpliter;
+import com.li.storm.kafka.bolt.WriterBolt;
+import com.li.storm.kafka.spout.MessageScheme;
+import storm.kafka.BrokerHosts;
+import storm.kafka.KafkaSpout;
+import storm.kafka.SpoutConfig;
+import storm.kafka.ZkHosts;
 
 public class KafkaTopo {
 

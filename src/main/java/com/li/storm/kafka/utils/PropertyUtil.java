@@ -1,10 +1,10 @@
-package com.li.kafka.stormkafka.utils;
-
-import java.io.InputStream;
-import java.util.Properties;
+package com.li.storm.kafka.utils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.InputStream;
+import java.util.Properties;
 
 /**
  * 属性配置读取工具

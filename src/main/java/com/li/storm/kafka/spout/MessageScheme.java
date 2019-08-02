@@ -1,11 +1,11 @@
-package com.li.kafka.stormkafka.spout;
-
-import java.io.UnsupportedEncodingException;
-import java.util.List;
+package com.li.storm.kafka.spout;
 
 import backtype.storm.spout.Scheme;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
+
+import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class MessageScheme implements Scheme {
 	

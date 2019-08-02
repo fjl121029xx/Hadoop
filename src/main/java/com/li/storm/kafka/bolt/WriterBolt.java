@@ -1,15 +1,16 @@
-package com.li.kafka.stormkafka.bolt;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Map;
-import java.util.UUID;
+package com.li.storm.kafka.bolt;
 
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseBasicBolt;
 import backtype.storm.tuple.Tuple;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * 将数据写入文件
  * @author duanhaitao@itcast.cn
