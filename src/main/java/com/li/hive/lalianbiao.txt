@@ -61,7 +61,8 @@ https://blog.csdn.net/bbaiggey/article/details/75222676
 
 
 # 初始化，先把2016-08-20的数据初始化进去
-INSERT overwrite TABLE ods_orders_inc PARTITION (day = '2016-08-20') SELECT orderid,createtime,modifiedtime,status FROM orders WHERE createtime < '2016-08-21' and modifiedtime <'2016-08-21';
+INSERT overwrite TABLE ods_orders_inc PARTITION (day = '2016-08-20')
+ SELECT orderid,createtime,modifiedtime,status FROM orders WHERE createtime < '2016-08-21' and modifiedtime <'2016-08-21';
 
 # 刷到dw中
 INSERT overwrite TABLE dw_orders_his

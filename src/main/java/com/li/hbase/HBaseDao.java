@@ -20,12 +20,28 @@ public class HBaseDao {
 
         HBaseAdmin hBaseAdmin = new HBaseAdmin(conf);
 
-        TableName name = TableName.valueOf("grasp");
+        TableName name = TableName.valueOf("user_time_shaft_test");
         HTableDescriptor descriptor = new HTableDescriptor(name);
 
-        HColumnDescriptor base_info = new HColumnDescriptor("base_info");
-        base_info.setMaxVersions(3);
+        HColumnDescriptor base_info = new HColumnDescriptor("base");
+        base_info.setMaxVersions(1);
         descriptor.addFamily(base_info);
+
+        HColumnDescriptor base_info2 = new HColumnDescriptor("video");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info2);
+
+        HColumnDescriptor base_info3 = new HColumnDescriptor("answer");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info3);
+
+        HColumnDescriptor base_info4 = new HColumnDescriptor("match");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info4);
+
+        HColumnDescriptor base_info5 = new HColumnDescriptor("order");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info5);
 
 
         hBaseAdmin.createTable(descriptor);
