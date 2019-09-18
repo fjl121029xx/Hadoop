@@ -15,7 +15,7 @@ public class WordCount {
 
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
-        DataSource<String> text = env.readTextFile("D:\\work\\workspaces\\ideaProject\\Hadoop\\flink\\src\\main\\java\\com\\li\\flink\\WordCount.java");
+        DataSource<String> text = env.readTextFile("flink/WordCount.java");
 
         AggregateOperator<Tuple2<String, Integer>> counts = text.flatMap(new Tokenizer())
                 .groupBy(0).sum(1);
