@@ -23,18 +23,6 @@ public class KafkaAnswerCard {
     private Long createTime;
 
 
-    public KafkaAnswerCard() {
-    }
-
-    public KafkaAnswerCard(Long userId, Integer subject, String questions, String corrects, String times, Long createTime) {
-        this.userId = userId;
-        this.subject = subject;
-        this.questions = questions;
-        this.corrects = corrects;
-        Times = times;
-        this.createTime = createTime;
-    }
-
     public static KafkaAnswerCard fromString(String eventStr) throws ParseException {
 
         JSONObject jsonObject = JSONObject.parseObject(eventStr);
