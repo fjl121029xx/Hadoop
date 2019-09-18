@@ -20,6 +20,7 @@ public class HdfsTest {
 
     /**
      * 初始化文件系统
+     *
      * @throws Exception
      */
     @Before
@@ -30,21 +31,24 @@ public class HdfsTest {
     /**
      * 文件上传
      * IO
+     *
      * @throws IOException
      */
     @Test
     public void upload() throws IOException {
 
-        Path path = new Path("/resouce/aa/qingshu.txt");
+        Path path = new Path("/huatu-data/url.txt");
         BufferedOutputStream bos = new BufferedOutputStream(fs.create(path));
 
-        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("c:/qingshu.txt"));
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream("./w.txt"));
 
         IOUtils.copy(bis, bos);
     }
+
     /**
      * 文件上传2
      * copyFromLocalFile();
+     *
      * @throws IOException
      */
     @Test
@@ -53,8 +57,9 @@ public class HdfsTest {
         Path src = new Path("F:\\part-00107");
         Path dst = new Path("hdfs://huatu68:9000/");
 
-        fs.copyFromLocalFile(src,dst);
+        fs.copyFromLocalFile(src, dst);
     }
+
     /**
      * 文件下载
      */
@@ -64,7 +69,7 @@ public class HdfsTest {
         Path src = new Path("hdfs://192.168.100.26:8020/MQ");
         Path dst = new Path("h:/qingshu/");
 
-        fs.copyToLocalFile(false,src, dst,true);
+        fs.copyToLocalFile(false, src, dst, true);
     }
 
     /**
@@ -76,7 +81,7 @@ public class HdfsTest {
         Path path = new Path("/");
         RemoteIterator<LocatedFileStatus> listFiles = fs.listFiles(path, true);
 
-        while (listFiles.hasNext()){
+        while (listFiles.hasNext()) {
 
             LocatedFileStatus next = listFiles.next();
 
@@ -87,12 +92,13 @@ public class HdfsTest {
 
         System.out.println("----------------------------------");
         FileStatus[] status = fs.listStatus(path);
-        for (FileStatus f: status) {
+        for (FileStatus f : status) {
 
             String name = f.getPath().getName();
-            System.out.println(name + (f.isDirectory()?" is dir":" is file"));
+            System.out.println(name + (f.isDirectory() ? " is dir" : " is file"));
         }
     }
+
     /**
      * 创建文件夹
      */
@@ -102,6 +108,7 @@ public class HdfsTest {
         Path path = new Path("/cc");
         fs.mkdirs(path);
     }
+
     /**
      * 删除文件或文件夹
      */

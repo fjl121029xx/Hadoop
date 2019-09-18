@@ -1,8 +1,8 @@
 package com.li.flink.answer.record;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+//import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.text.ParseException;
 
@@ -10,7 +10,7 @@ import java.text.ParseException;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 public class KafkaAnswerCard {
@@ -21,6 +21,19 @@ public class KafkaAnswerCard {
     private String corrects;
     private String Times;
     private Long createTime;
+
+
+    public KafkaAnswerCard() {
+    }
+
+    public KafkaAnswerCard(Long userId, Integer subject, String questions, String corrects, String times, Long createTime) {
+        this.userId = userId;
+        this.subject = subject;
+        this.questions = questions;
+        this.corrects = corrects;
+        Times = times;
+        this.createTime = createTime;
+    }
 
     public static KafkaAnswerCard fromString(String eventStr) throws ParseException {
 
@@ -37,7 +50,6 @@ public class KafkaAnswerCard {
     private static String getJsonValue(JSONObject jsonObject, String key) {
         return jsonObject.getString(key).replaceAll("\\[", "").replaceAll("\\]", "");
     }
-
 
 
     @Override

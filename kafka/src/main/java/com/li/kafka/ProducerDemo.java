@@ -1,19 +1,14 @@
 package com.li.kafka;
 
 import java.util.*;
+import java.util.concurrent.Future;
 
-import kafka.consumer.Consumer;
-import kafka.consumer.ConsumerConfig;
-import kafka.consumer.KafkaStream;
-import kafka.javaapi.consumer.ConsumerConnector;
-import kafka.javaapi.producer.Producer;
-import kafka.message.MessageAndMetadata;
-import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
-import redis.clients.jedis.Jedis;
+import com.kenai.jaffl.annotations.In;
+import org.apache.kafka.clients.producer.*;
 
 /**
  * https://www.cnblogs.com/jun1019/p/6656223.html
+ * https://blog.csdn.net/u010886217/article/details/83154773
  */
 public class ProducerDemo {
 
@@ -22,6 +17,33 @@ public class ProducerDemo {
     private static final String topic = "animate2";
     private static final Integer threads = 1;
     private static final Properties props = new Properties();
+
+    private static final String[] arr = {"a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z"};
 
     static {
         props.put("zookeeper.connect", "192.168.100.68:2181,192.168.100.70:2181,192.168.100.72:2181");
@@ -32,50 +54,56 @@ public class ProducerDemo {
 
     public static void main(String[] args) throws Exception {
 
-        ProducerConfig config = new ProducerConfig(props);
-        Producer<String, String> producer = new Producer<String, String>(config);
 
-        String taskId = UUID.randomUUID().toString();
+        Random r = new Random(arr.length);
 
-        producer.send(new KeyedMessage<String, String>("minivideo",taskId));
-//        String aus = "{\"usa\":" +
-//                "[" +
-//                "{\"conditionKey\":\"subject\",\"isEqual\":1,\"conditionValue\":\"1,100100594\"}," +
-//                "{\"conditionKey\":\"area\",\"isEqual\":0,\"conditionValue\":\"-9\"}," +
-//                "{\"conditionKey\":\"terminal\",\"isEqual\":1,\"conditionValue\":\"2\"}]}";
-//        int logic = 1;
-//        long begDate = 1530604662956L;
-//        long endDate = 1531795857526L;
-//        String dateType = "shi";
-//
-//        String key = aus + "+" + logic + "+" + begDate + "+" + endDate + "+" + dateType;
-//        Jedis jedis = new Jedis("192.168.100.26", 6379);
-//        String result = jedis.get(key);
-//        if (result != null && !result.equals("")) {
-//
-//            System.out.println(result);
-//        } else {
-//            producer.send(new KeyedMessage<String, String>("animate",
-//                    "" + taskId + "=/bin/sh /sparkwork/animate.sh " +
-//                            aus + " " +
-//                            logic + " " +
-//                            begDate + " " +
-//                            endDate + " " +
-//                            dateType + " "));
-//
-//            String re;
-//            while (true) {
-//
-//                String s = jedis.get(key);
-//                if (s != null && !s.equals("")) {
-//                    re = s;
-//                    break;
-//                }
-//            }
-//
-//            System.out.println(re);
-//        }
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.100.68:9092,192.168.100.70:9092,192.168.100.72:9092");
+//        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                "org.apache.kafka.common.serialization.StringSerializer");// key
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                "org.apache.kafka.common.serialization.StringSerializer");// value
+        // 序列号方式
+        // properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,CustomPartitioner.class.getCanonicalName());//自定义分区函数
+
+        // properties.load("properties配置文件");
+        KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
 
+        int count = 0;
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            String value = arr[0];
+//            String value = arr[r.nextInt(arr.length)];
+            ProducerRecord<String, String> record = new ProducerRecord<>("kafka_direct_test", Integer.toString((i / 3)), value);
+            Future<RecordMetadata> h = producer.send(record, new MsgProducerCallback(System.currentTimeMillis(), "h", value));
+            RecordMetadata recordMetadata = h.get();
+            count++;
+            System.out.println(count);
+//            System.out.println(recordMetadata.offset());
+        }
+    }
+}
+
+/**
+ * 消息发送后的回调函数
+ */
+class MsgProducerCallback implements Callback {
+
+    private final long startTime;
+    private final String key;
+    private final String msg;
+
+    public MsgProducerCallback(long startTime, String key, String msg) {
+        this.startTime = startTime;
+        this.key = key;
+        this.msg = msg;
+    }
+
+    public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        if (recordMetadata != null) {
+            System.out.println(msg + " be sended to partition no : " + recordMetadata.partition());
+        }
     }
 }

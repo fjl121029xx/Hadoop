@@ -15,24 +15,36 @@ public class HBaseDao {
 
 
         Configuration conf = HBaseConfiguration.create();
-//        conf.set("hbase.zookeeper.quorum","192.168.233.137:2181,192.168.233.138:2181,192.168.233.139:2181");
+        conf.set("hbase.zookeeper.quorum","192.168.100.68:2181,192.168.100.70:2181,192.168.100.72:2181");
 
 
         HBaseAdmin hBaseAdmin = new HBaseAdmin(conf);
 
-        TableName name = TableName.valueOf("feifei");
+        TableName name = TableName.valueOf("user_time_shaft_test");
         HTableDescriptor descriptor = new HTableDescriptor(name);
 
-        HColumnDescriptor base_info = new HColumnDescriptor("base_info");
-        base_info.setMaxVersions(3);
+        HColumnDescriptor base_info = new HColumnDescriptor("base");
+        base_info.setMaxVersions(1);
         descriptor.addFamily(base_info);
 
-        HColumnDescriptor extra_info = new HColumnDescriptor("extra_info");
-        base_info.setMaxVersions(3);
-        descriptor.addFamily(extra_info);
+        HColumnDescriptor base_info2 = new HColumnDescriptor("video");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info2);
+
+        HColumnDescriptor base_info3 = new HColumnDescriptor("answer");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info3);
+
+        HColumnDescriptor base_info4 = new HColumnDescriptor("match");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info4);
+
+        HColumnDescriptor base_info5 = new HColumnDescriptor("order");
+        base_info.setMaxVersions(1);
+        descriptor.addFamily(base_info5);
+
 
         hBaseAdmin.createTable(descriptor);
-        System.out.println("1111");
 
     }
 }

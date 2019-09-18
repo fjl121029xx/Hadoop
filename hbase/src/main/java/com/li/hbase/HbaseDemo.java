@@ -101,9 +101,10 @@ public class HbaseDemo {
 
         HBaseAdmin admin = new HBaseAdmin(conf);
 //
-        HTableDescriptor table = new HTableDescriptor("videoplaylength");
-        HColumnDescriptor columnFamily = new HColumnDescriptor("playinfo");
-        columnFamily.setMaxVersions(10);
+        HTableDescriptor table = new HTableDescriptor("scaa");
+        HColumnDescriptor columnFamily = new HColumnDescriptor("i");
+        columnFamily.setMaxVersions(1);
+        columnFamily.setTimeToLive(3 * 60 * 60);
         table.addFamily(columnFamily);
 
 
