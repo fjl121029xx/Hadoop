@@ -1,13 +1,11 @@
 package com.li.flink.mongo;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.operators.DataSource;
-import org.apache.flink.api.java.operators.MapOperator;
 import org.apache.flink.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,7 +118,7 @@ public class MongoSourceJob {
     @NoArgsConstructor
     @AllArgsConstructor
     @Data
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
     @Getter
     @Setter
     private static class Q2p {

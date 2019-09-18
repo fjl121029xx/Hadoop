@@ -1,7 +1,7 @@
 package com.li.flink.kafka.demo;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonInclude;
+//import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.text.ParseException;
@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 
