@@ -4,6 +4,8 @@ package com.li.flink.kafka.hll.pojo;
 import java.text.ParseException;
 import java.util.List;
 import javax.annotation.Generated;
+
+import com.alibaba.fastjson.JSON;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("net.hexar.json2pojo")
@@ -52,18 +54,9 @@ public class BillPojo {
     }
 
 
-    public static BillPojo fromString(String eventStr) throws ParseException {
-//
-//        String[] split = eventStr.split("=");
-//
-//        String userId = split[2];
-//        int userPlayTime = Integer.parseInt(JSON.parseObject(split[3]).get("userPlayTime").toString());
-//
-//
-//        return new BillPojo(userId, userPlayTime, sdf.parse(split[4]).getTime());
-//        return new KafkaEvent(split[0],Integer.parseInt(split[1]),Long.parseLong(split[2]));
+    public static BillPojo fromString(String billStr) throws ParseException {
 
-        return null;
+        return JSON.parseObject(billStr, BillPojo.class);
     }
 
 }

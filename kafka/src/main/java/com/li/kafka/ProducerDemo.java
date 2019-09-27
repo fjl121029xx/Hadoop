@@ -3,7 +3,7 @@ package com.li.kafka;
 import java.util.*;
 import java.util.concurrent.Future;
 
-import com.kenai.jaffl.annotations.In;
+//import com.kenai.jaffl.annotations.In;
 import org.apache.kafka.clients.producer.*;
 
 /**

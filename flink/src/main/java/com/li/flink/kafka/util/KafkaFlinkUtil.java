@@ -5,25 +5,29 @@ import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
+
+/**
+ *  --input-topic 172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092 -bootstrap.servers bd_dw_dohkoTest --group.id dwDohkoTestGroup
+ */
 public class KafkaFlinkUtil {
 
     public static StreamExecutionEnvironment prepareExecutionEnv(ParameterTool parameterTool) throws Exception {
 
-        if (parameterTool.getNumberOfParameters() < 5) {
+        if (parameterTool.getNumberOfParameters() < 3) {
 
             System.out.println("Missing parameters!\n" +
-                    "Usage: Kafka --input-topic <topic> --output-topic <topic> " +
-                    "--bootstrap.servers <kafka brokers> " +
-                    "--zookeeper.connect <zk quorum> --group.id <some id>");
+                    "Usage: Kafka --input-topic <topic> \r\n" +
+                    "--bootstrap.servers <kafka brokers> \r\n" +
+                    "--group.id <some id>");
             throw new Exception("Missing parameters!\n" +
-                    "Usage: Kafka --input-topic <topic> --output-topic <topic> " +
+                    "Usage: Kafka --input-topic <topic> " +
                     "--bootstrap.servers <kafka brokers> " +
-                    "--zookeeper.connect <zk quorum> --group.id <some id>");
+                    "--group.id <some id>");
         }
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.getConfig().disableSysoutLogging();
-        env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(4,10000));
+        env.getConfig().setRestartStrategy(RestartStrategies.fixedDelayRestart(4, 10000));
         env.enableCheckpointing(5000);
         env.getConfig().setGlobalJobParameters(parameterTool);
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);

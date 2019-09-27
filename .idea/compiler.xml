@@ -9,15 +9,15 @@
         <outputRelativeToContentRoot value="true" />
         <module name="flink" />
         <module name="hbase" />
-        <module name="flume" />
         <module name="kylin" />
         <module name="kafka" />
         <module name="hive" />
+        <module name="storm" />
         <module name="mapreduce" />
         <module name="mahout" />
         <module name="presto" />
         <module name="zookeeper" />
-        <module name="storm" />
+        <module name="flume" />
         <module name="impala" />
         <module name="elasticsearch" />
       </profile>

@@ -21,10 +21,11 @@ public class BillConsumer {
                                 parameterTool.getRequired("input-topic"),
                                 new BillSchema(),
                                 parameterTool.getProperties())
-                                .assignTimestampsAndWatermarks(new BillWatermarkExtractor()))
-                .keyBy("userId")
+                                .assignTimestampsAndWatermarks(new BillWatermarkExtractor()));
 
-                .map(new RollingAdditionMapper());
-//        input.print();
+//                .keyBy("userId")
+//                .map(new RollingAdditionMapper());
+
+        input.print();
     }
 }

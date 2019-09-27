@@ -1,6 +1,5 @@
 package com.li.flink.kafka.hll;
 
-import com.li.flink.kafka.demo.KafkaEvent;
 import com.li.flink.kafka.hll.pojo.BillPojo;
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.serialization.SerializationSchema;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 public class BillSchema implements DeserializationSchema<BillPojo>, SerializationSchema<BillPojo> {
-
 
     @Override
     public byte[] serialize(BillPojo event) {

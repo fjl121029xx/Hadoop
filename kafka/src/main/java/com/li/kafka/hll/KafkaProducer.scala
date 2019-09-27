@@ -13,8 +13,8 @@ import scala.io.Source
 object KafkaProducer {
 
   //private val BROKER_LIST ="localhost:9092"
-  private val BROKER_LIST = "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092"
-  private val TARGET_TOPIC = Array("bd_dw_dohkoTest")
+  private val BROKER_LIST = "192.168.65.128:9092"
+  private val TARGET_TOPIC = Array("bill")
   private val DIR = "D://data"
   private val props = new Properties()
   props.put("bootstrap.servers", BROKER_LIST)
@@ -25,12 +25,12 @@ object KafkaProducer {
   props.put("buffer.memory", "33554432")
   props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
   props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-  props.put("security.protocol", "SASL_PLAINTEXT")
-  props.put("sasl.mechanism", "PLAIN")
+//  props.put("security.protocol", "SASL_PLAINTEXT")
+//  props.put("sasl.mechanism", "PLAIN")
 
   import org.apache.kafka.common.config.SaslConfigs
 
-  props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"dw\" password=\"dw123\";")
+//  props.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"dw\" password=\"dw123\";")
 
   def main(args: Array[String]) {
     //    System.setProperty("java.security.auth.login.config", "D:\\kafka_client_jaas.conf")

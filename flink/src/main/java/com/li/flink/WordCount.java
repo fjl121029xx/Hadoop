@@ -20,7 +20,7 @@ public class WordCount {
         AggregateOperator<Tuple2<String, Integer>> counts = text.flatMap(new Tokenizer())
                 .groupBy(0).sum(1);
 
-        counts.writeAsCsv("flink/", "\n", "");
+        counts.writeAsCsv("flink/wc/", "\n", "");
 
         env.execute();
 
