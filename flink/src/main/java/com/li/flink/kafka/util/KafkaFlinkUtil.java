@@ -7,7 +7,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 
 /**
- *  --input-topic 172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092 -bootstrap.servers bd_dw_dohkoTest --group.id dwDohkoTestGroup
+ *  --input-topic 192.168.65.128 -bootstrap.servers bill --group.id dwDohkoTestGroup
  */
 public class KafkaFlinkUtil {
 

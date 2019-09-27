@@ -3,9 +3,17 @@ package com.li.flink.kafka.hll.pojo;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
+import lombok.*;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+//@JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Setter
 public class Master {
 
     @SerializedName("actionTime")
