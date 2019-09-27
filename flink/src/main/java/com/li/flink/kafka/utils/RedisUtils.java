@@ -25,7 +25,7 @@ public class RedisUtils {
             poolConfig.setMaxWaitMillis(maxWaitMillis);
             poolConfig.setTestWhileIdle(true);
             poolConfig.setTestOnCreate(true);
-            String redisHost = "172.16.0.30";
+            String redisHost = "192.168.65.128";
             int redisPort = 6379;
             int redisTimeout = 0;
             pool = new JedisPool(poolConfig, redisHost, redisPort, redisTimeout);
@@ -47,7 +47,7 @@ public class RedisUtils {
         return pool;
     }
 
-    public Jedis getJedis() {
+    public static Jedis getJedis() {
         Jedis jedis = null;
         boolean flag = true;
         int j = 0;
@@ -63,5 +63,13 @@ public class RedisUtils {
             }
         }
         return jedis;
+    }
+
+    public static void main(String[] args) {
+
+        Jedis jedis = RedisUtils.getJedis();
+        jedis.set("a", "b2");
+
+
     }
 }

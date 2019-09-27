@@ -8,6 +8,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
+import org.apache.flink.streaming.connectors.redis.common.config.FlinkJedisPoolConfig;
 
 public class BillConsumer {
 
@@ -33,6 +34,10 @@ public class BillConsumer {
             }
         });
 
+        FlinkJedisPoolConfig config = new FlinkJedisPoolConfig.Builder()
+                .setHost("localhost")
+                .setPort(6379)
+                .build();
         map.print();
         env.execute("bill stream programmer");
         System.out.println("-------------------------");
