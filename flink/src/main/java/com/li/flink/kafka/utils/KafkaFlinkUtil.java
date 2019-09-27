@@ -1,4 +1,4 @@
-package com.li.flink.kafka.util;
+package com.li.flink.kafka.utils;
 
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.api.java.utils.ParameterTool;

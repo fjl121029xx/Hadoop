@@ -1,6 +1,6 @@
 package com.li.flink.kafka.demo;
 
-import com.li.flink.kafka.util.KafkaFlinkUtil;
+import com.li.flink.kafka.utils.KafkaFlinkUtil;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
