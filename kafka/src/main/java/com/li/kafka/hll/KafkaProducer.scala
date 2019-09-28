@@ -49,6 +49,7 @@ object KafkaProducer {
         val orderKey = jsonObject.getString("orderKey")
         val key = shopID + "-" + orderKey
         val message = new ProducerRecord[String, String](this.TARGET_TOPIC(0), key, line)
+        Thread.sleep(1000L)
         producer.send(message)
         incre = incre.+(1)
         println(incre + "--------")
