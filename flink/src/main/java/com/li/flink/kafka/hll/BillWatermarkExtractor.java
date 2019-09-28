@@ -6,17 +6,25 @@ import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks;
 import org.apache.flink.streaming.api.watermark.Watermark;
 
 import javax.annotation.Nullable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class BillWatermarkExtractor implements AssignerWithPeriodicWatermarks<BillPojo> {
 
     private long currentTimestamp = Long.MIN_VALUE;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
     @Override
     public long extractTimestamp(BillPojo bill, long l) {
 
-
-        this.currentTimestamp = bill.getMaster().getReportDate();
-        return bill.getMaster().getReportDate();
+        try {
+            long time = sdf.parse(bill.getMaster().getReportDate().toString()).getTime();
+            this.currentTimestamp = time;
+            return time;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return System.currentTimeMillis();
     }
 
     @Nullable

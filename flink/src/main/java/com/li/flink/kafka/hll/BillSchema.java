@@ -1,5 +1,6 @@
 package com.li.flink.kafka.hll;
 
+import com.alibaba.fastjson.JSON;
 import com.li.flink.kafka.hll.pojo.BillPojo;
 import org.apache.flink.api.common.serialization.DeserializationSchema;
 import org.apache.flink.api.common.serialization.SerializationSchema;
@@ -11,20 +12,15 @@ import java.text.ParseException;
 public class BillSchema implements DeserializationSchema<BillPojo>, SerializationSchema<BillPojo> {
 
     @Override
-    public byte[] serialize(BillPojo event) {
+    public byte[] serialize(BillPojo bill) {
 
-        return event.toString().getBytes();
+        return JSON.toJSONString(bill).getBytes();
     }
 
     @Override
-    public BillPojo deserialize(byte[] message) throws IOException {
+    public BillPojo deserialize(byte[] message) {
 
-        try {
-            return BillPojo.fromString(new String(message));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new BillPojo();
+        return JSON.parseObject(new String(message), BillPojo.class);
     }
 
     @Override
