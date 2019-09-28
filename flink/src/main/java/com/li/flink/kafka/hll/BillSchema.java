@@ -34,4 +34,5 @@ public class BillSchema implements DeserializationSchema<BillPojo>, Serializatio
 
         return TypeInformation.of(BillPojo.class);
     }
+
 }
