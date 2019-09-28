@@ -19,6 +19,7 @@
         <module>storm</module>
         <module>zookeeper</module>
         <module>elasticsearch</module>
+        <module>redis</module>
     </modules>
     <name>hadoop Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -105,14 +106,6 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
-
-        <!-- redis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>LATEST</version>
-        </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/io.airlift/airline -->
         <dependency>
