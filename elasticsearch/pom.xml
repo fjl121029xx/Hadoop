@@ -30,6 +30,11 @@
             <version>7.3.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-spark-20_2.11</artifactId>
+            <version>7.3.2</version>
+        </dependency>
     </dependencies>
 
 </project>
