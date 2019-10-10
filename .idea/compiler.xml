@@ -12,15 +12,15 @@
         <module name="presto" />
         <module name="flume" />
         <module name="hive" />
-        <module name="elasticsearch" />
+        <module name="mapreduce" />
         <module name="zookeeper" />
         <module name="kylin" />
         <module name="flink" />
-        <module name="mapreduce" />
         <module name="storm" />
         <module name="hbase" />
         <module name="kafka" />
         <module name="mahout" />
+        <module name="elasticsearch" />
       </profile>
     </annotationProcessing>
   </component>
