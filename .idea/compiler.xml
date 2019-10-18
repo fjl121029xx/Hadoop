@@ -15,6 +15,7 @@
         <module name="mapreduce" />
         <module name="zookeeper" />
         <module name="kylin" />
+        <module name="canal" />
         <module name="flink" />
         <module name="storm" />
         <module name="waterdrop" />
