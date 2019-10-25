@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="impala" />
+        <module name="influxdb" />
         <module name="redis" />
         <module name="presto" />
         <module name="flume" />

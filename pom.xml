@@ -22,6 +22,7 @@
         <module>redis</module>
         <module>waterdrop</module>
         <module>canal</module>
+        <module>influxdb</module>
     </modules>
     <name>hadoop Maven Webapp</name>
     <url>http://maven.apache.org</url>
