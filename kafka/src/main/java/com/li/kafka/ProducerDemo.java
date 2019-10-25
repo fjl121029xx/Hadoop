@@ -46,8 +46,7 @@ public class ProducerDemo {
             "z"};
 
     static {
-        props.put("zookeeper.connect", "192.168.65.128:2181");
-        props.put("metadata.broker.list", "192.168.65.128:9092");
+        props.put("metadata.broker.list", "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
 //        props.put("num.partitions", "3");
     }
@@ -58,7 +57,7 @@ public class ProducerDemo {
         Random r = new Random(arr.length);
 
         Properties properties = new Properties();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.65.128:9092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092");
 //        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 "org.apache.kafka.common.serialization.StringSerializer");// key

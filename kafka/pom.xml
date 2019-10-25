@@ -22,16 +22,15 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
             <version>0.10.2.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
+<!--            <version>0.9.0.0</version>-->
             <version>0.10.2.1</version>
         </dependency>
 
@@ -44,7 +43,7 @@
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
             <version>2.2.3</version>
-                        <classifier>jdk15</classifier><!-- 指定jdk版本 -->
+            <classifier>jdk15</classifier><!-- 指定jdk版本 -->
         </dependency>
     </dependencies>
 </project>
