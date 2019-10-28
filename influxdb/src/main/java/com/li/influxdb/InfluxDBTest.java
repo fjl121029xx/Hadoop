@@ -145,6 +145,7 @@ public class InfluxDBTest {
 
     /***整理列名、行数据***/
     private List<CodeInfo> getQueryData(List<String> columns, List<List<Object>> values) {
+
         List<CodeInfo> lists = new ArrayList<CodeInfo>();
 
         for (List<Object> list : values) {
