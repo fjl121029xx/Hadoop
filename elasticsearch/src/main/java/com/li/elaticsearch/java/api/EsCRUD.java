@@ -1,8 +1,11 @@
 package com.li.elaticsearch.java.api;
 
 
-public class EsCRUD {
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
+public class EsCRUD {
+    static Logger logger = LogManager.getLogger(EsCRUD.class);
 
     public static void main(String[] args) throws Exception {
 

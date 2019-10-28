@@ -18,6 +18,7 @@
         <scala.compat.version>2.11</scala.compat.version>
         <spark.version>2.3.2</spark.version>
         <hadoop.version>2.7.7</hadoop.version>
+        <elasticsearch.version>5.3.1</elasticsearch.version>
     </properties>
 
     <dependencies>
@@ -26,13 +27,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_2.11</artifactId>
             <version>${spark.version}</version>
         </dependency>
-        <!-- Spark dependency -->
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-sql_2.11</artifactId>
@@ -41,20 +40,22 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>transport</artifactId>
-            <version>7.3.2</version>
+            <version>5.3.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>7.3.2</version>
+            <version>5.3.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch-spark-20_2.11</artifactId>
-            <version>7.3.2</version>
+            <version>5.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.12.1</version>
         </dependency>
     </dependencies>
-
 </project>

@@ -4,24 +4,14 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequestBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.bulk.BulkRequestBuilder;
-import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-//import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
@@ -31,9 +21,10 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 public class EsUtil {
 
+
     private final static String HOST = "192.168.65.130";
     private final static int PORT = 9300;
-    private final static String _cluster_name = "skynet_es_cluster_dev1";
+    private final static String _cluster_name = "skynet_es_cluster";
 
     public final static String _index = "es1024";
     public final static String _type = "t_link";
@@ -51,11 +42,10 @@ public class EsUtil {
                 .put("cluster.name", _cluster_name)
                 .build();
         client = new PreBuiltTransportClient(settings)
-                .addTransportAddresses(new TransportAddress(InetAddress.getByName(HOST), PORT));
+                .addTransportAddresses(new InetSocketTransportAddress(InetAddress.getByName(HOST), PORT));
     }
 
     public void closeConnectES() {
-
         if (client != null) {
 
             client.close();
