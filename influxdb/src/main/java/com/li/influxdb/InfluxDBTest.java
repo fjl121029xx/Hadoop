@@ -1,5 +1,6 @@
 package com.li.influxdb;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class InfluxDBTest {
     private InfluxDBConnect influxDB;
     private String username = "admin";//用户名
     private String password = "admin";//密码
-    private String openurl = "http://127.0.0.1:8086";//连接地址
+    private String openurl = "http://172.16.0.31:8086/";//连接地址
     private String database = "test_db";//数据库
     private String measurement = "sys_code";
 
@@ -33,7 +34,7 @@ public class InfluxDBTest {
         influxDB.createRetentionPolicy();
 
 //		influxDB.deleteDB(database);
-//		influxDB.createDB(database);
+        influxDB.createDB(database);
     }
 
     @Test
@@ -82,7 +83,7 @@ public class InfluxDBTest {
 
     @Test
     public void testQuery() {//测试数据查询
-        String command = "select * from sys_code";
+        String command = "select * from \"sys_code\"";
         QueryResult results = influxDB.query(command);
 
         if (results.getResults() == null) {
@@ -103,6 +104,7 @@ public class InfluxDBTest {
 
         Assert.assertTrue((!lists.isEmpty()));
         Assert.assertEquals(2, lists.size());
+        System.out.println(lists);
     }
 
     @Test
@@ -147,13 +149,20 @@ public class InfluxDBTest {
 
         for (List<Object> list : values) {
             CodeInfo info = new CodeInfo();
+
 //            BeanWrapperImpl bean = new BeanWrapperImpl(info);
-//            for (int i = 0; i < list.size(); i++) {
-//
-//                String propertyName = setColumns(columns.get(i));//字段名
-//                Object value = list.get(i);//相应字段值
-//                bean.setPropertyValue(propertyName, value);
-//            }
+            for (int i = 0; i < list.size(); i++) {
+
+                String propertyName = setColumns(columns.get(i));//字段名
+                Object value = list.get(i);//相应字段值
+                try {
+                    info.setPropertyValue(propertyName, value);
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
 
             lists.add(info);
         }
