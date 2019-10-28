@@ -23,6 +23,13 @@ object EsSparkDemo {
     val conf = new SparkConf()
       .setAppName("EsSparkDemo")
       .setMaster("local")
+    conf.set("es.index.auto.create", "true")
+    conf.set("es.nodes", "192.168.65.130")
+    //---->如果是连接的远程es节点，该项必须要设置
+    conf.set("es.port", "9200")
+    conf.set("es.settings.number_of_shards","2")
+    conf.set("es.settings.number_of_replicas","0")
+
 
     val sc = new SparkContext(conf)
     map2Es(sc)
@@ -32,8 +39,8 @@ object EsSparkDemo {
     val numbers = Map("one" -> 1, "two" -> 2, "three" -> 3)
     val airports = Map("OTP" -> "Otopeni", "SFO" -> "San Fran")
     val r = sc.makeRDD(Seq(numbers, airports))
-    //    r.saveToEs("iteblog/docs")
-    r.foreach(println)
+    r.saveToEs("iteblog/docs")
+    //    r.foreach(println)
   }
 
   def class2Es(sc: SparkContext): Unit = {
