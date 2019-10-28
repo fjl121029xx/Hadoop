@@ -1,4 +1,4 @@
-package com.li.elaticsearch;
+package com.li.elaticsearch.java.api;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -31,9 +31,9 @@ import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
 public class EsUtil {
 
-    private final static String HOST = "192.168.65.128";
+    private final static String HOST = "192.168.65.130";
     private final static int PORT = 9300;
-    private final static String _cluster_name = "my-application";
+    private final static String _cluster_name = "skynet_es_cluster_dev1";
 
     public final static String _index = "es1024";
     public final static String _type = "t_link";

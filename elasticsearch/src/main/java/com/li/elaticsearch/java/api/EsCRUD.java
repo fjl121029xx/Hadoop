@@ -1,4 +1,4 @@
-package com.li.elaticsearch;
+package com.li.elaticsearch.java.api;
 
 
 public class EsCRUD {
