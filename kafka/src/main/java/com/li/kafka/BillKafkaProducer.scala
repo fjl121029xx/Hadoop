@@ -3,6 +3,7 @@ package com.li.kafka
 import java.io.File
 import java.util.Properties
 
+import com.alibaba.fastjson.JSON
 import net.sf.json.JSONObject
 import org.apache.kafka.clients.producer.{KafkaProducer, Producer, ProducerConfig, ProducerRecord, RecordMetadata}
 
@@ -35,25 +36,34 @@ object BillKafkaProducer {
     val arr = Array("a", "b")
     var count_a = 0
     var count_b = 0
-val s = System.currentTimeMillis()
-    for (i <- 1 to 100000) {
-      val index = if (Math.random() > 0.5) 1 else 0
+    val s = System.currentTimeMillis()
+    //    println(JSON.parseObject(stuJson).toJSONString)
+    for (i <- 1 to 100) {
+      //      val index = if (Math.random() > 0.5) 1 else 0
+      //
+      //      val value = arr(index)
+      //      if (value.eq("a")) {
+      //        count_a += 1
+      //      } else if (value.eq("b")) {
+      //        count_b += 13
+      //      }
 
-      val value = arr(index)
-      if (value.eq("a")) {
-        count_a += 1
-      } else if (value.eq("b")) {
-        count_b += 1
-      }
-      val message = new ProducerRecord[String, String](this.TARGET_TOPIC(0), value)
-//      Thread.sleep((Math.random() * 1L).toLong)
+      //      for (j <- 1 to 3) {
+      val message = new ProducerRecord[String, String](this.TARGET_TOPIC(0), "{\"id\":1" + (i * i) + ",\"name\":\"stu_" + i + "\",\"score\":9.02}")
       producer.send(message)
+      //      }
+
+//      val message2 = new ProducerRecord[String, String](this.TARGET_TOPIC(0), "{\"i2d\":1" + i + ",\"name\":\"stu_" + i + "\",\"score\":9.02}")
+//      producer.send(message2)
+      //            Thread.sleep((Math.random() * 1L).toLong)
+      //      Thread.sleep(1000L)
+
       println(i)
     }
 
     println("------------------------------------------------------------------------------------")
     val e = System.currentTimeMillis()
-    println(e-s)
+    println(e - s)
     println(count_a)
     println(count_b)
     producer.close()
