@@ -38,7 +38,7 @@ object BillKafkaProducer {
     var count_b = 0
     val s = System.currentTimeMillis()
     //    println(JSON.parseObject(stuJson).toJSONString)
-    for (i <- 1 to 100) {
+    for (i <- 1 to 10000) {
       //      val index = if (Math.random() > 0.5) 1 else 0
       //
       //      val value = arr(index)
@@ -49,14 +49,14 @@ object BillKafkaProducer {
       //      }
 
       //      for (j <- 1 to 3) {
-      val message = new ProducerRecord[String, String](this.TARGET_TOPIC(0), "{\"id\":1" + (i * i) + ",\"name\":\"stu_" + i + "\",\"score\":9.02}")
+      val message = new ProducerRecord[String, String](this.TARGET_TOPIC(0), "{\"id2\":1" + (i * i) + ",\"name\":\"stu_" + i + "\",\"score\":9.02}")
       producer.send(message)
       //      }
 
 //      val message2 = new ProducerRecord[String, String](this.TARGET_TOPIC(0), "{\"i2d\":1" + i + ",\"name\":\"stu_" + i + "\",\"score\":9.02}")
 //      producer.send(message2)
       //            Thread.sleep((Math.random() * 1L).toLong)
-      //      Thread.sleep(1000L)
+            Thread.sleep(1000L)
 
       println(i)
     }
