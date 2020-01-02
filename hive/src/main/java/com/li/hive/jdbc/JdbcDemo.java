@@ -21,7 +21,8 @@ public class JdbcDemo {
         }
 
         Connection con = DriverManager.getConnection(
-                "jdbc:hive2://huatu68:9083/default", "root", "");
+                "jdbc:hive2://bigdata-0001:2181,bigdata-0002:2181,bigdata-0003:2181,bigdata-0004:2181,bigdata-0006:2181/default;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2",
+                "hadoop", "hadoop123");
         Statement stmt = con.createStatement();
         String tableName = "wyphao";
         stmt.execute("drop table if exists " + tableName);
