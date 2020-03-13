@@ -1,4 +1,4 @@
-package com.li.hive;
+package com.li.hive.udaf;
 
 
 import org.apache.hadoop.hive.ql.metadata.HiveException;

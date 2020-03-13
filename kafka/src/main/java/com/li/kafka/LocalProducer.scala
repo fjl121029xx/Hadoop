@@ -9,7 +9,7 @@ object LocalProducer {
 
 //  private val BROKER_LIST ="192.168.65.132:9092"
   private val BROKER_LIST = "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092"
-  private val TARGET_TOPIC = Array("bd_canal_order_tbl_order_master")
+  private val TARGET_TOPIC = Array("taocantou_ceshi")
 
   private val props = new Properties()
   props.put("bootstrap.servers", BROKER_LIST)
