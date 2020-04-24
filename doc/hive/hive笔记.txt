@@ -1,45 +1,45 @@
-1.ÉÏ´«hive°²×°°ü
+1.ï¿½Ï´ï¿½hiveï¿½ï¿½×°ï¿½ï¿½
 
-2.½âÑ¹
+2.ï¿½ï¿½Ñ¹
 
-3.ÅäÖÃ
-	3.1°²×°mysql
-		²éÑ¯ÒÔÇ°°²×°µÄmysqlÏà¹Ø°ü
+3.ï¿½ï¿½ï¿½ï¿½
+	3.1ï¿½ï¿½×°mysql
+		ï¿½ï¿½Ñ¯ï¿½ï¿½Ç°ï¿½ï¿½×°ï¿½ï¿½mysqlï¿½ï¿½Ø°ï¿½
 		rpm -qa | grep mysql
-		±©Á¦É¾³ýÕâ¸ö°ü
+		ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		rpm -e mysql-libs-5.1.66-2.el6_3.i686 --nodeps
 		
 		rpm -ivh MySQL-server-5.1.73-1.glibc23.i386.rpm 
 		rpm -ivh MySQL-client-5.1.73-1.glibc23.i386.rpm
 		
-		Ö´ÐÐÃüÁîÉèÖÃmysql
+		Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mysql
 		/usr/bin/mysql_secure_installation
 		
-		½«hiveÌí¼Óµ½»·¾³±äÁ¿µ±ÖÐ
+		ï¿½ï¿½hiveï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 		GRANT ALL PRIVILEGES ON hive.* TO 'root'@'%' IDENTIFIED BY '123' WITH GRANT OPTION;
 		FLUSH PRIVILEGES
-		ÔÚhiveµ±ÖÐ´´½¨Á½ÕÅ±í
+		ï¿½ï¿½hiveï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½
 		create table trade_detail (id bigint, account string, income double, expenses double, time string) row format delimited fields terminated by '\t';
 		create table user_info (id bigint, account string, name  string, age int) row format delimited fields terminated by '\t';
 		
-		½«mysqµ±ÖÐµÄÊý¾ÝÖ±½Óµ¼Èëµ½hiveµ±ÖÐ
+		ï¿½ï¿½mysqï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Óµï¿½ï¿½ëµ½hiveï¿½ï¿½ï¿½ï¿½
 		sqoop import --connect jdbc:mysql://192.168.1.10:3306/itcast --username root --password 123 --table trade_detail --hive-import --hive-overwrite --hive-table trade_detail --fields-terminated-by '\t'
 		sqoop import --connect jdbc:mysql://192.168.1.10:3306/itcast --username root --password 123 --table user_info --hive-import --hive-overwrite --hive-table user_info --fields-terminated-by '\t'
 
-		´´½¨Ò»¸öresult±í±£´æÇ°Ò»¸ösqlÖ´ÐÐµÄ½á¹û
+		ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½resultï¿½ï¿½ï¿½ï¿½Ç°Ò»ï¿½ï¿½sqlÖ´ï¿½ÐµÄ½ï¿½ï¿½
 		create table result row format delimited fields terminated by '\t' as select t2.account, t2.name, t1.income, t1.expenses, t1.surplus from user_info t2 join (select account, sum(income) as income, sum(expenses) as expenses, sum(income-expenses) as surplus from trade_detail group by account) t1 on (t1.account = t2.account);
 		
 		create table user (id int, name string) row format delimited fields terminated by '\t'
-		½«±¾µØÎÄ¼þÏµÍ³ÉÏµÄÊý¾Ýµ¼Èëµ½HIVEµ±ÖÐ
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ÏµÍ³ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ýµï¿½ï¿½ëµ½HIVEï¿½ï¿½ï¿½ï¿½
 		load data local inpath '/root/user.txt' into table user;
 		
-		´´½¨Íâ²¿±í
+		ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½ï¿½
 		create external table stubak (id int, name string) row format delimited fields terminated by '\t' location '/stubak';
 		
-		´´½¨·ÖÇø±í
-		ÆÕÍ¨±íºÍ·ÖÇø±íÇø±ð£ºÓÐ´óÁ¿Êý¾ÝÔö¼ÓµÄÐèÒª½¨·ÖÇø±í
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		ï¿½ï¿½Í¨ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		create table book (id bigint, name string) partitioned by (pubdate string) row format delimited fields terminated by '\t'; 
 
-		·ÖÇø±í¼ÓÔØÊý¾Ý
+		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		load data local inpath './book.txt' overwrite into table book partition (pubdate='2010-08-22');
