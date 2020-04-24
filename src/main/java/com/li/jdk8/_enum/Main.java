@@ -1,6 +1,5 @@
 package com.li.jdk8._enum;
 
-import org.jruby.ext.ffi.Enum;
 
 public class Main {
     /**
