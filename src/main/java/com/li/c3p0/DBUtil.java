@@ -1,14 +1,11 @@
 package com.li.c3p0;
 
-import org.apache.hadoop.util.hash.Hash;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Handler;
 
 public class DBUtil {
 
@@ -47,37 +44,165 @@ public class DBUtil {
 
     public static void main(String[] args) {
 
-        String sql = "select * from mytab";
+        String sql = "select * from mytab  ";
         DBUtil db1 = new DBUtil(sql);
         Map<String, Integer> record = new HashMap<>();
         int k = 0;
-        byte[] bits = new byte[getIndex(90000) + 1];
+        byte[][] bits = new byte[30][getIndex(10000) + 1];
+//        byte[] bits = new byte[getIndex(90000) + 1];
         try {
             ResultSet ret = db1.pst.executeQuery();
             while (ret.next()) {
                 String uid = ret.getString(1);
                 String ufname = ret.getString(2);
+                int hash = ret.getInt(3);
+                int pt_index = ret.getInt(4);
+                int index = ret.getInt(5);
 
-                int h;
-                int n = 90000;
-                int hash = (h = ufname.hashCode()) ^ (h >>> 16);
-                int i = (n - 1) & hash;
-                System.out.println(uid + "\t" + ufname + "\t" + hash + "\t" + k);
-                add(bits, i);
+//                System.out.println(uid + "\t" + ufname + "\t" + hash + "\t" + pt_index + "\t" + index);
+                add(bits, pt_index, index);
             }
             ret.close();
             db1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int index = 1;
+        int index = 0;
         System.out.println(record.size());
-//        for (byte bit : bits) {
-//            System.out.println("-------" + index++ + "-------");
-//            showByte(bit);
-//        }
+        for (byte[] bit : bits) {
+            System.out.println("-------" + index++ + "-------");
+            for (byte b : bit) {
+                showByte(b);
+            }
+            System.out.println();
+            System.out.println("-------[-]-------");
+        }
         System.out.println("");
+
+        // 新增
+//        byte[] a = bits[0];
+//        for (int i = 0; i < a.length; i++) {
+//            byte b = a[i];
+//            showByte(b);
+//        }
+//        System.out.println();
+//        byte[] b = bits[1];
+//        for (int i = 0; i < b.length; i++) {
+//            byte c = b[i];
+//            showByte(c);
+//        }
+        byte[] bit = bits[0];
+        byte[] a = formatByte(bit);
+        byte[] bit1 = bits[1];
+        byte[] b = formatByte(bit1);
+
+        System.out.println();
+        printByte(a);
+        System.out.println();
+        printByte(b);
+        System.out.println();
+
+        int newAdd = 0;
+        int save = 0;
+        int[] sad = new int[a.length];
+        for (int i = 0; i < a.length; i++) {
+            byte s = a[i];
+            byte e = b[i];
+            int tmp = s ^ e;
+            if (s == 1 && tmp == 0) {
+                save++;
+            } else if (s == 0 && tmp == 1) {
+                newAdd++;
+            }
+            sad[i] = tmp;
+            System.out.print(" ");
+        }
+        System.out.println();
+        for (int i : sad) {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+        System.out.println();
+        System.out.println("save " + save);
+        System.out.println("2020-04-27 newAdd " + newAdd);
+
+
+        byte[] newAdd28 = new byte[a.length];
+        for (int i = 0; i < a.length; i++) {
+            byte s = a[i];
+            byte e = b[i];
+            byte tmp = (byte) (s | e);
+            newAdd28[i] = tmp;
+        }
+
+        System.out.println();
+        for (int i : newAdd28) {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+        System.out.println();
+        byte[] c = formatByte(bits[2]);
+        for (int i : c) {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+
+        newAdd = 0;
+        save = 0;
+        sad = new int[a.length];
+        for (int i = 0; i < newAdd28.length; i++) {
+            byte s = newAdd28[i];
+            byte e = c[i];
+            int tmp = s ^ e;
+            if (s == 1 && tmp == 0) {
+                save++;
+            } else if (s == 0 && tmp == 1) {
+                newAdd++;
+            }
+            sad[i] = tmp;
+            System.out.print(" ");
+        }
+        System.out.println();
+        for (int i : sad) {
+            System.out.print(i);
+            System.out.print(" ");
+        }
+        System.out.println();
+        System.out.println("save " + save);
+        System.out.println("2020-04-28 newAdd " + newAdd);
+
+
+//
+//        System.out.println();
+//        System.out.println("x新增-------------------------");
+//        int[] array = new int[8 * bit.length];
+//        for (int i = 0; i < bit.length; i++) {
+//            array[i] = bit[i] ^ bit1[i];
+//        }
+//        for (int b1 : array) {
+//            System.out.print(b1);
+//            System.out.print(" ");
+//        }
     }
+
+    public static byte[] formatByte(byte[] b) {
+        byte[] array = new byte[8 * b.length];
+        for (int j = 0; j < b.length; j++) {
+            for (int i = (7 + j * 8); i >= (0 + j * 8); i--) {
+                array[i] = (byte) (b[j] & 1);
+                b[j] = (byte) (b[j] >> 1);
+            }
+        }
+        return array;
+    }
+
+    public static void printByte(byte[] array) {
+        for (byte b1 : array) {
+            System.out.print(b1);
+            System.out.print(" ");
+        }
+    }
+
 
     public static void showByte(byte b) {
         byte[] array = new byte[8];
@@ -90,30 +215,24 @@ public class DBUtil {
             System.out.print(b1);
             System.out.print(" ");
         }
-
-        System.out.println();
     }
 
     public static int getIndex(int num) {
         return num >> 3;
     }
 
-    private static byte[] splitBigData(int num) {
-
-        long bitIndex = num + (1l << 31);         //获取num数据对应bit数组（虚拟）的索引
-        int index = (int) (bitIndex / 8);         //bit数组（虚拟）在byte数组中的索引
-        int innerIndex = (int) (bitIndex % 8);    //bitIndex 在byte[]数组索引index 中的具体位置
-
-        System.out.println("byte[" + index + "] 中的索引：" + innerIndex);
-
-        dataBytes[index] = (byte) (dataBytes[index] | (1 << innerIndex));
-        return dataBytes;
+    /**
+     * 标记指定数字（num）在bitmap中的值，标记其已经出现过
+     * 将1左移position后，那个位置自然就是1，然后和以前的数据做|，这样，那个位置就替换成1了
+     *
+     * @param bits
+     * @param num
+     */
+    public static void add(byte[][] bits, int index, int num) {
+        bits[index][getIndex(num)] |= 1 << getPosition(num);
     }
 
-    public static void add(byte[] bits, int num) {
-        bits[getIndex(num)] |= 1 << getPosition(num);
-    }
-
+    //    num % 8
     public static int getPosition(int num) {
         return num & 0x07;
     }

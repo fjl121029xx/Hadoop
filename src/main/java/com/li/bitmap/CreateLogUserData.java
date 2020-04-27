@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class UuidDemo {
+public class CreateLogUserData {
 
     public static void main(String[] args) throws Exception {
 
