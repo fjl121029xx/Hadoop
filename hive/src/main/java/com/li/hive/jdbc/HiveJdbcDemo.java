@@ -2,6 +2,10 @@ package com.li.hive.jdbc;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HiveJdbcDemo {
 
@@ -28,34 +32,56 @@ public class HiveJdbcDemo {
 
         System.setProperty("spark.sql.crossJoin.enabled", "true");
 
-        String sql = " SELECT sum(col_6)         AS `col_6_1587884373536`," +
-                "                   CASE" +
-                "                       WHEN col_1 REGEXP '^内蒙古' THEN '内蒙古'" +
-                "                       WHEN col_1 REGEXP '^西藏' THEN '西藏'" +
-                "                       WHEN col_1 REGEXP '^新疆' THEN '新疆'" +
-                "                       WHEN col_1 REGEXP '^宁夏' THEN '宁夏'" +
-                "                       WHEN col_1 REGEXP '^广西' THEN '广西'" +
-                "                       WHEN col_1 REGEXP '^澳门' THEN '澳门'" +
-                "                       WHEN col_1 REGEXP '^香港' THEN '香港'" +
-                "                       WHEN col_1 REGEXP '省$' THEN SUBSTRING_INDEX(col_1, '省', 1)" +
-                "                       WHEN col_1 REGEXP '市$' THEN SUBSTRING_INDEX(col_1, '市', 1)" +
-                "                       ELSE col_1 END AS `col_1_1587884356039`," +
-                "                   col_1              AS `originProvince`" +
-                "            FROM `db_yqs_p_505`.`tbl_p_79467_1587884332`" +
-                "            GROUP BY originProvince, col_1_1587884356039" +
-                "            LIMIT 1000 ";
+        System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+        String sql = "select split(key, ',')[0]                            as `report_date_1589009213779`,\n" +
+                "       cast(split(value, '::')[0] as decimal(15, 2)) as `food_send_number_1589009547193`\n" +
+                "from (select retention(array(report_date), array(col), array('7-rate')) as m\n" +
+                "      from (SELECT mutil_date_format(report_date, 'ymd') as report_date, cast(food_send_number as string) AS col\n" +
+                "            FROM `db_yqs_b_505`.`tbl_pos_bill_food`\n" +
+                "            GROUP BY mutil_date_format(report_date, 'ymd'), food_send_number)) t LATERAL VIEW explode(t.m) tt as key, value\n" +
+                "order by `report_date_1589009213779` asc";
 
         System.out.println(sdf.format(new Date(System.currentTimeMillis())) + " Running: \r" + sql);
+        System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+
         long a = System.currentTimeMillis();
-        ResultSet res = stmt.executeQuery(sql);
+        ResultSet rs = stmt.executeQuery(sql);
+        List list = new ArrayList(rs.getFetchSize());
+        ResultSetMetaData metaData = rs.getMetaData();
 
-        while (res.next()) {
-
-            System.out.println(res.getObject(1)+"\t"+res.getObject(2));
-//            System.out.println(res.getObject(1));
+        while (rs.next()) {
+            Map map = new HashMap<>();
+            List columns = new ArrayList(metaData.getColumnCount());
+            for (int i = 0; i < metaData.getColumnCount(); i++) {
+                int columnType = metaData.getColumnType(i + 1);
+                switch (columnType) {
+                    case Types.DECIMAL:
+                        columns.add(rs.getBigDecimal(i + 1));
+                        break;
+                    case Types.FLOAT:
+                        columns.add(rs.getFloat(i + 1));
+                        break;
+                    case Types.DOUBLE:
+                        columns.add(rs.getDouble(i + 1));
+                        break;
+                    case Types.DATE:
+                        columns.add(rs.getDate(i + 1));
+                        break;
+                    case Types.TIMESTAMP:
+                        columns.add(rs.getTimestamp(i + 1));
+                        break;
+                    default:
+                        columns.add(rs.getString(i + 1));
+                }
+            }
+            System.out.println(columns);
+            map.put("metaData", metaData);
+            map.put("data", columns);
+            list.add(map);
         }
+
         long b = System.currentTimeMillis();
-        System.out.println((b - a) / 1000);
+        System.out.println("running time --> " + (b - a) / 1000);
     }
 
     public static void main(String[] args)
