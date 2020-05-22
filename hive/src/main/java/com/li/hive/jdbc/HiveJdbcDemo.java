@@ -33,19 +33,17 @@ public class HiveJdbcDemo {
         System.setProperty("spark.sql.crossJoin.enabled", "true");
 
         System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-        String sql = "select split(key, ',')[0]                            as `report_date_1589009213779`,\n" +
-                "       cast(split(value, '::')[0] as decimal(15, 2)) as `food_send_number_1589009547193`\n" +
-                "from (select retention(array(report_date), array(col), array('7-rate')) as m\n" +
-                "      from (SELECT mutil_date_format(report_date, 'ymd') as report_date, cast(food_send_number as string) AS col\n" +
-                "            FROM `db_yqs_b_505`.`tbl_pos_bill_food`\n" +
-                "            GROUP BY mutil_date_format(report_date, 'ymd'), food_send_number)) t LATERAL VIEW explode(t.m) tt as key, value\n" +
-                "order by `report_date_1589009213779` asc";
+        String sql = "select count(*),report_date from `default`.`alluxio_test` group by report_date";
 
         System.out.println(sdf.format(new Date(System.currentTimeMillis())) + " Running: \r" + sql);
         System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 
         long a = System.currentTimeMillis();
         ResultSet rs = stmt.executeQuery(sql);
+
+//        while (rs.next()) {
+//            System.out.println(rs.getObject(1)+"~"+rs.getObject(2));
+//        }
         List list = new ArrayList(rs.getFetchSize());
         ResultSetMetaData metaData = rs.getMetaData();
 
@@ -74,7 +72,7 @@ public class HiveJdbcDemo {
                         columns.add(rs.getString(i + 1));
                 }
             }
-            System.out.println(columns);
+//            System.out.println(columns);
             map.put("metaData", metaData);
             map.put("data", columns);
             list.add(map);
@@ -86,14 +84,12 @@ public class HiveJdbcDemo {
 
     public static void main(String[] args)
             throws SQLException {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             try {
                 runJob();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 }
