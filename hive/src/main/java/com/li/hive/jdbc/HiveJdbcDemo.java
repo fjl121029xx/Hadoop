@@ -21,19 +21,19 @@ public class HiveJdbcDemo {
             e.printStackTrace();
             System.exit(1);
         }
-        Connection con = DriverManager.getConnection(
-                "jdbc:hive2://172.20.44.8:10016",
-                "hadoop", "");
 //        Connection con = DriverManager.getConnection(
-//                "jdbc:hive2://192.168.101.51:10016",
-//                "olap", "");
+//                "jdbc:hive2://172.20.44.8:10016",
+//                "hadoop", "");
+        Connection con = DriverManager.getConnection(
+                "jdbc:hive2://192.168.101.51:10016",
+                "olap", "");
 
         Statement stmt = con.createStatement();
 
         System.setProperty("spark.sql.crossJoin.enabled", "true");
 
         System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-        String sql = "select count(*),report_date from `default`.`alluxio_test` group by report_date";
+        String sql = "SELECT mutil_date_format( col_d7199047ebd596af1e7845aba0d68b1b  ,'ymd') AS `col_d7199047ebd596af1e7845aba0d68b1b_1595232567344` FROM `db_yqs_b_259570`.`tbl_1027199_20200717153300048` GROUP BY col_d7199047ebd596af1e7845aba0d68b1b_1595232567344 ORDER BY `col_d7199047ebd596af1e7845aba0d68b1b_1595232567344` asc LIMIT 1000\",";
 
         System.out.println(sdf.format(new Date(System.currentTimeMillis())) + " Running: \r" + sql);
         System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
