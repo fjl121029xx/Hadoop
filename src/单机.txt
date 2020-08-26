@@ -1,12 +1,12 @@
 -- core-site.xml
 <property>
      <name>hadoop.tmp.dir</name>
-     <value>/usr/local/hadoop/tmp</value>
+     <value>/usr/local/hadoop2/tmp</value>
      <description>Abase for other temporary directories.</description>
 </property>
 <property>
       <name>fs.defaultFS</name>
-      <value>hdfs://192.168.27.129:8020</value>
+      <value>hdfs://shiyue:8020</value>
 </property>
 
 -- hdfs-site.xml
@@ -16,11 +16,11 @@
 </property>
 <property>
         <name>dfs.namenode.name.dir</name>
-        <value>/usr/local/hadoop/tmp/dfs/name</value>
+        <value>/usr/local/hadoop2/tmp/dfs/name</value>
 </property>
 <property>
          <name>dfs.datanode.data.dir</name>
-         <value>/usr/local/hadoop/tmp/dfs/data</value>
+         <value>/usr/local/hadoop2/tmp/dfs/data</value>
 </property>
 <property>
        <name>dfs.http.address</name>
@@ -35,11 +35,11 @@
 </property>
 <property>
   <name>mapred.job.tracker.http.address</name>
-  <value>192.168.27.129:50030</value>
+  <value>shiyue:50030</value>
 </property>
 <property>
   <name>mapred.task.tracker.http.address</name>
-  <value>192.168.27.129:50060</value>
+  <value>shiyue:50060</value>
 </property>
 
 

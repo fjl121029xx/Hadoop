@@ -9,7 +9,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Description(name = "compare", value = "_FUNC_(dimension,measure,dimen_mode,time_diff_type,measure_name) - Returns the mean of a set of numbers")
+@Description(name = "compare", value = "_FUNC_(di" +
+        "mension,measure,dimen_mode,time_diff_type,measure_name) - Returns the mean of a set of numbers")
 public class Compare extends UDAF {
 
     public static Logger logger = Logger.getLogger(Compare.class);

@@ -48,7 +48,7 @@ Hive只在一个节点上安装即可
 	如果出现没有权限的问题，在mysql授权(在安装mysql的机器上执行)
 	mysql -uroot -p
 	#(执行下面的语句  *.*:所有库下的所有表   %：任何IP地址或主机都可以连接)
-	GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+	GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '111111' WITH GRANT OPTION;
 	FLUSH PRIVILEGES;
 	
 6.建表(默认是内部表)
