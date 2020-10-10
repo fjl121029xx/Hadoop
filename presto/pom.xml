@@ -18,6 +18,11 @@
             <artifactId>presto-client</artifactId>
             <version>0.203</version>
         </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.facebook.presto/presto-jdbc -->
         <dependency>
             <groupId>com.facebook.presto</groupId>

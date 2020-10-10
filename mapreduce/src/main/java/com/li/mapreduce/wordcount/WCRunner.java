@@ -11,6 +11,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class WCRunner {
     public static void main(String[] args) throws Exception {
 
+        System.out.println("run");
         Configuration conf = new Configuration();
 
         Job wcjob = Job.getInstance(conf);
@@ -31,13 +32,14 @@ public class WCRunner {
         wcjob.setMapOutputValueClass(LongWritable.class);
 
         //指定要处理的输入数据存放路径
-        FileInputFormat.setInputPaths(wcjob, new Path("hdfs://192.168.233.134:9000/wordcount/in/wordcount.txt"));
+        FileInputFormat.setInputPaths(wcjob, new Path("hdfs://shiyue/hdfs-site.xml"));
 
         //指定处理结果的输出数据存放路径
-        FileOutputFormat.setOutputPath(wcjob, new Path("d:/wordcount/out2/"));
+        FileOutputFormat.setOutputPath(wcjob, new Path("d:/wordcount_out/"));
 
         //将job提交给集群运行
         //提交作业并等待执行完成
+        System.out.println("waitForCompletion");
         wcjob.waitForCompletion(true);
     }
 }

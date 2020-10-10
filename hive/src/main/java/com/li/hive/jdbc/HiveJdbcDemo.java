@@ -28,63 +28,60 @@ public class HiveJdbcDemo {
                 "jdbc:hive2://192.168.101.119:10010",
                 "olap", "");
 //        Connection con = DriverManager.getConnection(
-//                "jdbc:hive2://192.168.101.51:10016",
+//                "jdbc:hive2://192.168.101.75:10016",
 //                "olap", "");
 
         Statement stmt = con.createStatement();
 
         System.setProperty("spark.sql.crossJoin.enabled", "true");
 
-        System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-        String sql = "insert overwrite table db_yqs_b_777777777.fact_promotion2_giftdetail_day_tmp partition (pt)\n" +
-                "select *\n" +
-                "from db_yqs_b_777777777.fact_promotion2_giftdetail_day\n" +
-                "where pt = 20200801 distribute by cast(rand() * 1900 as int)";
+        System.out.println("--------------------------------------------------------------------------------------------");
+        String sql = " select * from `test`.`client_create_test2`";
 
         System.out.println(sdf.format(new Date(System.currentTimeMillis())) + " Running: \r" + sql);
-        System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+        System.out.println("--------------------------------------------------------------------------------------------");
 
         long a = System.currentTimeMillis();
 
         stmt.execute(sql);
-//        ResultSet rs = stmt.executeQuery(sql);
-//
-//        List list = new ArrayList(rs.getFetchSize());
-//        ResultSetMetaData metaData = rs.getMetaData();
-//
-//        while (rs.next()) {
-//            Map map = new HashMap<>();
-//            List columns = new ArrayList(metaData.getColumnCount());
-//            for (int i = 0; i < metaData.getColumnCount(); i++) {
-//                int columnType = metaData.getColumnType(i + 1);
-//                switch (columnType) {
-//                    case Types.DECIMAL:
-//                        columns.add(rs.getBigDecimal(i + 1));
-//                        break;
-//                    case Types.FLOAT:
-//                        columns.add(rs.getFloat(i + 1));
-//                        break;
-//                    case Types.DOUBLE:
-//                        columns.add(rs.getDouble(i + 1));
-//                        break;
-//                    case Types.DATE:
-//                        columns.add(rs.getDate(i + 1));
-//                        break;
-//                    case Types.TIMESTAMP:
-//                        columns.add(rs.getTimestamp(i + 1));
-//                        break;
-//                    default:
-//                        columns.add(rs.getString(i + 1));
-//                }
-//            }
-////            System.out.println(columns);
-//            map.put("metaData", metaData);
-//            map.put("data", columns);
-//            list.add(map);
-//        }
-//
-//        long b = System.currentTimeMillis();
-//        System.out.println("running time --> " + (b - a) / 1000);
+        ResultSet rs = stmt.executeQuery(sql);
+
+        List list = new ArrayList(rs.getFetchSize());
+        ResultSetMetaData metaData = rs.getMetaData();
+
+        while (rs.next()) {
+            Map map = new HashMap<>();
+            List columns = new ArrayList(metaData.getColumnCount());
+            for (int i = 0; i < metaData.getColumnCount(); i++) {
+                int columnType = metaData.getColumnType(i + 1);
+                switch (columnType) {
+                    case Types.DECIMAL:
+                        columns.add(rs.getBigDecimal(i + 1));
+                        break;
+                    case Types.FLOAT:
+                        columns.add(rs.getFloat(i + 1));
+                        break;
+                    case Types.DOUBLE:
+                        columns.add(rs.getDouble(i + 1));
+                        break;
+                    case Types.DATE:
+                        columns.add(rs.getDate(i + 1));
+                        break;
+                    case Types.TIMESTAMP:
+                        columns.add(rs.getTimestamp(i + 1));
+                        break;
+                    default:
+                        columns.add(rs.getString(i + 1));
+                }
+            }
+            System.out.println(columns);
+            map.put("metaData", metaData);
+            map.put("data", columns);
+            list.add(map);
+        }
+
+        long b = System.currentTimeMillis();
+        System.out.println("running time --> " + (b - a) / 1000);
     }
 
     public static void main(String[] args)

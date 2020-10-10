@@ -25,7 +25,7 @@ public class WCMapper extends Mapper<LongWritable,Text,Text,LongWritable> {
 
         //将这一行内容转换为String类型,
         String line = value.toString();
-
+        System.out.println(line);
         //对这一行的文本按特定分隔符切分
         String[] words = StringUtils.split(line, " ");
         //遍历这个单词数组,输出为kv形式:单词 v:1

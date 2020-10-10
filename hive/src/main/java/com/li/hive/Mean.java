@@ -11,7 +11,7 @@ import org.apache.hadoop.io.DoubleWritable;
  merge函数，数据传输到reduce端前调用该函数，所以入仓必须和terminatePartial返回值相同
  terminate函数：hive最终聚集时会调用terminate，返回计算结果
  */
-public class Mean extends UDAF {
+public class  Mean extends UDAF {
     public static class MeanDoubleUDAFEval implements UDAFEvaluator {
         public static class PartialResult {
             double sum;
