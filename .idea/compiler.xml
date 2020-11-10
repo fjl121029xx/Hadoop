@@ -18,12 +18,13 @@
         <module name="kylin" />
         <module name="canal" />
         <module name="flink" />
+        <module name="azkaban" />
         <module name="storm" />
         <module name="waterdrop" />
-        <module name="hbase" />
+        <module name="elasticsearch" />
         <module name="kafka" />
         <module name="mahout" />
-        <module name="elasticsearch" />
+        <module name="hbase" />
       </profile>
     </annotationProcessing>
   </component>

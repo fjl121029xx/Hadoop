@@ -16,7 +16,7 @@ class Student implements Serializable {
     int id; //额外需要添加一个属性
 
     String name;
-    String sex; //transient修饰属性，表示暂时的，则这个属性不会被写入磁盘
+    transient String sex; //transient修饰属性，表示暂时的，则这个属性不会被写入磁盘
     transient int age;
 
     public Student(String name, String sex, int age) {
@@ -44,7 +44,7 @@ public class objectIO {
     public static void createObj() throws IOException {
         //1.创建目标路径
         File file = new File("E:\\objTest.txt");
-        if(file.exists()){
+        if (file.exists()) {
             file.deleteOnExit();
         }
         //2.创建流通道

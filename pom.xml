@@ -23,6 +23,7 @@
         <module>waterdrop</module>
         <module>canal</module>
         <module>influxdb</module>
+        <module>azkaban</module>
     </modules>
     <name>hadoop Maven Webapp</name>
     <url>http://maven.apache.org</url>
@@ -108,6 +109,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.45</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.2.1</version>
         </dependency>
 
         <dependency>
