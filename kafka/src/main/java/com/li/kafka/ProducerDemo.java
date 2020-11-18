@@ -14,7 +14,7 @@ public class ProducerDemo {
 
     private static Map<String, String> result = new HashMap<>();
 
-    private static final String topic = "bill";
+    private static final String topic = "shiyue";
     private static final Integer threads = 1;
     private static final Properties props = new Properties();
 
@@ -46,7 +46,7 @@ public class ProducerDemo {
             "z"};
 
     static {
-        props.put("metadata.broker.list", "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092");
+        props.put("metadata.broker.list", "192.168.101.137:9092");
         props.put("serializer.class", "kafka.serializer.StringEncoder");
 //        props.put("num.partitions", "3");
     }
@@ -57,7 +57,7 @@ public class ProducerDemo {
         Random r = new Random(arr.length);
 
         Properties properties = new Properties();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.101.137:9092");
 //        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 "org.apache.kafka.common.serialization.StringSerializer");// key
@@ -74,7 +74,7 @@ public class ProducerDemo {
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
             String value = arr[0];
 //            String value = arr[r.nextInt(arr.length)];
-            ProducerRecord<String, String> record = new ProducerRecord<>("bill", Integer.toString((i / 3)), value);
+            ProducerRecord<String, String> record = new ProducerRecord<>("shiyue", Integer.toString((i / 3)), value);
             Future<RecordMetadata> h = producer.send(record, new MsgProducerCallback(System.currentTimeMillis(), "h", value));
             RecordMetadata recordMetadata = h.get();
             count++;

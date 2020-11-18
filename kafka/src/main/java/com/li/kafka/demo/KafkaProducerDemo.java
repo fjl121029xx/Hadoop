@@ -13,14 +13,14 @@ public class KafkaProducerDemo {
 
     public static void main(String[] args) {
 
-        System.setProperty("java.security.auth.login.config", "D:\\kafka_client_jaas.conf");
+//        System.setProperty("java.security.auth.login.config", "D:\\kafka_client_jaas.conf");
 
         final char[] chars = "abcwsxs".toCharArray();
         final int charLength = chars.length;
-        final String topic = "bd_canal_order_tbl_order_master";
+        final String topic = "shyue";
 
         Properties props = new Properties();
-        props.put("metadata.broker.list", "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092");
+        props.put("metadata.broker.list", "shiyue:9092");
         props.put("request.required.acks", "0");
         props.put("producer.type", "sync");
         props.put("serializer.class", "kafka.serializer.StringEncoder");

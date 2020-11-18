@@ -7,7 +7,7 @@ import java.util.Properties;
 public class KafkaProducerDemo {
 
     private final Producer<String, String> kafkaProdcer;
-    public final static String TOPIC = "bd_canal_order_tbl_order_master";
+    public final static String TOPIC = "shiyue";
 
     private KafkaProducerDemo() {
         kafkaProdcer = createKafkaProducer();
@@ -15,11 +15,10 @@ public class KafkaProducerDemo {
 
     private Producer<String, String> createKafkaProducer() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "172.20.119.175:9092,172.20.47.150:9092,172.20.101.187:9092");
+        props.put("bootstrap.servers", "192.168.101.137:9092");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        Producer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
-        return kafkaProducer;
+        return new KafkaProducer<>(props);
     }
 
     private void produce() {
