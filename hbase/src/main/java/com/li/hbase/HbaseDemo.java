@@ -18,7 +18,7 @@ public class HbaseDemo {
     public static Configuration conf = null;
     private static Connection connection;
 
-    private static final String ZK = "192.168.100.68,192.168.100.70,192.168.100.72";
+    private static final String ZK = "192.168.126.138";
     private static final String CL = "2181";
     private static final String DIR = "/hbase";
 

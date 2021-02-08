@@ -25,7 +25,7 @@ public class HiveJdbcDemo {
 //                "jdbc:hive2://172.20.44.8:10016",
 //                "hadoop", "");
         Connection con = DriverManager.getConnection(
-                "jdbc:hive2://192.168.101.119:10010",
+                "jdbc:hive2://192.168.101.118:10010",
                 "olap", "");
 //        Connection con = DriverManager.getConnection(
 //                "jdbc:hive2://192.168.101.75:10016",
@@ -36,7 +36,7 @@ public class HiveJdbcDemo {
         System.setProperty("spark.sql.crossJoin.enabled", "true");
 
         System.out.println("--------------------------------------------------------------------------------------------");
-        String sql = " select * from `test`.`client_create_test2`";
+        String sql = " select count(*) from db_yqs_b_777777777.standard_detail_supply_voucherdetail_day_8 ";
 
         System.out.println(sdf.format(new Date(System.currentTimeMillis())) + " Running: \r" + sql);
         System.out.println("--------------------------------------------------------------------------------------------");

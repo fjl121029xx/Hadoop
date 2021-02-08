@@ -15,7 +15,7 @@ public class HBaseDao {
 
 
         Configuration conf = HBaseConfiguration.create();
-        conf.set("hbase.zookeeper.quorum","192.168.100.68:2181,192.168.100.70:2181,192.168.100.72:2181");
+        conf.set("hbase.zookeeper.quorum","192.168.126.138:2181");
 
 
         HBaseAdmin hBaseAdmin = new HBaseAdmin(conf);

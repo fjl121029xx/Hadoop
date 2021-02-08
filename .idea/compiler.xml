@@ -7,24 +7,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="hive" />
+        <module name="storm" />
+        <module name="zookeeper" />
+        <module name="waterdrop" />
         <module name="impala" />
         <module name="influxdb" />
         <module name="redis" />
-        <module name="presto" />
-        <module name="flume" />
-        <module name="hive" />
-        <module name="mapreduce" />
-        <module name="zookeeper" />
-        <module name="kylin" />
-        <module name="canal" />
         <module name="flink" />
-        <module name="azkaban" />
-        <module name="storm" />
-        <module name="waterdrop" />
-        <module name="elasticsearch" />
-        <module name="kafka" />
         <module name="mahout" />
+        <module name="mapreduce" />
+        <module name="elasticsearch" />
+        <module name="flume" />
+        <module name="kafka" />
+        <module name="canal" />
+        <module name="hello" />
+        <module name="azkaban" />
         <module name="hbase" />
+        <module name="presto" />
+        <module name="kylin" />
       </profile>
     </annotationProcessing>
   </component>

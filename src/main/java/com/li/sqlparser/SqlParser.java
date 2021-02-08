@@ -13,57 +13,69 @@ import com.alibaba.druid.stat.TableStat.*;
 import com.alibaba.druid.stat.*;
 import com.alibaba.druid.util.JdbcConstants;
 
+/*
+* 解析sql
+* */
 public class SqlParser {
 
     public static void main(String[] args) {
 
-        String sql = "insert overwrite table aa partition (pt) " +
-                "select card_id, " +
-                "       group_id, " +
-                "       save_count, " +
-                "       consume_cnt, " +
-                "       save_money_amount, " +
-                "       save_return_money_amt, " +
-                "       custome_consume_amt, " +
-                "       custome_addpoint_num, " +
-                "       custome_reducepotin_num, " +
-                "       trans_shop_id, " +
-                "       pt " +
-                "from (select *, row_number() over (partition by group_id,card_id,trans_shop_id,pt order by v desc) rnum " +
-                "      from ( " +
-                "               select card_id, " +
-                "                      group_id, " +
-                "                      trans_shop_id, " +
-                "                      count(if(trans_type = 20, trans_id, null))            as save_count, " +
-                "                      count(if(trans_type = 30, trans_id, null))            as consume_cnt, " +
-                "                      sum(if(trans_type = 20, save_money_amount, 0))        as save_money_amount, " +
-                "                      sum(if(trans_type = 20, save_return_money_amount, 0)) as save_return_money_amt, " +
-                "                      sum(if(trans_type = 30, consumption_amount, 0))       as custome_consume_amt, " +
-                "                      sum(nvl(return_point_amount, 0))                      as custome_addpoint_num, " +
-                "                      sum(nvl(deduction_point_amount, 0))                   as custome_reducepotin_num, " +
-                "                      substr(trans_time, 1, 8)                              as pt, " +
-                "                      1                                                     as v " +
-                "               from hedw.fact_customer1_transdetail_day " +
-                "               where pt =12 and action<=1 and substr(trans_time, 1, 8)=12 " +
-                "               group by group_id, card_id, substr(trans_time, 1, 8), trans_shop_id " +
-                "               union all " +
-                "               select " +
-                "                   card_id, group_id, trans_shop_id, " +
-                "                   count(if (trans_type=20, trans_id, null)) as save_count, " +
-                "                   count(if (trans_type=30, trans_id, null)) as consume_cnt, " +
-                "                   sum(if (trans_type=20, save_money_amount, 0)) as save_money_amount, " +
-                "                   sum(if (trans_type=20, save_return_money_amount, 0)) as save_return_money_amt, " +
-                "                   sum(if (trans_type=30, consumption_amount, 0)) as custome_consume_amt, " +
-                "                   sum(nvl(return_point_amount, 0)) as custome_addpoint_num, " +
-                "                   sum(nvl(deduction_point_amount, 0)) as custome_reducepotin_num, " +
-                "                   substr(trans_time, 1, 8) as pt, " +
-                "                   2 as v " +
-                "               from hedw.fact_customer2_transdetail_day " +
-                "               where pt=12 and action<=1 and substr(trans_time, 1, 8)=12 " +
-                "               group by group_id, card_id, substr(trans_time, 1, 8), trans_shop_id " +
-                "           ) a " +
-                "     ) b " +
-                "where rnum = 1";
+        String sql = "select concat(from_unixtime(unix_timestamp(cast(20210205 as string),'yyyyMMdd'),'yyyy-MM-dd'),' 00:00:00') as report_date,\n" +
+                "       a.group_id,\n" +
+                "\t   b.group_name,\n" +
+                "\t   a.brand_id,\n" +
+                "\t   b.brand_name,\n" +
+                "\t   a.shop_id,\n" +
+                "\t   b.shop_name,\n" +
+                "\t   a.city_id,\n" +
+                "\t   b.city_name,\n" +
+                "\t   a.province_id,\n" +
+                "\t   b.province_name,\n" +
+                "\t   a.channel_name,\n" +
+                "\t   case when a.order_subtype=0 then '堂食'\n" +
+                "            when a.order_subtype=20 then '外卖'\n" +
+                "            when a.order_subtype=21 then '自提'\n" +
+                "            else '其他'\n" +
+                "        end as bill_subtype,\n" +
+                "       sum(a.bill_person_cnt) as all_bill_cust_num,\n" +
+                "       sum(a.bill_cnt) as all_bill_num,\n" +
+                "       sum(a.bill_amt) as all_bill_amt,\n" +
+                "       sum(a.bill_real_amt) as all_bill_actual_amt,\n" +
+                "       sum(a.bill_discount_amt) as all_bill_discount_amt,\n" +
+                "       sum(a.bill_food_real_cnt) as all_bill_sale_food_num,\n" +
+                "       sum(case when substr(a.pt,1,4)=substr(20210206,1,4) then a.bill_person_cnt else 0 end) as year_bill_cust_num,\n" +
+                "       sum(case when substr(a.pt,1,4)=substr(20210206,1,4) then a.bill_cnt else 0 end) as year_bill_num,\n" +
+                "       sum(case when substr(a.pt,1,4)=substr(20210206,1,4) then a.bill_amt else 0 end) as year_bill_amt,\n" +
+                "       sum(case when substr(a.pt,1,4)=substr(20210206,1,4) then a.bill_real_amt else 0 end) as year_bill_actual_amt,\n" +
+                "       sum(case when substr(a.pt,1,4)=substr(20210206,1,4) then a.bill_discount_amt else 0 end) as year_bill_discount_amt,\n" +
+                "       sum(case when substr(a.pt,1,4)=substr(20210206,1,4) then a.bill_food_real_cnt else 0 end) as year_bill_sale_food_num,\n" +
+                "       sum(case when substr(a.pt,1,6)=substr(20210206,1,6) then a.bill_person_cnt else 0 end) as month_bill_cust_num,\n" +
+                "       sum(case when substr(a.pt,1,6)=substr(20210206,1,6) then a.bill_cnt else 0 end) as month_bill_num,\n" +
+                "       sum(case when substr(a.pt,1,6)=substr(20210206,1,6) then a.bill_amt else 0 end) as month_bill_amt,\n" +
+                "       sum(case when substr(a.pt,1,6)=substr(20210206,1,6) then a.bill_real_amt else 0 end) as month_bill_actual_amt,\n" +
+                "       sum(case when substr(a.pt,1,6)=substr(20210206,1,6) then a.bill_discount_amt else 0 end) as month_bill_discount_amt,\n" +
+                "       sum(case when substr(a.pt,1,6)=substr(20210206,1,6) then a.bill_food_real_cnt else 0 end) as month_bill_sale_food_num,\n" +
+                "       20210206 as pt\n" +
+                "from gauss.aggr_bill_shop_channel_paynew_day a\n" +
+                "inner join gauss.dim_extend_shop_info b\n" +
+                "on a.shop_id=b.shop_id and b.pt=20210206 and b.is_test_shop<>1\n" +
+                "where a.pt>='20180101' and a.pt<=20210205\n" +
+                "group by concat(from_unixtime(unix_timestamp(cast(20210205 as string),'yyyyMMdd'),'yyyy-MM-dd'),' 00:00:00'),\n" +
+                "         a.group_id,\n" +
+                "\t\t b.group_name,\n" +
+                "\t\t a.brand_id,\n" +
+                "\t\t b.brand_name,\n" +
+                "\t\t a.shop_id,\n" +
+                "\t\t b.shop_name,\n" +
+                "\t\t a.city_id,\n" +
+                "\t\t b.city_name,\n" +
+                "\t\t a.province_id,\n" +
+                "\t\t b.province_name,\n" +
+                "\t\t a.channel_name,\n" +
+                "\t\t case when a.order_subtype=0 then '堂食'\n" +
+                "            when a.order_subtype=20 then '外卖'\n" +
+                "            when a.order_subtype=21 then '自提'\n" +
+                "            else '其他'end";
         DbType dbType = JdbcConstants.POSTGRESQL;
 
         //格式化输出
