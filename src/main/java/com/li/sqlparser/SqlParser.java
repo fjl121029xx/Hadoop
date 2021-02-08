@@ -20,7 +20,8 @@ public class SqlParser {
 
     public static void main(String[] args) {
 
-        String sql = "select concat(from_unixtime(unix_timestamp(cast(20210205 as string),'yyyyMMdd'),'yyyy-MM-dd'),' 00:00:00') as report_date,\n" +
+        String sql = "insert overwrite table gauss.app_bill_shop_channel_day partition(pt) " +
+                " select concat(from_unixtime(unix_timestamp(cast(20210205 as string),'yyyyMMdd'),'yyyy-MM-dd'),' 00:00:00') as report_date,\n" +
                 "       a.group_id,\n" +
                 "\t   b.group_name,\n" +
                 "\t   a.brand_id,\n" +
@@ -96,8 +97,11 @@ public class SqlParser {
 //                String key = iterator.next().toString();
 //                System.out.println("[ALIAS]" + key + " - " + aliasmap.get(key));
 //            }
+
+
             Set<Column> groupby_col = visitor.getGroupByColumns();
             //
+
             for (Iterator iterator = groupby_col.iterator(); iterator.hasNext(); ) {
                 Column column = (Column) iterator.next();
                 System.out.println("[GROUP]" + column.toString());

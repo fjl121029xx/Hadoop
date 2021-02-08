@@ -1,4 +1,4 @@
-package com.li.duixiangliu;
+package com.li.objectIo;
 
 import java.io.File;
 import java.io.FileInputStream;

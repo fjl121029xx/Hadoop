@@ -1,4 +1,4 @@
-package com.li.proxy.static_;
+package com.li.staticproxy;
 
 public interface Person {
     //上交班费

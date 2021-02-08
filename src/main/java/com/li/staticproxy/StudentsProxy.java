@@ -1,4 +1,4 @@
-package com.li.proxy.static_;
+package com.li.staticproxy;
 
 public class StudentsProxy implements Person {
 
