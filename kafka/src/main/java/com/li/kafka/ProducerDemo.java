@@ -1,5 +1,6 @@
 package com.li.kafka;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Future;
 
@@ -14,9 +15,8 @@ public class ProducerDemo {
 
     private static Map<String, String> result = new HashMap<>();
 
-    private static final String topic = "shiyue";
+    private static final String topic = "test";
     private static final Integer threads = 1;
-    private static final Properties props = new Properties();
 
     private static final String[] arr = {"a",
             "b",
@@ -45,11 +45,6 @@ public class ProducerDemo {
             "y",
             "z"};
 
-    static {
-        props.put("metadata.broker.list", "192.168.101.137:9092");
-        props.put("serializer.class", "kafka.serializer.StringEncoder");
-//        props.put("num.partitions", "3");
-    }
 
     public static void main(String[] args) throws Exception {
 
@@ -57,7 +52,7 @@ public class ProducerDemo {
         Random r = new Random(arr.length);
 
         Properties properties = new Properties();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.101.137:9092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.126.143:9092");
 //        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 "org.apache.kafka.common.serialization.StringSerializer");// key
@@ -69,16 +64,19 @@ public class ProducerDemo {
         // properties.load("properties配置文件");
         KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
 
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         int count = 0;
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
-            String value = arr[0];
+
+            String value = "{\"createTime\":\""+sdf.format(new Date())+"\",\"mtWmPoiId\":\"123456\",\"platform\":\"3\",\"sessionId\":\"3444444\",\"shopName\":\"店名\",\"source\":\"shoplist\",\"userId\":\"268193426\"}";
+//            String value = arr[0];
 //            String value = arr[r.nextInt(arr.length)];
-            ProducerRecord<String, String> record = new ProducerRecord<>("shiyue", Integer.toString((i / 3)), value);
+            ProducerRecord<String, String> record = new ProducerRecord<>("user_behavior", Integer.toString((i / 3)), value);
             Future<RecordMetadata> h = producer.send(record, new MsgProducerCallback(System.currentTimeMillis(), "h", value));
             RecordMetadata recordMetadata = h.get();
             count++;
             System.out.println(count);
+            Thread.sleep(1000);
 //            System.out.println(recordMetadata.offset());
         }
     }
@@ -99,6 +97,7 @@ class MsgProducerCallback implements Callback {
         this.msg = msg;
     }
 
+    @Override
     public void onCompletion(RecordMetadata recordMetadata, Exception e) {
         long elapsedTime = System.currentTimeMillis() - startTime;
         if (recordMetadata != null) {

@@ -23,6 +23,7 @@ public class KafkaEvent {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_HH_mm");
 
+
     public static KafkaEvent fromString(String eventStr) throws ParseException {
 
         String[] split = eventStr.split("=");

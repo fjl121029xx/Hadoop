@@ -29,7 +29,12 @@ class TreeNode {
 /*
  * https://blog.csdn.net/weixin_42289193/article/details/81741756
  * https://www.cnblogs.com/toSeeMyDream/p/5816682.html
+ *
+ * 深度遍历
+ * 广度遍历
  * */
+
+
 public class TraverseTreeDemo {
 
     public static void main(String[] args) {

@@ -1,26 +1,30 @@
-package com.li.sqlparser;
+package com.li.sqlparser.druid;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import com.alibaba.druid.DbType;
 import com.alibaba.druid.sql.SQLUtils;
+import com.alibaba.druid.sql.ast.SQLExpr;
+import com.alibaba.druid.sql.ast.SQLObject;
 import com.alibaba.druid.sql.ast.SQLStatement;
+import com.alibaba.druid.sql.ast.statement.SQLSelectItem;
+import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlInsertStatement;
+import com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser;
 import com.alibaba.druid.sql.dialect.postgresql.visitor.PGSchemaStatVisitor;
 import com.alibaba.druid.stat.TableStat.*;
 import com.alibaba.druid.stat.*;
 import com.alibaba.druid.util.JdbcConstants;
+import org.junit.Test;
 
 /*
-* 解析sql
-* */
+ * 解析sql
+ * https://www.cnblogs.com/digdeep/p/5071204.html
+ * */
 public class SqlParser {
 
     public static void main(String[] args) {
 
-        String sql = "insert overwrite table gauss.app_bill_shop_channel_day partition(pt) " +
+        /*String sql = "insert into gauss.app_bill_shop_channel_day partition(pt) " +
                 " select concat(from_unixtime(unix_timestamp(cast(20210205 as string),'yyyyMMdd'),'yyyy-MM-dd'),' 00:00:00') as report_date,\n" +
                 "       a.group_id,\n" +
                 "\t   b.group_name,\n" +
@@ -76,8 +80,9 @@ public class SqlParser {
                 "\t\t case when a.order_subtype=0 then '堂食'\n" +
                 "            when a.order_subtype=20 then '外卖'\n" +
                 "            when a.order_subtype=21 then '自提'\n" +
-                "            else '其他'end";
-        DbType dbType = JdbcConstants.POSTGRESQL;
+                "            else '其他'end";*/
+        String sql = "select count(*) from bd.bas_bill_food a left join bd.bas_bill_pay b on a.group_id = b.group_id";
+        DbType dbType = JdbcConstants.HIVE;
 
         //格式化输出
         String result = SQLUtils.format(sql, dbType);
@@ -92,11 +97,10 @@ public class SqlParser {
 
             PGSchemaStatVisitor visitor = new PGSchemaStatVisitor();
             stmt.accept(visitor);
-//            Map<String, String> aliasmap = visitor.getAliasMap();
-//            for (Iterator iterator = aliasmap.keySet().iterator(); iterator.hasNext(); ) {
-//                String key = iterator.next().toString();
-//                System.out.println("[ALIAS]" + key + " - " + aliasmap.get(key));
-//            }
+            Collection<Column> columns = visitor.getColumns();
+            for (Column col : columns) {
+                System.out.println("[COLUME]" + col.getName() + " - " + col.getFullName());
+            }
 
 
             Set<Column> groupby_col = visitor.getGroupByColumns();
@@ -117,8 +121,44 @@ public class SqlParser {
             //获取操作方法名称,依赖于表名称
             System.out.println("Manipulation : " + visitor.getTables());
             //获取字段名称
-            System.out.println("fields : " + visitor.getColumns());
+            System.out.println("fields : " + columns);
         }
 
     }
+
+    @Test
+    public void getT() throws Exception {
+        String sql = "select count(*)    from bd.bas_bill_food a left join bd.bas_bill_pay b on a.group_id = b.group_id ";
+        DbType dbType = JdbcConstants.HIVE;
+
+        List<SQLStatement> stmtList = SQLUtils.parseStatements(sql, dbType);
+        for (SQLStatement stmt : stmtList) {
+
+            PGSchemaStatVisitor visitor = new PGSchemaStatVisitor();
+            stmt.accept(visitor);
+            Map<Name, TableStat> tabmap = visitor.getTables();
+            SQLSelectItem parent = (SQLSelectItem) visitor.getAggregateFunctions().get(0).getParent();
+
+            System.out.println(parent.getAlias());
+            for (Name name : tabmap.keySet()) {
+                System.out.println(name.toString() + " - " + tabmap.get(name).toString());
+            }
+        }
+
+    }
+
+    @Test
+    public void getT2() throws Exception {
+        String sql = "select count(*) as c  from bd.bas_bill_food a left join bd.bas_bill_pay b on a.group_id = b.group_id  ";
+        String formatSql = sql.replaceAll("\\n|\\t|\\r", " ");
+        int aliasIdx = formatSql.toLowerCase().indexOf("as");
+        if (aliasIdx < 0) {
+            System.out.println("myCount");
+        } else {
+            System.out.println(formatSql.substring(aliasIdx + 2, formatSql.toLowerCase().indexOf("from")).trim());
+        }
+
+    }
+
+
 }
