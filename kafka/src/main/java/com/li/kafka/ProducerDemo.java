@@ -18,38 +18,9 @@ public class ProducerDemo {
     private static final String topic = "test";
     private static final Integer threads = 1;
 
-    private static final String[] arr = {"a",
-            "b",
-            "c",
-            "d",
-            "e",
-            "f",
-            "g",
-            "h",
-            "i",
-            "j",
-            "k",
-            "l",
-            "m",
-            "n",
-            "o",
-            "p",
-            "q",
-            "r",
-            "s",
-            "t",
-            "u",
-            "v",
-            "w",
-            "x",
-            "y",
-            "z"};
-
 
     public static void main(String[] args) throws Exception {
 
-
-        Random r = new Random(arr.length);
 
         Properties properties = new Properties();
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.126.143:9092");
@@ -68,15 +39,17 @@ public class ProducerDemo {
         int count = 0;
         for (int i = 0; i < Integer.MAX_VALUE; i++) {
 
-            String value = "{\"createTime\":\""+sdf.format(new Date())+"\",\"mtWmPoiId\":\"123456\",\"platform\":\"3\",\"sessionId\":\"3444444\",\"shopName\":\"店名\",\"source\":\"shoplist\",\"userId\":\"268193426\"}";
+            String value = "jesyck,3";
+//            String value = "{\\\"ts\\\":\\\"\"+sdf.format(new Date())+\"\\\",\\\"item_id\\\":\\\"123456\\\", \\\"behavior\\\":\\\"68193426\"}";
+//            String value = "{\"createTime\":\""+sdf.format(new Date())+"\",\"mtWmPoiId\":\"123456\",\"platform\":\"3\",\"sessionId\":\"3444444\",\"shopName\":\"店名\",\"source\":\"shoplist\",\"userId\":\"268193426\"}";
 //            String value = arr[0];
 //            String value = arr[r.nextInt(arr.length)];
-            ProducerRecord<String, String> record = new ProducerRecord<>("user_behavior", Integer.toString((i / 3)), value);
+            ProducerRecord<String, String> record = new ProducerRecord<>("test", Integer.toString((i / 3)), value);
             Future<RecordMetadata> h = producer.send(record, new MsgProducerCallback(System.currentTimeMillis(), "h", value));
             RecordMetadata recordMetadata = h.get();
             count++;
-            System.out.println(count);
-            Thread.sleep(1000);
+            System.out.printf("第%d次 send：%s%n  -->offset【%d】\r\n", count, value, recordMetadata.offset());
+            Thread.sleep(10*1000);
 //            System.out.println(recordMetadata.offset());
         }
     }

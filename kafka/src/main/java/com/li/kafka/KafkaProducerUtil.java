@@ -1,5 +1,6 @@
 package com.li.kafka;
 
+import lombok.SneakyThrows;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -28,12 +29,14 @@ public class KafkaProducerUtil extends Thread {
         return new KafkaProducer<String, String>(properties);
     }
 
+    @SneakyThrows
     @Override
     public void run() {
         Producer<String, String> producer = createProducer();
         Random random = new Random();
         Random random2 = new Random();
 
+        int i = 0;
         while (true) {
             int nums = random.nextInt(10);
             int nums2 = random2.nextInt(10);
@@ -45,21 +48,17 @@ public class KafkaProducerUtil extends Thread {
                     type = "pv";
                 } else {
                     type = "uv";
-
                 }
                 String kaifa_log = "{\"code\":\"" + type + "\",\"total_emp\":\"1" + "\",\"ts\":" + time + "}";
                 System.out.println("kaifa_log = " + kaifa_log);
                 producer.send(new ProducerRecord<String, String>(this.topic, kaifa_log));
 
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            System.out.println("=========循环一次==========");
-
-
+            System.out.println("=========循环" + (i++) + "次==========");
             try {
-                sleep(1000);
+                sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
