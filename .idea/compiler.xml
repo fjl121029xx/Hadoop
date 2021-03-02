@@ -18,6 +18,7 @@
         <module name="mahout" />
         <module name="mapreduce" />
         <module name="elasticsearch" />
+        <module name="clickhouse" />
         <module name="flume" />
         <module name="kafka" />
         <module name="canal" />

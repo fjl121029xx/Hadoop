@@ -25,6 +25,7 @@
         <module>influxdb</module>
         <module>azkaban</module>
         <module>hello</module>
+        <module>clickhouse</module>
     </modules>
     <name>hadoop Maven Webapp</name>
     <url>http://maven.apache.org</url>
