@@ -77,7 +77,6 @@ public class MongoSourceJob {
                 });
 
 
-
         DataSource<Integer> dataSource = env.fromElements(66851, 259617, 266083, 60494, 60493, 60492, 60491, 60490, 60489, 60488, 60487, 60486, 60485, 60484, 60482, 60481,
                 263082, 56992, 263331, 55307
         );
@@ -87,17 +86,17 @@ public class MongoSourceJob {
 
             private static final long serialVersionUID = 4799067759420137658L;
 
-            private  Map<Integer,Integer> source = new HashMap<>();
+            private Map<Integer, Integer> source = new HashMap<>();
 
             @Override
             public void open(Configuration parameters) throws Exception {
 
                 super.open(parameters);
-                List<Q2p>  questionInfo = getRuntimeContext().getBroadcastVariable("questionInfo");
+                List<Q2p> questionInfo = getRuntimeContext().getBroadcastVariable("questionInfo");
                 questionInfo.forEach(new Consumer<Q2p>() {
                     @Override
                     public void accept(Q2p q2p) {
-                        source.put(q2p.questionId,q2p.pointId);
+                        source.put(q2p.questionId, q2p.pointId);
                     }
                 });
             }
@@ -105,7 +104,7 @@ public class MongoSourceJob {
             @Override
             public Q2p map(Integer qid) throws Exception {
 
-                return new Q2p(qid, source.getOrDefault(qid,0));
+                return new Q2p(qid, source.getOrDefault(qid, 0));
 
             }
         }).withBroadcastSet(map, "questionInfo").print();

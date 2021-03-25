@@ -2,7 +2,7 @@ package com.li.kafka;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 //import com.kenai.jaffl.annotations.In;
 import org.apache.kafka.clients.producer.*;
@@ -13,45 +13,104 @@ import org.apache.kafka.clients.producer.*;
  */
 public class ProducerDemo {
 
-    private static Map<String, String> result = new HashMap<>();
+    private static final Map<String, String> result = new HashMap<>();
 
     private static final String topic = "test";
     private static final Integer threads = 1;
 
 
+    public static void send(String topic, String value, long sleep, int loop) throws Exception {
+
+
+        int count = 0;
+        synchronized (result) {
+
+        }
+    }
+
     public static void main(String[] args) throws Exception {
 
 
-        Properties properties = new Properties();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.126.143:9092");
-//        properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
-        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-                "org.apache.kafka.common.serialization.StringSerializer");// key
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                "org.apache.kafka.common.serialization.StringSerializer");// value
-        // 序列号方式
-        // properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,CustomPartitioner.class.getCanonicalName());//自定义分区函数
+        int corePoolSize = 5;
+        int maximumPoolSize = 10;
+        long keepActiveTime = 200;
+        TimeUnit timeUnit = TimeUnit.SECONDS;
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<Runnable>(5);
 
-        // properties.load("properties配置文件");
-        KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
+        //创建ThreadPoolExecutor线程池对象，并初始化该对象的各种参数
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepActiveTime, timeUnit, workQueue);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        int count = 0;
-        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Properties properties = new Properties();
+                    properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.126.143:9092");
+                    //   properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
+                    properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                            "org.apache.kafka.common.serialization.StringSerializer");// key
+                    properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                            "org.apache.kafka.common.serialization.StringSerializer");// value
+                    // properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,CustomPartitioner.class.getCanonicalName());//自定义分区函数
+                    // properties.load("properties配置文件");
 
-            String value = "jesyck,3";
-//            String value = "{\\\"ts\\\":\\\"\"+sdf.format(new Date())+\"\\\",\\\"item_id\\\":\\\"123456\\\", \\\"behavior\\\":\\\"68193426\"}";
-//            String value = "{\"createTime\":\""+sdf.format(new Date())+"\",\"mtWmPoiId\":\"123456\",\"platform\":\"3\",\"sessionId\":\"3444444\",\"shopName\":\"店名\",\"source\":\"shoplist\",\"userId\":\"268193426\"}";
-//            String value = arr[0];
-//            String value = arr[r.nextInt(arr.length)];
-            ProducerRecord<String, String> record = new ProducerRecord<>("test", Integer.toString((i / 3)), value);
-            Future<RecordMetadata> h = producer.send(record, new MsgProducerCallback(System.currentTimeMillis(), "h", value));
-            RecordMetadata recordMetadata = h.get();
-            count++;
-            System.out.printf("第%d次 send：%s%n  -->offset【%d】\r\n", count, value, recordMetadata.offset());
-            Thread.sleep(10*1000);
-//            System.out.println(recordMetadata.offset());
-        }
+
+                    KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
+                    for (int i = 0; i < Integer.MAX_VALUE; i++) {
+
+                        String value = "{\"id\":" + (int) (3 * Math.random()) + ",\"amt\":" + Math.random() + "}";
+                        send(producer, "tp_item", value);
+                        Thread.sleep(100);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Properties properties = new Properties();
+                    properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.126.143:9092");
+                    //   properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
+                    properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                            "org.apache.kafka.common.serialization.StringSerializer");// key
+                    properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                            "org.apache.kafka.common.serialization.StringSerializer");// value
+                    // properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,CustomPartitioner.class.getCanonicalName());//自定义分区函数
+                    // properties.load("properties配置文件");
+                    KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
+                    String[] colors = {"RED", "GREEN", "YELLOW"};
+                    while (true) {
+
+                        String value = "{\"id\":1,\"color\":\"" + colors[(int) (3 * Math.random())] + "\"}";
+                        send(producer, "tp_rule", value);
+                        Thread.sleep(1500);
+                        value = "{\"id\":2,\"color\":\"" + colors[(int) (3 * Math.random())] + "\"}";
+                        send(producer, "tp_rule", value);
+                        Thread.sleep(1500);
+                        value = "{\"id\":0,\"color\":\"" + colors[(int) (3 * Math.random())] + "\"}";
+                        send(producer, "tp_rule", value);
+                        Thread.sleep(10000);
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    public static void send(KafkaProducer<String, String> producer, String topic, String value) throws Exception {
+        ProducerRecord<String, String> record = new ProducerRecord<>(topic, "a", value);
+        Future<RecordMetadata> h = producer.send(record, new MsgProducerCallback(System.currentTimeMillis(), "h", value));
+        RecordMetadata recordMetadata = h.get();
+        System.out.println(Thread.currentThread().getName() + "-----------");
+        System.out.printf("send：%s%n  -->offset【%d】\r\n", value, recordMetadata.offset());
+        System.out.println(recordMetadata.offset());
     }
 }
 
