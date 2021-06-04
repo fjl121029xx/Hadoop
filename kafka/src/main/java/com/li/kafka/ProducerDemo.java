@@ -45,7 +45,7 @@ public class ProducerDemo {
             public void run() {
                 try {
                     Properties properties = new Properties();
-                    properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.126.143:9092");
+                    properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "flinkice:9092");
                     //   properties.put(ProducerConfig.CLIENT_ID_CONFIG, "MsgProducer");// 自定义客户端id
                     properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                             "org.apache.kafka.common.serialization.StringSerializer");// key
@@ -53,21 +53,27 @@ public class ProducerDemo {
                             "org.apache.kafka.common.serialization.StringSerializer");// value
                     // properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG,CustomPartitioner.class.getCanonicalName());//自定义分区函数
                     // properties.load("properties配置文件");
-
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                     KafkaProducer<String, String> producer = new KafkaProducer<>(properties);
                     for (int i = 0; i < Integer.MAX_VALUE; i++) {
 
-                        String value = "{\"id\":" + (int) (3 * Math.random()) + ",\"amt\":" + Math.random() + "}";
-                        send(producer, "tp_item", value);
-                        Thread.sleep(100);
+//                        int a =(int) (Math.random()-1);
+                        int b = (int) (10000 * Math.random());
+
+                        int id = (int) (10 * Math.random());
+//
+                        String value = "{\"groupID\": 1,\"shopID\": 2 ,\"paidAmount\": 3.0 ,\"reportDate\": \"20210508174700\"  }";
+
+                        send(producer, "latency-test", value);
+                        Thread.sleep(b);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-        executor.execute(new Runnable() {
+        /*executor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -100,7 +106,7 @@ public class ProducerDemo {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
     }
 
