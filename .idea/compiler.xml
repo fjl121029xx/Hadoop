@@ -10,24 +10,26 @@
         <module name="hive" />
         <module name="storm" />
         <module name="zookeeper" />
-        <module name="waterdrop" />
-        <module name="impala" />
-        <module name="influxdb" />
         <module name="redis" />
-        <module name="flink" />
-        <module name="mahout" />
         <module name="mapreduce" />
         <module name="elasticsearch" />
         <module name="clickhouse" />
         <module name="flume" />
-        <module name="kafka" />
         <module name="canal" />
-        <module name="hello" />
-        <module name="azkaban" />
         <module name="hbase" />
-        <module name="presto" />
-        <module name="kylin" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="azkaban" target="1.8" />
+      <module name="flink" target="1.8" />
+      <module name="hello" target="1.8" />
+      <module name="impala" target="1.8" />
+      <module name="influxdb" target="1.8" />
+      <module name="kafka" target="1.8" />
+      <module name="kylin" target="1.8" />
+      <module name="mahout" target="1.8" />
+      <module name="presto" target="1.8" />
+      <module name="waterdrop" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

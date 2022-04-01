@@ -6,25 +6,15 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>flink</module>
         <module>flume</module>
         <module>hbase</module>
         <module>hive</module>
-        <module>impala</module>
-        <module>kafka</module>
-        <module>kylin</module>
-        <module>mahout</module>
         <module>mapreduce</module>
-        <module>presto</module>
         <module>storm</module>
         <module>zookeeper</module>
         <module>elasticsearch</module>
         <module>redis</module>
-        <module>waterdrop</module>
         <module>canal</module>
-        <module>influxdb</module>
-        <module>azkaban</module>
-        <module>hello</module>
         <module>clickhouse</module>
     </modules>
     <name>hadoop Maven Webapp</name>

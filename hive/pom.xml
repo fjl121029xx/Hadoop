@@ -44,6 +44,11 @@
             <artifactId>je</artifactId>
             <version>5.0.73</version>
         </dependency>
+        <dependency>
+            <groupId>org.roaringbitmap</groupId>
+            <artifactId>RoaringBitmap</artifactId>
+            <version>0.9.15</version>
+        </dependency>
     </dependencies>
 
 </project>

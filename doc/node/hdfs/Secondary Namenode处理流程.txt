@@ -1,9 +1,0 @@
-
-Secondary Namenode定期合并fsimage和editlog日志，将edits日志文件大小控制在一个限度下
-
-Secondary namenode处理流程
-1、namenode 响应 Secondary namenode请求,将edit log推送给Secondary namenode,开始重新写一个新的edit log
-2、Secondary namenode收到来自namenode的fsimage和editlog
-3、Secondary namenode将fsimage加载到内存，应用edit log，并生成一个新的fsimage文件
-4、Secondary namenoder将新fsimage推送给Namenode
-5、Namenode用新的fsimage取代旧的fsimage，在fstime文件中记下检查点发生的时hdfs通信

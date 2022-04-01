@@ -1,2 +1,0 @@
-HDFS理论及安装部署
-https://www.cnblogs.com/wangweiNB/p/5711012.html
